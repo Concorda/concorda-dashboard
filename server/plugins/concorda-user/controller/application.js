@@ -6,14 +6,22 @@ module.exports = function () {
 
   function list( msg, response ) {
     this.make$('application').list$({}, function(err, apps){
-      console.log()
+      if (err){
+        return response(err)
+      }
+
+      apps = apps || []
+      for (var i in apps){
+        apps[i] = apps[i].data$(false)
+        response(null, { data: apps })
+      }
     })
   }
 
   function create( msg, response ) {
     this.make$('application', msg.data).save$(function(err, app){
       console.log(app)
-      response(null, app.data$(false))
+      response(null, { data: app.data$(false) })
     })
   }
 
