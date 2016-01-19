@@ -1,6 +1,7 @@
 # Concorda
 Concorda: User management system
 
+- __Lead Maintainer:__ [Mircea Alexandru][lead]
 - __Sponsor:__ [nearForm][]
 
 ## Running
@@ -31,5 +32,6 @@ Licensed under [MIT][].
 [MIT]: ./LICENSE
 [Code of Conduct]: https://github.com/nearform/vidi-contrib/docs/code_of_conduct.md
 [Concorda]: https://github.com/nearform/concorda
+[lead]: https://github.com/mirceaalexandru
 [nearForm]: http://www.nearform.com/
 [NodeZoo]: http://www.nodezoo.com/
