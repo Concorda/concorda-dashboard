@@ -1,12 +1,12 @@
 var _ = require('lodash')
 
-var Chairo = require ( 'chairo' )
-var Hapi = require ( 'hapi' )
+var Chairo = require('chairo')
+var Hapi = require('hapi')
 var Bell = require('bell')
 var Hapi_Cookie = require('hapi-auth-cookie')
 
 exports.init = function (options, done) {
-  var server = new Hapi.Server ()
+  var server = new Hapi.Server()
   server.connection()
 
   server.register([Hapi_Cookie, Bell, {
@@ -15,27 +15,20 @@ exports.init = function (options, done) {
       seneca_plugins: {
         web: false
       },
-      webPlugin: require('seneca-web')
+      web: require('seneca-web')
     }
-  }], function ( err ) {
-      var si = server.seneca
+  }], function (err) {
+    var si = server.seneca
 
-      si.use('user')
-      si.use(
-        require('seneca-auth'),
-        _.extend(
-          {
-            secure: true,
-            restrict: '/api',
-            server: 'hapi',
-            strategies: [
-              {
-                provider: 'local'
-              }
-            ]
-          }, options || {}))
+    si.use('user')
+    si.use(
+      require('seneca-auth'),
+      {
+        secure: true,
+        restrict: '/api',
+      })
     done(null, server)
-    })
+  })
 }
 
 exports.checkCookie = function (res) {
