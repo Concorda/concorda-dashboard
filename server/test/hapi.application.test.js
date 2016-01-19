@@ -66,7 +66,7 @@ suite('Hapi application controller suite tests ', function () {
       headers: { cookie: 'seneca-login=' + cookie }
     }, function (res) {
       Assert.equal(200, res.statusCode)
-      Assert.equals('vidi', JSON.parse(res.payload).name)
+      Assert.equal('vidi', JSON.parse(res.payload).name)
 
       done()
     })

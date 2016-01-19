@@ -13,7 +13,7 @@ module.exports = function () {
   function create( msg, response ) {
     this.make$('application', msg.data).save$(function(err, app){
       console.log(app)
-      response(app.data$(false))
+      response(null, app.data$(false))
     })
   }
 
@@ -26,8 +26,8 @@ module.exports = function () {
     prefix: '/api',
     pin: {role: name, cmd: '*'},
     map: {
-      list: { GET: true},
-      create: { POST: true, data: true}
+      list: { GET: true, alias: 'application'},
+      create: { POST: true, data: true, alias: 'application'}
     }
   }} )
 
