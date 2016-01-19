@@ -26,11 +26,11 @@ module.exports = function (server, options, next) {
   var seneca = server.seneca
 
   seneca.use(SenecaUser)
-  //seneca.listen({
-  //  pin: 'role:user, cmd:*',
-  //  type: 'tcp',
-  //  port: '3055'
-  //})
+  seneca.listen({
+    pin: 'role:user, cmd:*',
+    type: 'tcp',
+    port: '3055'
+  })
   seneca.use(SenecaAuth, {
     restrict: '/api',
     server: 'hapi',
