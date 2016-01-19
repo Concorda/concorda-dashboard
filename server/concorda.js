@@ -3,6 +3,10 @@ var Package = require('../package.json')
 var SenecaUser = require('seneca-user')
 var SenecaAuth = require('seneca-auth')
 
+// load plugins
+var MongoDB = require('../server/plugins/mongo-db/app')
+var ConcordaUser = require('../server/plugins/concorda-user/app')
+
 var ClientRoutes = require('./routes/client')
 
 module.exports = function (server, options, next) {
@@ -58,6 +62,8 @@ module.exports = function (server, options, next) {
     }
   })
 
+  seneca.use(MongoDB)
+  seneca.use(ConcordaUser)
   next()
 }
 
