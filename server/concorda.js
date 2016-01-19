@@ -47,14 +47,28 @@ module.exports = function (server, options, next) {
     role: 'user',
     cmd: 'register',
     name: process.env.USER_NAME || 'Admin',
+    email: process.env.USER_EMAIL || 'admin@concorda.com',
+    password: process.env.USER_PASS || 'concorda'
+  }, function (err, user){
+    if (err){
+      seneca.log.debug('Cannot register default user concorda', err)
+    }
+    else {
+      seneca.log.debug('Default user registered concorda', user)
+    }
+  })
+  seneca.act({
+    role: 'user',
+    cmd: 'register',
+    name: process.env.USER_NAME || 'Admin',
     email: process.env.USER_EMAIL || 'admin@vidi.com',
     password: process.env.USER_PASS || 'vidi'
   }, function (err, user){
     if (err){
-      seneca.log.debug('Cannot register default user', err)
+      seneca.log.debug('Cannot register default user vidi', err)
     }
     else {
-      seneca.log.debug('Default user registered', user)
+      seneca.log.debug('Default user registered vidi', user)
     }
   })
 
