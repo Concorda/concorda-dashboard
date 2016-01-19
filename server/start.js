@@ -1,12 +1,10 @@
-
 var Chairo = require('chairo')
 var Hapi = require('hapi')
 var Inert = require('inert')
+var Concorda = require('./concorda')
 var Bell = require('bell')
-var Cookie = require('hapi-auth-cookie')
-var SenecaAuth = require('seneca-auth')
+var Hapi_Cookie = require('hapi-auth-cookie')
 var SenecaWeb = require('seneca-web')
-var SenecaUser = require('seneca-user')
 
 // Log and end the process
 // if an error is encountered
@@ -23,17 +21,19 @@ server.connection({port: process.env.PORT || 3050})
 
 // Declare our Hapi plugin list.
 var plugins = [
-  Inert,
+  Hapi_Cookie,
   Bell,
-  Cookie,
   {
     register: Chairo,
     options: {
       timeout: 500,
+      log: 'print',
       secure: true,
       web: SenecaWeb
     }
-  }
+  },
+  Inert,
+  Concorda
 ]
 
 // Register our plugins, kick off the server
@@ -42,23 +42,6 @@ server.register(plugins, function (err) {
   endIfErr(err)
 
   var seneca = server.seneca
-
-  seneca.use(SenecaUser)
-  seneca.use(SenecaAuth, {
-    restrict: '/api',
-    server: 'hapi',
-    strategies: [
-      {
-        provider: 'local'
-      }
-    ]
-  })
-
-  seneca.listen({
-    pin: 'role:user, cmd:*',
-    type: 'tcp',
-    port: '3055'
-  })
 
   seneca.ready(function (err) {
     endIfErr(err)
