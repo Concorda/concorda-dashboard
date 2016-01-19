@@ -47,8 +47,8 @@ module.exports = function (server, options, next) {
     role: 'user',
     cmd: 'register',
     name: process.env.USER_NAME || 'Admin',
-    email: process.env.USER_EMAIL || 'admin@vidi.com',
-    password: process.env.USER_PASS || 'vidi'
+    email: process.env.USER_EMAIL || 'admin@concorda.com',
+    password: process.env.USER_PASS || 'concorda'
   }, function (err, user){
     if (err){
       seneca.log.debug('Cannot register default user', err)
