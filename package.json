@@ -56,7 +56,7 @@
     "redux-thunk": "1.0.x",
     "seneca-auth": "mirceaalexandru/seneca-auth#hapi-express",
     "seneca-user": "0.2.x",
-    "seneca-web": "mirceaalexandru/seneca-web",
+    "seneca-web": "senecajs/seneca-web",
     "style-loader": "0.13.x",
     "superagent": "1.6.x",
     "varo": "0.3.x",

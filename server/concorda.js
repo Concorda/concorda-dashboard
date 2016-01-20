@@ -50,8 +50,7 @@ module.exports = function (server, options, next) {
   // Set up a default user
   seneca.use(DefaultData())
 
-  const options = seneca.options()
-  seneca.use(MongoDB, options.db)
+  seneca.use(MongoDB, seneca.options().db)
 
   seneca.use(ConcordaUser)
   next()

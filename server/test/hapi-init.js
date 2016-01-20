@@ -1,5 +1,3 @@
-var _ = require('lodash')
-
 var Chairo = require('chairo')
 var Hapi = require('hapi')
 var Bell = require('bell')
@@ -18,6 +16,10 @@ exports.init = function (options, done) {
       web: require('seneca-web')
     }
   }], function (err) {
+    if (err) {
+      return done(err)
+    }
+
     var si = server.seneca
 
     si.use('user')
@@ -25,7 +27,7 @@ exports.init = function (options, done) {
       require('seneca-auth'),
       {
         secure: true,
-        restrict: '/api',
+        restrict: '/api'
       })
     done(null, server)
   })
