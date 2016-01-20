@@ -2,7 +2,7 @@
 
 var Assert = require('assert')
 
-const ConcordaUser = require('../plugins/concorda-user/concorda-user')
+const ConcordaUser = require('../plugins/concorda-user/app')
 
 var Lab = require('lab')
 var lab = exports.lab = Lab.script()
@@ -13,10 +13,10 @@ var after = lab.after
 
 var Util = require('./hapi-init.js')
 
-suite('Hapi application controller suite tests ', function () {
-  var cookie
-  var server
-  var user = {nick: 'u1', name: 'nu1', email: 'u1@example.com', password: 'u1', active: true}
+suite('Hapi user session suite tests ', function () {
+  let cookie
+  let server
+  let user = {nick: 'u1', name: 'nu1', email: 'u1@example.com', password: 'u1', active: true}
 
   before({}, function (done) {
     Util.init({}, function (err, srv) {
@@ -28,7 +28,7 @@ suite('Hapi application controller suite tests ', function () {
       seneca.use(ConcordaUser)
 
       // add a default vidi service
-      seneca.make$('connected_service', {name: 'vidi'}).save$({}, function (err, connectedServices) {
+      seneca.make$('user_group', {name: 'vidi'}).save$({}, function (err) {
         if (err) {
           return done(err)
         }
@@ -56,14 +56,14 @@ suite('Hapi application controller suite tests ', function () {
       Assert(JSON.parse(res.payload).login)
 
       cookie = Util.checkCookie(res)
+      user = JSON.parse(res.payload).user
 
       done()
     })
   })
 
-
-  test('list applications test', function (done) {
-    var url = '/api/connectedService'
+  test('list groups test', function (done) {
+    var url = '/api/user/group'
 
     server.inject({
       url: url,
@@ -72,6 +72,39 @@ suite('Hapi application controller suite tests ', function () {
     }, function (res) {
       Assert.equal(200, res.statusCode)
       Assert.equal(1, JSON.parse(res.payload).data.length)
+
+      done()
+    })
+  })
+
+
+  test('close user session test', function (done) {
+    var url = '/api/user/' + user.id + '/session/close'
+
+    console.log(url)
+    server.inject({
+      url: url,
+      method: 'POST',
+      headers: { cookie: 'seneca-login=' + cookie }
+    }, function (res) {
+      console.log(res.payload)
+      Assert.equal(200, res.statusCode)
+      Assert.equal(1, JSON.parse(res.payload).sessions)
+
+      done()
+    })
+  })
+
+  test('list groups test should not work as session is closed', function (done) {
+    var url = '/api/user/group'
+
+    server.inject({
+      url: url,
+      method: 'GET',
+      headers: { cookie: 'seneca-login=' + cookie }
+    }, function (res) {
+      console.log(res.payload)
+      Assert.equal(302, res.statusCode)
 
       done()
     })

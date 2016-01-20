@@ -1,6 +1,7 @@
 'use strict'
 
-const ApplicationController = require('./connected-service')
+const ManageGroup = require('./group')
+const ManageUser = require('./user')
 const _ = require('lodash')
 
 module.exports = function (opts) {
@@ -11,7 +12,8 @@ module.exports = function (opts) {
   }
   options = _.extend(options, opts || {})
 
-  seneca.use(ApplicationController)
+  seneca.use(ManageGroup, options)
+  seneca.use(ManageUser, options)
 
   return {
     name: options.name

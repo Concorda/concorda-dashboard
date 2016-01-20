@@ -5,7 +5,7 @@ var SenecaAuth = require('seneca-auth')
 
 // load plugins
 var MongoDB = require('mongo-store')
-var ConcordaUser = require('../server/plugins/concorda-user')
+var ConcordaUser = require('../server/plugins/concorda-user/app')
 
 var ClientRoutes = require('./routes/client')
 var DefaultData = require('./default_data')
@@ -45,6 +45,7 @@ module.exports = function (server, options, next) {
       }
     ]
   })
+  seneca.use(require('seneca-local-auth'))
 
 
   // Set up a default user

@@ -10,9 +10,6 @@ exports.init = function (options, done) {
   server.register([Hapi_Cookie, Bell, {
     register: Chairo,
     options: {
-      seneca_plugins: {
-        web: false
-      },
       web: require('seneca-web')
     }
   }], function (err) {

@@ -6,21 +6,21 @@ module.exports = function (opts) {
   var seneca = this
 
   var options = {
-    name: 'connected-service'
+    name: 'user_group'
   }
   options = _.extend(options, opts || {})
 
   function list (msg, response) {
-    this.make$('connected_service').list$({}, function (err, connectedServices) {
+    this.make$('user_group').list$({}, function (err, userGroup) {
       if (err) {
         return response(err)
       }
 
-      connectedServices = connectedServices || []
-      for (var i in connectedServices) {
-        connectedServices[i] = connectedServices[i].data$(false)
-        response(null, {data: connectedServices})
+      userGroup = userGroup || []
+      for (var i in userGroup) {
+        userGroup[i] = userGroup[i].data$(false)
       }
+      response(null, {data: userGroup})
     })
   }
 
@@ -33,7 +33,7 @@ module.exports = function (opts) {
       prefix: '/api',
       pin: {role: options.name, cmd: '*'},
       map: {
-        list: {GET: true, alias: 'connectedService'}
+        list: {GET: true, alias: 'user/group'}
       }
     }
   })
