@@ -49,7 +49,7 @@ module.exports = function (server, options, next) {
 
 
   // Set up a default user
-  seneca.use(DefaultData())
+  seneca.use(DefaultData)
 
   seneca.use(MongoDB, seneca.options().db)
 
