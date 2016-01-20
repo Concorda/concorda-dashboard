@@ -2,7 +2,7 @@
 
 var Assert = require('assert')
 
-const ConcordaUser = require('../plugins/concorda-user/app')
+const ConcordaUser = require('../plugins/concorda-user/concorda-user')
 
 var Lab = require('lab')
 var lab = exports.lab = Lab.script()
@@ -12,7 +12,6 @@ var before = lab.before
 var after = lab.after
 
 var Util = require('./hapi-init.js')
-
 
 suite('Hapi application controller suite tests ', function () {
   var cookie
@@ -27,7 +26,14 @@ suite('Hapi application controller suite tests ', function () {
       var seneca = server.seneca
 
       seneca.use(ConcordaUser)
-      done()
+
+      // add a default vidi service
+      seneca.make$('connected_service', {name: 'vidi'}).save$({}, function (err, connectedServices) {
+        if (err) {
+          return done(err)
+        }
+        done()
+      })
     })
   })
 
@@ -56,24 +62,8 @@ suite('Hapi application controller suite tests ', function () {
   })
 
 
-  test('create an application test', function (done) {
-    var url = '/api/application'
-
-    server.inject({
-      url: url,
-      method: 'POST',
-      payload: {name: 'vidi'},
-      headers: { cookie: 'seneca-login=' + cookie }
-    }, function (res) {
-      Assert.equal(200, res.statusCode)
-      Assert.equal('vidi', JSON.parse(res.payload).data.name)
-
-      done()
-    })
-  })
-
   test('list applications test', function (done) {
-    var url = '/api/application'
+    var url = '/api/connectedService'
 
     server.inject({
       url: url,
