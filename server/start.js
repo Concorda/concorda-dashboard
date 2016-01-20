@@ -56,7 +56,7 @@ server.register(plugins, function (err) {
     server.start(function (err) {
       endIfErr(err)
 
-      console.log('server started: ' + server.info.port)
+      seneca.log.debug('server started: ', server.info.port)
     })
   })
 })

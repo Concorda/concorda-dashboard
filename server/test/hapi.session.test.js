@@ -81,13 +81,11 @@ suite('Hapi user session suite tests ', function () {
   test('close user session test', function (done) {
     var url = '/api/user/' + user.id + '/session/close'
 
-    console.log(url)
     server.inject({
       url: url,
       method: 'POST',
       headers: { cookie: 'seneca-login=' + cookie }
     }, function (res) {
-      console.log(res.payload)
       Assert.equal(200, res.statusCode)
       Assert.equal(1, JSON.parse(res.payload).sessions)
 
@@ -103,7 +101,6 @@ suite('Hapi user session suite tests ', function () {
       method: 'GET',
       headers: { cookie: 'seneca-login=' + cookie }
     }, function (res) {
-      console.log(res.payload)
       Assert.equal(302, res.statusCode)
 
       done()
