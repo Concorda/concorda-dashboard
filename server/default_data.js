@@ -10,7 +10,7 @@ module.exports = function (opts) {
 
   seneca.add('init: ' + options.name, addDefaultData)
 
-  function addDefaultData(msg, done) {
+  function addDefaultData (msg, done) {
     // add default user
     seneca.act({
       role: 'user',

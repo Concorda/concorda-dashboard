@@ -5,7 +5,7 @@ var SenecaAuth = require('seneca-auth')
 
 // load plugins
 var MongoDB = require('mongo-store')
-var ConcordaUser = require('../server/plugins/concorda-user/app')
+var ConcordaUser = require('../server/plugins/concorda-user/user')
 
 var ClientRoutes = require('./routes/client')
 var DefaultData = require('./default_data')
