@@ -5,6 +5,17 @@ var Concorda = require('./concorda')
 var Bell = require('bell')
 var Hapi_Cookie = require('hapi-auth-cookie')
 var SenecaWeb = require('seneca-web')
+var _ = require('lodash')
+
+var Options = require('../config/config.production.js')
+var DefaultOptions = {
+  timeout: 500,
+  log: 'print',
+  secure: true,
+  web: SenecaWeb
+}
+
+const default_options = _.extend({}, DefaultOptions, Options)
 
 // Log and end the process
 // if an error is encountered
@@ -14,6 +25,7 @@ function endIfErr (err) {
     process.exit(1)
   }
 }
+
 
 // Create our server.
 var server = new Hapi.Server()
@@ -25,12 +37,7 @@ var plugins = [
   Bell,
   {
     register: Chairo,
-    options: {
-      timeout: 500,
-      log: 'print',
-      secure: true,
-      web: SenecaWeb
-    }
+    options: default_options
   },
   Inert,
   Concorda
@@ -49,7 +56,7 @@ server.register(plugins, function (err) {
     server.start(function (err) {
       endIfErr(err)
 
-      console.log('server started: ' + server.info.port)
+      seneca.log.debug('server started: ', server.info.port)
     })
   })
 })

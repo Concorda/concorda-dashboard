@@ -3,7 +3,12 @@ var Package = require('../package.json')
 var SenecaUser = require('seneca-user')
 var SenecaAuth = require('seneca-auth')
 
+// load plugins
+var MongoDB = require('mongo-store')
+var ConcordaUser = require('../server/plugins/concorda-user/app')
+
 var ClientRoutes = require('./routes/client')
+var DefaultData = require('./default_data')
 
 module.exports = function (server, options, next) {
   // Set our realitive path (for our routes)
@@ -40,24 +45,15 @@ module.exports = function (server, options, next) {
       }
     ]
   })
+  seneca.use(require('seneca-local-auth'))
 
 
   // Set up a default user
-  seneca.act({
-    role: 'user',
-    cmd: 'register',
-    name: process.env.USER_NAME || 'Admin',
-    email: process.env.USER_EMAIL || 'admin@concorda.com',
-    password: process.env.USER_PASS || 'concorda'
-  }, function (err, user){
-    if (err){
-      seneca.log.debug('Cannot register default user', err)
-    }
-    else {
-      seneca.log.debug('Default user registered', user)
-    }
-  })
+  seneca.use(DefaultData())
 
+  seneca.use(MongoDB, seneca.options().db)
+
+  seneca.use(ConcordaUser)
   next()
 }
 
