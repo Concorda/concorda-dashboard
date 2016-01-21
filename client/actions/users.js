@@ -25,7 +25,7 @@ export function getUsers () {
             type: usersActions.GET_USERS_RESPONSE,
             niceError: null,
             hasError: false,
-            result: resp.body
+            result: resp.body.data
           })
         }
       })

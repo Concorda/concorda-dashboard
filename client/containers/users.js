@@ -5,6 +5,7 @@ import {connect} from 'react-redux'
 import {toggleSidebar} from '../actions/sidebar'
 import Sidebar from '../components/sidebar'
 import Grid from '../components/grid'
+import {getUsers} from '../actions/users'
 
 export const Users = React.createClass({
   propTypes: {
@@ -13,6 +14,9 @@ export const Users = React.createClass({
   },
 
   componentDidMount () {
+    const dispatch = this.props.dispatch
+
+    dispatch(getUsers())
   },
 
   componentWillUnmount () {
@@ -48,11 +52,11 @@ export const Users = React.createClass({
 function mapStatesToProps (state) {
   debugger
   const {sidebar} = state
-  const {getUsers} = state
+  const {users} = state
 
   return {
     isExpanded: sidebar.isExpanded,
-    result: getUsers.result
+    result: users.result
   }
 }
 
