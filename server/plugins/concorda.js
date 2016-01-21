@@ -7,7 +7,7 @@ module.exports = function (opts) {
   var seneca = this
 
   var options = {
-    name: 'manage-user'
+    name: 'concorda'
   }
   options = _.extend(options, opts || {})
 

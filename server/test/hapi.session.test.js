@@ -2,7 +2,7 @@
 
 var Assert = require('assert')
 
-const ConcordaUser = require('../plugins/concorda-user/user')
+const ConcordaUser = require('../plugins/concorda')
 
 var Lab = require('lab')
 var lab = exports.lab = Lab.script()
