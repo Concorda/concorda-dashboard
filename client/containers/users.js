@@ -38,8 +38,15 @@ export const Users = React.createClass({
     this.props.dispatch(pushPath('user/add'))
   },
 
+  handleEditUser(userId, e){
+    e.preventDefault()
+    const dispatch = this.props.dispatch
+
+    dispatch(pushPath('user/' + userId + '/edit'))
+  },
+
   render () {
-    const {isExpanded, data} = this.props
+    const {isExpanded} = this.props
     const handleToggle = this.handleToggle
     let items = this.props.result
 
@@ -54,7 +61,7 @@ export const Users = React.createClass({
           <Sidebar isExpanded={isExpanded} onToggle={handleToggle}/>
           <div className={styleClass}>
             <h2>Users</h2>
-            <Grid data={items}/>
+            <Grid data={items} handleEditUser={this.handleEditUser}/>
             <br /><br /><br />
             <button onClick={this.handleAddNewUser}>Add New User</button>
           </div>
