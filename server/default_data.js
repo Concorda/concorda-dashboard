@@ -1,5 +1,7 @@
 'use strict'
 
+var Async = require('async')
+
 module.exports = function (opts) {
   var seneca = this
 
@@ -10,23 +12,44 @@ module.exports = function (opts) {
 
   seneca.add('init: ' + options.name, addDefaultData)
 
-  function addDefaultData (msg, done) {
-    // add default user
-    seneca.act({
-      role: 'user',
-      cmd: 'register',
+  var users = [
+    {
       name: process.env.USER_NAME || 'Admin',
       email: process.env.USER_EMAIL || 'admin@concorda.com',
       password: process.env.USER_PASS || 'concorda'
-    }, function (err, user) {
-      if (err) {
-        seneca.log.debug('Cannot register default user', err)
-      }
-      else {
-        seneca.log.debug('Default user registered', user)
-      }
+    },
+    {
+      name: 'First User',
+      email: 'user1@concorda.com',
+      password: 'concorda'
+    },
+    {
+      name: 'Second User',
+      email: 'user2@concorda.com',
+      password: 'concorda'
+    },
+    {
+      name: 'Third User',
+      email: 'user3@concorda.com',
+      password: 'concorda'
+    },
+    {
+      name: 'Another User',
+      email: 'some_user@concorda.com',
+      password: 'concorda'
+    }
+
+  ]
+
+  function addDefaultData (msg, done) {
+    Async.each(users, createUser, function(){
       done()
     })
+
+    function createUser(user, done) {
+      // add default user
+      seneca.act('role: user, cmd: register', user, done)
+    }
   }
 
   return {
