@@ -11,6 +11,23 @@ module.exports = function (opts) {
   }
   options = _.extend(options, opts || {})
 
+  function listUsers (msg, response) {
+    this.make$('sys', 'user').list$({}, function (err, users) {
+      if (err) {
+        return response(err)
+      }
+      if (!users) {
+        return response(null, {err: false, data: []})
+      }
+
+      for (var i in users) {
+        users[i] = users[i].data$(false)
+      }
+
+      response(null, {err: false, data: users, count: users.length})
+    })
+  }
+
   function closeUserSessions (msg, response) {
     var user_id = msg.req$.params.user_id
 
@@ -43,6 +60,7 @@ module.exports = function (opts) {
 
   seneca
     .add({role: options.name, cmd: 'closeSession'}, closeUserSessions)
+    .add({role: options.name, cmd: 'listUsers'}, listUsers)
 
   seneca.act({
     role: 'web', use: {
@@ -50,7 +68,8 @@ module.exports = function (opts) {
       prefix: '/api',
       pin: {role: options.name, cmd: '*'},
       map: {
-        closeSession: {POST: true, alias: 'user/{user_id}/session/close'}
+        closeSession: {POST: true, alias: 'user/{user_id}/session/close'},
+        listUsers: {GET: true, alias: 'user'}
       }
     }
   })

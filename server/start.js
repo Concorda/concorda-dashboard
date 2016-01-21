@@ -7,10 +7,9 @@ var Hapi_Cookie = require('hapi-auth-cookie')
 var SenecaWeb = require('seneca-web')
 var _ = require('lodash')
 
-var Options = require('../config/config.production.js')
+var Options = require('../config/config.production')
 var DefaultOptions = {
   timeout: 500,
-  log: 'print',
   secure: true,
   web: SenecaWeb
 }
