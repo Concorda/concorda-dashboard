@@ -11,6 +11,7 @@ import Shell from '../containers/shell'
 import Login from '../containers/login'
 import Overview from '../containers/overview'
 import Users from '../containers/users'
+import AddUser from '../containers/addUser'
 
 export default function createRootComponent (store) {
   const history = createHistory()
@@ -42,6 +43,7 @@ export default function createRootComponent (store) {
           <Route path="users" component={Users} />
           <Route path="login" component={Login} />
           <Route path="logout" onEnter={handleLogout} />
+          <Route path="user/add" component={AddUser} />
         </Route>
       </Router>
     </Provider>
