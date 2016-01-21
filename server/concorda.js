@@ -47,7 +47,7 @@ module.exports = function (server, options, next) {
   })
   seneca.use(require('seneca-local-auth'))
 
-  seneca.use(MongoDB, seneca.options().db)
+//  seneca.use(MongoDB, seneca.options().db)
 
   // Set up a default user
   seneca.use(DefaultData)
