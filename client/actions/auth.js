@@ -25,8 +25,6 @@ export function login (user, pass) {
         else {
           const token = resp.body.login.id
 
-          console.log(resp.body.login.id)
-
           dispatch({type: authActions.LOGIN_RESPONSE, hasError: false, token: token})
           dispatch(pushPath('/'))
 
