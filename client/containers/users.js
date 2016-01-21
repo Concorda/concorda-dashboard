@@ -4,14 +4,19 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {toggleSidebar} from '../actions/sidebar'
 import Sidebar from '../components/sidebar'
+import Grid from '../components/grid'
+import {getUsers} from '../actions/users'
 
-export const ByService = React.createClass({
+export const Users = React.createClass({
   propTypes: {
     dispatch: React.PropTypes.func.isRequired,
     isExpanded: React.PropTypes.bool.isRequired
   },
 
   componentDidMount () {
+    const dispatch = this.props.dispatch
+
+    dispatch(getUsers())
   },
 
   componentWillUnmount () {
@@ -26,6 +31,7 @@ export const ByService = React.createClass({
   render () {
     const {isExpanded, data} = this.props
     const handleToggle = this.handleToggle
+    let items = this.props.result
 
     var styleClass = 'overview-panel'
     if (isExpanded) {
@@ -33,22 +39,28 @@ export const ByService = React.createClass({
     }
 
     return (
-      <div className="overview">
+    <main className="page page-users" role="main">
+      <div className="container-fluid">
         <Sidebar isExpanded={isExpanded} onToggle={handleToggle} />
-        <div className='page'>
-          Users
+        <div className={styleClass}>
+          <h2>Users</h2>
+          <Grid data={items}/>
         </div>
       </div>
+    </main>
     )
   }
 })
 
 function mapStatesToProps (state) {
+  debugger
   const {sidebar} = state
+  const {users} = state
 
   return {
-    isExpanded: sidebar.isExpanded
+    isExpanded: sidebar.isExpanded,
+    result: users.result
   }
 }
 
-export default connect(mapStatesToProps)(ByService)
+export default connect(mapStatesToProps)(Users)
