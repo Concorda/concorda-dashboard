@@ -1,11 +1,17 @@
 'use strict'
 
 import React from 'react'
+import { pushPath } from 'redux-simple-router'
+import {Link} from 'react-router'
 import {connect} from 'react-redux'
+
+// actions
 import {toggleSidebar} from '../actions/sidebar'
+import {getUsers} from '../actions/users'
+
+// components
 import Sidebar from '../components/sidebar'
 import Grid from '../components/grid'
-import {getUsers} from '../actions/users'
 
 export const Users = React.createClass({
   propTypes: {
@@ -28,8 +34,19 @@ export const Users = React.createClass({
     this.props.dispatch(toggleSidebar())
   },
 
+  handleAddNewUser() {
+    this.props.dispatch(pushPath('user/add'))
+  },
+
+  handleEditUser(userId, e){
+    e.preventDefault()
+    const dispatch = this.props.dispatch
+
+    dispatch(pushPath('user/' + userId + '/edit'))
+  },
+
   render () {
-    const {isExpanded, data} = this.props
+    const {isExpanded} = this.props
     const handleToggle = this.handleToggle
     let items = this.props.result
 
@@ -39,21 +56,22 @@ export const Users = React.createClass({
     }
 
     return (
-    <main className="page page-users" role="main">
-      <div className="container-fluid">
-        <Sidebar isExpanded={isExpanded} onToggle={handleToggle} />
-        <div className={styleClass}>
-          <h2>Users</h2>
-          <Grid data={items}/>
+      <main className="page page-users" role="main">
+        <div className="container-fluid">
+          <Sidebar isExpanded={isExpanded} onToggle={handleToggle}/>
+          <div className={styleClass}>
+            <h2>Users</h2>
+            <Grid data={items} handleEditUser={this.handleEditUser}/>
+            <br /><br /><br />
+            <button onClick={this.handleAddNewUser}>Add New User</button>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
     )
   }
 })
 
 function mapStatesToProps (state) {
-  debugger
   const {sidebar} = state
   const {users} = state
 

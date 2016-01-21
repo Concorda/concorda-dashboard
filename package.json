@@ -45,7 +45,6 @@
     "mongo-store": "0.0.2",
     "nes": "2.x.x",
     "react": "0.14.x",
-    "react-bootstrap-table": "^1.4.3",
     "react-d3-components": "0.6.x",
     "react-dom": "0.14.x",
     "react-redux": "4.0.x",
