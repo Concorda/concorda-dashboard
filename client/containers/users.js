@@ -39,12 +39,15 @@ export const Users = React.createClass({
     }
 
     return (
-      <div className="overview">
+    <main className="page page-users" role="main">
+      <div className="container-fluid">
         <Sidebar isExpanded={isExpanded} onToggle={handleToggle} />
-        <div className='page page-users'>
+        <div className={styleClass}>
+          <h2>Users</h2>
           <Grid data={items}/>
         </div>
       </div>
+    </main>
     )
   }
 })
