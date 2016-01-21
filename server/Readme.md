@@ -6,7 +6,7 @@
 | Method | URL | Description | Documentation |
 ---------|-----|--------------|--------|
 | POST | /auth/change_password | Change password | https://github.com/senecajs/seneca-auth |
-| POST | /auth/register | Register user | https://github.com/senecajs/seneca-auth |
+| POST | /auth/register | Register user, perform also an automatic login for that user | https://github.com/senecajs/seneca-auth |
 | POST | /auth/confirm | Confirm login |  https://github.com/senecajs/seneca-auth |
 | GET/POST | /auth/logout | Logout current user | https://github.com/senecajs/seneca-auth |
 | POST | /auth/create_reset | Create reset password token | https://github.com/senecajs/seneca-auth |
@@ -23,3 +23,5 @@
 ---------|-----|--------------|
 | POST | /api/user/{user_id}/session/close | Close sessions for selected user |
 | GET | /api/user | Get list of users |
+| POST | /api/user | Create an user, different from the one logged in |
+| PUT | /api/user | Update an user, different from the one logged in |
