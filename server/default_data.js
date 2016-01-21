@@ -42,11 +42,11 @@ module.exports = function (opts) {
   ]
 
   function addDefaultData (msg, done) {
-    Async.each(users, createUser, function(){
+    Async.each(users, createUser, function () {
       done()
     })
 
-    function createUser(user, done) {
+    function createUser (user, done) {
       // add default user
       seneca.act('role: user, cmd: register', user, done)
     }

@@ -5,7 +5,6 @@ var Concorda = require('./concorda')
 var Bell = require('bell')
 var Hapi_Cookie = require('hapi-auth-cookie')
 var SenecaWeb = require('seneca-web')
-var _ = require('lodash')
 
 var Opts = {
   timeout: 500,
