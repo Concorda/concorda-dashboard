@@ -8,6 +8,7 @@ Concorda: User management system
 To run the server,
 
 1. Run `npm install` to install all dependencies
+2. Copt config/config.example.js to config/config.production.js and configure DB.
 3. Run `npm run build` to build the project
 4. Run `npm run start` to create a deploy and server on port `3000`
 
