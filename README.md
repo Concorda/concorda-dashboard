@@ -8,6 +8,7 @@ Concorda: User management system
 To run the server,
 
 1. Run `npm install` to install all dependencies
+2. Copt config/config.example.js to config/config.production.js and configure DB.
 3. Run `npm run build` to build the project
 4. Run `npm run start` to create a deploy and server on port `3000`
 
@@ -23,26 +24,28 @@ in a different terminal.
  ### Authorization
 
 
- Method   | URL | Description | Documentation |
- ---------|-----|--------------|--------|
- POST     | /auth/change_password | Change password | https://github.com/senecajs/seneca-auth
- POST     | /auth/register | Register user | https://github.com/senecajs/seneca-auth
- POST     | /auth/confirm | Confirm login |  https://github.com/senecajs/seneca-auth
- GET/POST | /auth/logout | Logout current user | https://github.com/senecajs/seneca-auth
- POST     | /auth/create_reset | Create reset password token | https://github.com/senecajs/seneca-auth
- POST     | /auth/load_reset | Load reset token | https://github.com/senecajs/seneca-auth
- POST     | /auth/execute_reset | Execute reset password | https://github.com/senecajs/seneca-auth
- GET/POST | /auth/user | Get current user data | https://github.com/senecajs/seneca-auth
- POST     | /auth/update_user | Update current logged in user | https://github.com/senecajs/seneca-auth
- GET/POST | /auth/login | Login | https://github.com/senecajs/seneca-auth
+ Method   | URL                                  | Description                           | Documentation
+ ---------|--------------------------------------|---------------------------------------|------------------------------------------
+ POST     | /auth/change_password                | Change password                       | https://github.com/senecajs/seneca-auth
+ POST     | /auth/register                       | Register user and login automatically | https://github.com/senecajs/seneca-auth
+ POST     | /auth/confirm                        | Confirm login                         |  https://github.com/senecajs/seneca-auth
+ GET/POST | /auth/logout                         | Logout current user                   | https://github.com/senecajs/seneca-auth
+ POST     | /auth/create_reset                   | Create reset password token           | https://github.com/senecajs/seneca-auth
+ POST     | /auth/load_reset                     | Load reset token                      | https://github.com/senecajs/seneca-auth
+ POST     | /auth/execute_reset                  | Execute reset password                | https://github.com/senecajs/seneca-auth
+ GET/POST | /auth/user                           | Get current user data                 | https://github.com/senecajs/seneca-auth
+ POST     | /auth/update_user                    | Update current logged in user         | https://github.com/senecajs/seneca-auth
+ GET/POST | /auth/login                          | Login                                 | https://github.com/senecajs/seneca-auth
 
 
  ### User management
 
- Method | URL | Description |
- -------|-----|-------------|
- POST | /api/user/{user_id}/session/close | Close sessions for selected user
- GET | /api/user | Get list of users
+ Method   | URL                                | Description                          
+ ---------|------------------------------------|--------------------------------------
+ POST     | /api/user/{user_id}/session/close  | Close sessions for selected user
+ GET      | /api/user                          | Get list of users
+ POST     | /api/user                          | Create an user, different from the one logged in
+ PUT      | /api/user                          | Update an user, different from the one logged in
 
 ## Contributing
 The [Concorda][] encourages open participation. If you feel you can help in any way, be it with

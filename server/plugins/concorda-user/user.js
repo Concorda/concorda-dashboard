@@ -28,6 +28,34 @@ module.exports = function (opts) {
     })
   }
 
+  function createUser (msg, response) {
+    var userData = msg.data
+
+    this.act('role: user, cmd: register', userData, function (err, result) {
+      if (err) {
+        return response(null, {err: true, msg: err})
+      }
+      if (!result.ok) {
+        return response(null, {err: true, msg: result.why})
+      }
+      response(null, {err: false, data: result.user})
+    })
+  }
+
+  function updateUser (msg, response) {
+    var userData = msg.data
+
+    this.act('role: user, cmd: update', userData, function (err, result) {
+      if (err) {
+        return response(null, {err: true, msg: err})
+      }
+      if (!result.ok) {
+        return response(null, {err: true, msg: result.why})
+      }
+      response(null, {err: false, data: result.user})
+    })
+  }
+
   function closeUserSessions (msg, response) {
     var user_id = msg.req$.params.user_id
 
@@ -61,6 +89,8 @@ module.exports = function (opts) {
   seneca
     .add({role: options.name, cmd: 'closeSession'}, closeUserSessions)
     .add({role: options.name, cmd: 'listUsers'}, listUsers)
+    .add({role: options.name, cmd: 'createUser'}, createUser)
+    .add({role: options.name, cmd: 'updateUser'}, updateUser)
 
   seneca.act({
     role: 'web', use: {
@@ -69,7 +99,9 @@ module.exports = function (opts) {
       pin: {role: options.name, cmd: '*'},
       map: {
         closeSession: {POST: true, alias: 'user/{user_id}/session/close'},
-        listUsers: {GET: true, alias: 'user'}
+        listUsers: {GET: true, alias: 'user'},
+        createUser: {POST: true, data: true, alias: 'user'},
+        updateUser: {PUT: true, data: true, alias: 'user'}
       }
     }
   })
