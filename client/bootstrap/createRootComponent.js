@@ -12,6 +12,7 @@ import Login from '../containers/login'
 import Overview from '../containers/overview'
 import Users from '../containers/users'
 import AddUser from '../containers/addUser'
+import EditUser from '../containers/editUser'
 
 export default function createRootComponent (store) {
   const history = createHistory()
@@ -44,6 +45,7 @@ export default function createRootComponent (store) {
           <Route path="login" component={Login} />
           <Route path="logout" onEnter={handleLogout} />
           <Route path="user/add" component={AddUser} />
+          <Route path="user/:id/edit" component={EditUser} />
         </Route>
       </Router>
     </Provider>
