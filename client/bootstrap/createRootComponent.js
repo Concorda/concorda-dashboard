@@ -10,9 +10,7 @@ import {logout} from '../actions/auth'
 import Shell from '../containers/shell'
 import Login from '../containers/login'
 import Overview from '../containers/overview'
-import ByMessage from '../containers/bymessage'
-import ByService from '../containers/byservice'
-import Profile from '../containers/profile'
+import Users from '../containers/users'
 
 export default function createRootComponent (store) {
   const history = createHistory()
@@ -41,9 +39,7 @@ export default function createRootComponent (store) {
       <Router history={history}>
         <Route path="/" component={Shell}>
           <IndexRoute component={Overview} onEnter={requireAuth} />
-          <Route path="bymessage" component={ByService} />
-          <Route path="byservice" component={ByMessage} />
-          <Route path="profile" component={Profile} />
+          <Route path="users" component={Users} />
           <Route path="login" component={Login} />
           <Route path="logout" onEnter={handleLogout} />
         </Route>

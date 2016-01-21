@@ -7,14 +7,11 @@ var Hapi_Cookie = require('hapi-auth-cookie')
 var SenecaWeb = require('seneca-web')
 var _ = require('lodash')
 
-var Options = require('../config/config.production')
-var DefaultOptions = {
+var Opts = {
   timeout: 500,
   secure: true,
   web: SenecaWeb
 }
-
-const default_options = _.extend({}, DefaultOptions, Options)
 
 // Log and end the process
 // if an error is encountered
@@ -36,7 +33,7 @@ var plugins = [
   Bell,
   {
     register: Chairo,
-    options: default_options
+    options: Opts
   },
   Inert,
   Concorda

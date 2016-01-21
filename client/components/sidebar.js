@@ -21,8 +21,7 @@ export default React.createClass({
         <nav role="navigation">
           <ul className="list-unstyled">
             <li><Link to={'/'} className="nav-item">Overview</Link></li>
-            <li><Link to={'/byservice'} className="nav-item">By Service</Link></li>
-            <li><Link to={'/bymessage'} className="nav-item">By Message</Link></li>
+            <li><Link to={'/users'} className="nav-item">Users</Link></li>
           </ul>
         </nav>
       </aside>

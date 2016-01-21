@@ -36,7 +36,7 @@ export const ByService = React.createClass({
       <div className="overview">
         <Sidebar isExpanded={isExpanded} onToggle={handleToggle} />
         <div className='page'>
-          Overview
+          Users
         </div>
       </div>
     )
