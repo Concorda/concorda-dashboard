@@ -3,11 +3,18 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {login} from '../actions/auth'
+import {pushPath} from 'redux-simple-router'
 
 export const Login = React.createClass({
   propTypes: {
     dispatch: React.PropTypes.func.isRequired,
     hasError: React.PropTypes.bool.isRequired
+  },
+
+  componentDidMount() {
+    if (this.props.isLoggedIn) {
+      this.props.dispatch(pushPath('/'))
+    }
   },
 
   handleSubmit (event) {
@@ -28,7 +35,7 @@ export const Login = React.createClass({
         <div className="container-fluid">
           <div className="row middle-xs center-xs vertical-center">
             <form className="login-form col-xs-12 col-md-6 col-lg-4 txt-left form-full-width form-panel" onSubmit={this.handleSubmit}>
-            
+
               <h2 className="mt0 has-icon">
                 <span className='icon icon-signin'></span>
                 <span>{heading}</span>
@@ -50,7 +57,8 @@ function mapStatesToProps (state) {
 
   return {
     hasError: auth.hasError,
-    niceError: auth.niceError
+    niceError: auth.niceError,
+    isLoggedIn: auth.isLoggedIn
   }
 }
 
