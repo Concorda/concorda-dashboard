@@ -41,17 +41,15 @@ export function logout () {
   return (dispatch) => {
     dispatch({type: authActions.LOGOUT_REQUEST})
 
+    window.localStorage.clear()
+
     Request
       .post('/auth/logout')
       .type('form')
       .send({})
       .end(() => {
-        window.localStorage.clear()
-
         dispatch({type: authActions.LOGOUT_RESPONSE, hasError: false})
         dispatch(pushPath('/'))
-
-
       })
   }
 }
