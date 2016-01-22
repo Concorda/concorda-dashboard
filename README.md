@@ -46,6 +46,7 @@ in a different terminal.
  GET      | /api/user                          | Get list of users
  POST     | /api/user                          | Create an user, different from the one logged in
  PUT      | /api/user                          | Update an user, different from the one logged in
+ DELETE   | /api/user/{user_id}                | Delete an user
 
 ## Contributing
 The [Concorda][] encourages open participation. If you feel you can help in any way, be it with
