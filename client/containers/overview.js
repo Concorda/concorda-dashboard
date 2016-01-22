@@ -6,11 +6,6 @@ import {toggleSidebar} from '../actions/sidebar'
 import Sidebar from '../components/sidebar'
 
 export const ByService = React.createClass({
-  propTypes: {
-    dispatch: React.PropTypes.func.isRequired,
-    isExpanded: React.PropTypes.bool.isRequired
-  },
-
   handleToggle (event) {
     event.preventDefault()
     this.props.dispatch(toggleSidebar())
@@ -31,14 +26,6 @@ export const ByService = React.createClass({
         <div className="page container-fluid">
           <div className="row middle-xs">
             <h2 className="col-xs-12 col-sm-6">Overview</h2>
-            <div className="col-xs-12 col-sm-6 txt-right">
-              <select>
-                <option>120 seconds</option>
-                <option>5 minutes</option>
-                <option>30 minutes</option>
-                <option>1 hour</option>
-              </select>
-            </div>
         </div>
           <div className="alert alert-info alert-has-icon">
             <span className="icon icon-refresh-blue"></span>
@@ -50,12 +37,10 @@ export const ByService = React.createClass({
   }
 })
 
-function mapStatesToProps (state) {
-  const {sidebar} = state
+export default connect((state) => {
+  const {isExpanded} = state.sidebar
 
   return {
-    isExpanded: sidebar.isExpanded
+    isExpanded: isExpanded
   }
-}
-
-export default connect(mapStatesToProps)(ByService)
+})(ByService)

@@ -6,14 +6,11 @@ import {login} from '../actions/auth'
 import {pushPath} from 'redux-simple-router'
 
 export const Login = React.createClass({
-  propTypes: {
-    dispatch: React.PropTypes.func.isRequired,
-    hasError: React.PropTypes.bool.isRequired
-  },
-
   componentDidMount() {
-    if (this.props.isLoggedIn) {
-      this.props.dispatch(pushPath('/'))
+    const {isLoggedIn, dispatch} = this.props
+
+    if (isLoggedIn) {
+      dispatch(pushPath('/'))
     }
   },
 
@@ -52,14 +49,12 @@ export const Login = React.createClass({
   }
 })
 
-function mapStatesToProps (state) {
-  const {auth} = state
+export default connect((state) => {
+  const {hasError, niceError, isLoggedIn} = state.auth
 
   return {
-    hasError: auth.hasError,
-    niceError: auth.niceError,
-    isLoggedIn: auth.isLoggedIn
+    hasError: hasError,
+    niceError: niceError,
+    isLoggedIn: isLoggedIn
   }
-}
-
-export default connect(mapStatesToProps)(Login)
+})(Login)
