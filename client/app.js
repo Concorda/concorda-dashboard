@@ -14,8 +14,7 @@ const createStore = configureStore()
 
 const initalState = {
   auth: {
-    hasError: false,
-    token: window.localStorage.getItem('token')
+    hasError: false
   }
 }
 

@@ -18,32 +18,27 @@ export function login (user, pass) {
           dispatch({
             type: authActions.LOGIN_RESPONSE,
             niceError: 'Wrong username or password, try again',
-            hasError: true,
-            token: null
+            hasError: true
           })
         }
         else {
-          const token = resp.body.login.id
-
-          dispatch({type: authActions.LOGIN_RESPONSE, hasError: false, token: token})
+          dispatch({type: authActions.LOGIN_RESPONSE, hasError: false})
           dispatch(pushPath('/'))
-
-          window.localStorage.setItem('token', token)
         }
       })
     }
   }
 
-export function logout (token) {
+export function logout () {
   return (dispatch) => {
     dispatch({type: authActions.LOGOUT_REQUEST})
 
     Request
       .post('/auth/logout')
       .type('form')
-      .send({token: token})
+      .send({})
       .end(() => {
-        dispatch({type: authActions.LOGOUT_RESPONSE, hasError: false, token: null})
+        dispatch({type: authActions.LOGOUT_RESPONSE, hasError: false})
         dispatch(pushPath('/'))
 
         window.localStorage.clear()

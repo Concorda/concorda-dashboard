@@ -4,6 +4,7 @@ import Request from 'superagent/lib/client'
 import { pushPath } from 'redux-simple-router'
 
 import * as usersActions from '../constants/users'
+import * as authActionsImpl from './auth'
 
 export function getUsers () {
   return (dispatch) => {
@@ -12,7 +13,11 @@ export function getUsers () {
     Request
       .get('/api/user')
       .end((err, resp) => {
-        if (err || !resp.body) {
+
+        if (resp.unauthorized){
+          dispatch(authActionsImpl.logout())
+        }
+        else if (err || !resp.body) {
           dispatch({
             type: usersActions.GET_USERS_RESPONSE,
             niceError: 'Can\'t fetch users',
