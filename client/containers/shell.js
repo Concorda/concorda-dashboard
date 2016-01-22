@@ -28,7 +28,7 @@ function mapStatesToProps (state) {
   const {auth} = state
 
   return {
-    isAuthenticated: true
+    isAuthenticated: Boolean(auth.isLoggedIn)
   }
 }
 

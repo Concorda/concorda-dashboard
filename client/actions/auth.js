@@ -18,12 +18,15 @@ export function login (user, pass) {
           dispatch({
             type: authActions.LOGIN_RESPONSE,
             niceError: 'Wrong username or password, try again',
-            hasError: true
+            hasError: true,
+            isLoggedIn: false
           })
         }
         else {
           dispatch({type: authActions.LOGIN_RESPONSE, hasError: false})
           dispatch(pushPath('/'))
+
+          window.localStorage.setItem('isLoggedIn', true)
         }
       })
     }
