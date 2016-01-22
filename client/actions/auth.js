@@ -23,10 +23,15 @@ export function login (user, pass) {
           })
         }
         else {
-          dispatch({type: authActions.LOGIN_RESPONSE, hasError: false})
-          dispatch(pushPath('/'))
-
           window.localStorage.setItem('isLoggedIn', true)
+
+          dispatch({
+            type: authActions.LOGIN_RESPONSE,
+            isLoggedIn: true,
+            hasError: false
+          })
+
+          dispatch(pushPath('/'))
         }
       })
     }
@@ -41,10 +46,12 @@ export function logout () {
       .type('form')
       .send({})
       .end(() => {
+        window.localStorage.clear()
+
         dispatch({type: authActions.LOGOUT_RESPONSE, hasError: false})
         dispatch(pushPath('/'))
 
-        window.localStorage.clear()
+
       })
   }
 }

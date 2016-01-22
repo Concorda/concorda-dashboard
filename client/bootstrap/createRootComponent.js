@@ -17,6 +17,17 @@ import EditUser from '../containers/editUser'
 export default function createRootComponent (store) {
   const history = createHistory()
 
+  function requireAuth (nextState, replaceState) {
+    const state = store.getState()
+    console.log(state)
+    const isLoggedIn = Boolean(state.auth.isLoggedIn)
+    const nextPath = nextState.location.pathname
+
+    if (!isLoggedIn) {
+      replaceState({nextPathname: nextPath}, '/login')
+    }
+}
+
   function handleLogout (nextState, replaceState) {
     store.dispatch(logout())
   }
@@ -27,10 +38,10 @@ export default function createRootComponent (store) {
     <Provider store={store}>
       <Router history={history}>
         <Route path="/" component={Shell}>
-          <IndexRoute component={Overview} />
-          <Route path="users" component={Users} />
-          <Route path="user/add" component={AddUser} />
-          <Route path="user/:id/edit" component={EditUser} />
+          <IndexRoute component={Overview} onEnter={requireAuth} />
+          <Route path="users" component={Users} onEnter={requireAuth} />
+          <Route path="user/add" component={AddUser} onEnter={requireAuth} />
+          <Route path="user/:id/edit" component={EditUser} onEnter={requireAuth} />
           <Route path="login" component={Login} />
           <Route path="logout" onEnter={handleLogout} />
         </Route>

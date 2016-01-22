@@ -8,15 +8,15 @@ import Footer from '../components/footer'
 export const Shell = React.createClass({
   propTypes: {
     dispatch: React.PropTypes.func.isRequired,
-    isAuthenticated: React.PropTypes.bool.isRequired,
+    isLoggedIn: React.PropTypes.bool.isRequired,
   },
 
   render () {
-    const {children, isAuthenticated} = this.props
+    const {children, isLoggedIn} = this.props
 
     return (
       <div className="shell">
-        <Header showProfile={isAuthenticated} />
+        <Header showProfile={isLoggedIn} />
           {children}
         <Footer />
       </div>
@@ -28,7 +28,7 @@ function mapStatesToProps (state) {
   const {auth} = state
 
   return {
-    isAuthenticated: Boolean(auth.isLoggedIn)
+    isLoggedIn: Boolean(auth.isLoggedIn)
   }
 }
 
