@@ -17,21 +17,8 @@ import EditUser from '../containers/editUser'
 export default function createRootComponent (store) {
   const history = createHistory()
 
-  function requireAuth (nextState, replaceState) {
-    const state = store.getState()
-    const hasToken = Boolean(state.auth.token)
-    const nextPath = nextState.location.pathname
-
-    if (!hasToken) {
-      replaceState({nextPathname: nextPath}, '/login')
-    }
-  }
-
   function handleLogout (nextState, replaceState) {
-    const state = store.getState()
-    const token = state.auth.token
-
-    store.dispatch(logout(token))
+    store.dispatch(logout())
   }
 
   syncReduxAndRouter(history, store)
@@ -40,10 +27,10 @@ export default function createRootComponent (store) {
     <Provider store={store}>
       <Router history={history}>
         <Route path="/" component={Shell}>
-          <IndexRoute component={Overview} onEnter={requireAuth} />
-          <Route path="users" component={Users} onEnter={requireAuth} />
-          <Route path="user/add" component={AddUser} onEnter={requireAuth} />
-          <Route path="user/:id/edit" component={EditUser} onEnter={requireAuth} />
+          <IndexRoute component={Overview} />
+          <Route path="users" component={Users} />
+          <Route path="user/add" component={AddUser} />
+          <Route path="user/:id/edit" component={EditUser} />
           <Route path="login" component={Login} />
           <Route path="logout" onEnter={handleLogout} />
         </Route>

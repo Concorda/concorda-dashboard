@@ -5,8 +5,7 @@ import * as authActions from '../constants/auth'
 const authState = {
   isLoggingIn: false,
   isLoggingOut: false,
-  hasError: false,
-  token: null
+  hasError: false
 }
 
 export default function auth (state = authState, action) {
@@ -22,8 +21,7 @@ export default function auth (state = authState, action) {
       return Object.assign({}, state, {
         isLoggingIn: false,
         isLoggingOut: false,
-        hasError: action.hasError,
-        token: action.token
+        hasError: action.hasError
       })
 
     case authActions.LOGOUT_REQUEST:
@@ -37,8 +35,7 @@ export default function auth (state = authState, action) {
       return Object.assign({}, state, {
         isLoggingIn: false,
         isLoggingOut: false,
-        hasError: action.hasError,
-        token: action.token
+        hasError: action.hasError
       })
 
     default:
