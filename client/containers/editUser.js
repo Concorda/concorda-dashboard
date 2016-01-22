@@ -21,8 +21,6 @@ export const EditUser = React.createClass({
     dispatch(getUser(userId))
   },
 
-  componentWillUnmount () {
-  },
 
   handleToggle (event) {
     event.preventDefault()

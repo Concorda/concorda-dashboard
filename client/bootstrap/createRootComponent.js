@@ -13,20 +13,20 @@ import Overview from '../containers/overview'
 import Users from '../containers/users'
 import AddUser from '../containers/addUser'
 import EditUser from '../containers/editUser'
+import Profile from '../containers/profile'
 
 export default function createRootComponent (store) {
   const history = createHistory()
 
   function requireAuth (nextState, replaceState) {
     const state = store.getState()
-    console.log(state)
-    const isLoggedIn = Boolean(state.auth.isLoggedIn)
+    const isLoggedIn = state.auth.isLoggedIn
     const nextPath = nextState.location.pathname
 
     if (!isLoggedIn) {
       replaceState({nextPathname: nextPath}, '/login')
     }
-}
+  }
 
   function handleLogout (nextState, replaceState) {
     store.dispatch(logout())
@@ -42,6 +42,7 @@ export default function createRootComponent (store) {
           <Route path="users" component={Users} onEnter={requireAuth} />
           <Route path="user/add" component={AddUser} onEnter={requireAuth} />
           <Route path="user/:id/edit" component={EditUser} onEnter={requireAuth} />
+          <Route path="profile" component={Profile} onEnter={requireAuth} />
           <Route path="login" component={Login} />
           <Route path="logout" onEnter={handleLogout} />
         </Route>
