@@ -56,6 +56,29 @@ module.exports = function (opts) {
     })
   }
 
+  function deleteUser (msg, response) {
+    var userId = msg.req$.params.userId
+
+    this.make$('sys', 'user').load$({id: userId}, function (err, user) {
+      if (err) {
+        return response(err)
+      }
+      if (!user || !user.nick) {
+        return response(null, {err: true, msg: "No user found"})
+      }
+
+      this.act('role: user, cmd: delete', {nick: user.nick}, function (err, result) {
+        if (err) {
+          return response(null, {err: true, msg: err})
+        }
+        if (!result.ok) {
+          return response(null, {err: true, msg: result.why})
+        }
+        response(null, {err: false})
+      })
+    })
+  }
+
   function closeUserSessions (msg, response) {
     var user_id = msg.req$.params.user_id
 
@@ -91,6 +114,7 @@ module.exports = function (opts) {
     .add({role: options.name, cmd: 'listUsers'}, listUsers)
     .add({role: options.name, cmd: 'createUser'}, createUser)
     .add({role: options.name, cmd: 'updateUser'}, updateUser)
+    .add({role: options.name, cmd: 'deleteUser'}, deleteUser)
 
   seneca.act({
     role: 'web', use: {
@@ -101,7 +125,8 @@ module.exports = function (opts) {
         closeSession: {POST: true, alias: 'user/{user_id}/session/close'},
         listUsers: {GET: true, alias: 'user'},
         createUser: {POST: true, data: true, alias: 'user'},
-        updateUser: {PUT: true, data: true, alias: 'user'}
+        updateUser: {PUT: true, data: true, alias: 'user'},
+        deleteUser: {DELETE: true, alias: 'user/{userId}'}
       }
     }
   })
