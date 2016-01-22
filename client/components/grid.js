@@ -5,6 +5,7 @@ import React from 'react'
 export default React.createClass({
   render () {
     const handleEditUser = this.props.handleEditUser
+    const handleDeleteUser = this.props.handleDeleteUser
 
     let body = null
     let data = this.props.data
@@ -19,6 +20,7 @@ export default React.createClass({
     else {
       body = data.map((user) => {
         let boundEditUserClick = handleEditUser.bind(null, user.id);
+        let boundDeleteUserClick = handleDeleteUser.bind(null, user.id);
 
         return (
           <tr key={user.id}>
@@ -26,7 +28,7 @@ export default React.createClass({
             <td className="user-data-col">{user.email}</td>
             <td className="user-data-col">
               <button onClick={boundEditUserClick}>Edit</button>&nbsp;&nbsp;&nbsp;
-              <button>Delete</button>
+              <button onClick={boundDeleteUserClick}>Delete</button>
             </td>
           </tr>
         )

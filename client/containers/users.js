@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 
 // actions
 import {toggleSidebar} from '../actions/sidebar'
-import {getUsers} from '../actions/users'
+import {getUsers, deleteUser} from '../actions/users'
 
 // components
 import Sidebar from '../components/sidebar'
@@ -30,13 +30,20 @@ export const Users = React.createClass({
 
   handleEditUser(userId, e){
     e.preventDefault()
-    this.props.dispatch(pushPath(`user/${userId}/edit`))
+    this.props.dispatch(pushPath('user/' + userId + '/edit'))
   },
 
   componentDidMount () {
     const dispatch = this.props.dispatch
 
     dispatch(getUsers())
+  },
+
+  handleDeleteUser(userId, e){
+    e.preventDefault()
+    const dispatch = this.props.dispatch
+
+    dispatch(deleteUser(userId))
   },
 
   render () {
@@ -64,7 +71,7 @@ export const Users = React.createClass({
           <div className="panel">
             <h3 className="panel-heading m0">All Users</h3>
             <div className="panel-body">
-              <Grid data={data} handleEditUser={this.handleEditUser}/>
+              <Grid data={data} handleEditUser={this.handleEditUser} handleDeleteUser={this.handleDeleteUser}/>
               <button onClick={this.handleAddNewUser}>Add New User</button>
             </div>
           </div>

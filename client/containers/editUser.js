@@ -4,12 +4,24 @@ import React from 'react'
 import {connect} from 'react-redux'
 import Sidebar from '../components/sidebar'
 import UserTemplate from '../components/userTemplate'
+
 import {toggleSidebar} from '../actions/sidebar'
+import {getUser} from '../actions/users'
 
 export const EditUser = React.createClass({
   propTypes: {
     dispatch: React.PropTypes.func.isRequired,
     isExpanded: React.PropTypes.bool.isRequired
+  },
+
+  componentDidMount () {
+    const dispatch = this.props.dispatch
+
+    var userId = this.props.params.id
+    dispatch(getUser(userId))
+  },
+
+  componentWillUnmount () {
   },
 
   handleToggle (event) {
@@ -19,8 +31,8 @@ export const EditUser = React.createClass({
   },
 
   render () {
+    const {isExpanded, editUser} = this.props
     const handleToggle = this.handleToggle
-    const {isExpanded} = this.props
 
     var styleClass = 'page-wrapper'
     if (isExpanded) {
@@ -41,7 +53,7 @@ export const EditUser = React.createClass({
           </div>
 
           <form className="login-form col-xs-12 col-md-8 col-lg-6 txt-left form-full-width form-panel">
-            <UserTemplate />
+            <UserTemplate editUser={editUser} />
           </form>
         </div>
       </div>
@@ -51,9 +63,11 @@ export const EditUser = React.createClass({
 
 function mapStatesToProps (state) {
   const {sidebar} = state
+  const {users} = state
 
   return {
-    isExpanded: sidebar.isExpanded
+    isExpanded: sidebar.isExpanded,
+    editUser: users.editUser ? users.editUser[0] : null
   }
 }
 
