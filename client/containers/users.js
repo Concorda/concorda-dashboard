@@ -30,7 +30,7 @@ export const Users = React.createClass({
 
   handleEditUser(userId, e){
     e.preventDefault()
-    this.props.dispatch(pushPath(`user/${userId}/edit`))
+    this.props.dispatch(pushPath('user/' + userId + '/edit'))
   },
 
   componentDidMount () {
@@ -71,7 +71,7 @@ export const Users = React.createClass({
           <div className="panel">
             <h3 className="panel-heading m0">All Users</h3>
             <div className="panel-body">
-              <Grid data={data} handleEditUser={this.handleEditUser}/>
+              <Grid data={data} handleEditUser={this.handleEditUser} handleDeleteUser={this.handleDeleteUser}/>
               <button onClick={this.handleAddNewUser}>Add New User</button>
             </div>
           </div>

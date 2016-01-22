@@ -53,7 +53,7 @@ export const EditUser = React.createClass({
           </div>
 
           <form className="login-form col-xs-12 col-md-8 col-lg-6 txt-left form-full-width form-panel">
-            <UserTemplate />
+            <UserTemplate editUser={editUser} />
           </form>
         </div>
       </div>
