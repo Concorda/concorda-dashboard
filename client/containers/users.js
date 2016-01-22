@@ -19,18 +19,8 @@ export const Users = React.createClass({
     isExpanded: React.PropTypes.bool.isRequired
   },
 
-  componentDidMount () {
-    const dispatch = this.props.dispatch
-
-    dispatch(getUsers())
-  },
-
-  componentWillUnmount () {
-  },
-
   handleToggle (event) {
     event.preventDefault()
-
     this.props.dispatch(toggleSidebar())
   },
 
@@ -40,44 +30,56 @@ export const Users = React.createClass({
 
   handleEditUser(userId, e){
     e.preventDefault()
+    this.props.dispatch(pushPath(`user/${userId}/edit`))
+  },
+
+  componentDidMount () {
     const dispatch = this.props.dispatch
 
-    dispatch(pushPath('user/' + userId + '/edit'))
+    dispatch(getUsers())
   },
 
   render () {
-    const {isExpanded} = this.props
     const handleToggle = this.handleToggle
-    let items = this.props.result
+    const {isExpanded, data} = this.props
 
-    var styleClass = 'overview-panel'
+
+    var styleClass = 'page-wrapper'
     if (isExpanded) {
       styleClass = styleClass + '-expanded'
     }
 
     return (
-      <main className="page page-users" role="main">
-        <div className="container-fluid">
-          <Sidebar isExpanded={isExpanded} onToggle={handleToggle}/>
-          <div className={styleClass}>
-            <h2>Users</h2>
-            <Grid data={items} handleEditUser={this.handleEditUser}/>
-            <br /><br /><br />
-            <button onClick={this.handleAddNewUser}>Add New User</button>
+      <div className={styleClass}>
+        <Sidebar isExpanded={isExpanded} onToggle={handleToggle} />
+        <div className="page container-fluid">
+          <div className="row middle-xs">
+            <h2 className="col-xs-12 col-sm-6">Users</h2>
+        </div>
+          <div className="alert alert-info alert-has-icon">
+            <span className="icon icon-refresh-blue"></span>
+            <p className="m0">Loading data...</p>
+          </div>
+
+          <div className="panel">
+            <h3 className="panel-heading m0">All Users</h3>
+            <div className="panel-body">
+              <Grid data={data} handleEditUser={this.handleEditUser}/>
+              <button onClick={this.handleAddNewUser}>Add New User</button>
+            </div>
           </div>
         </div>
-      </main>
+      </div>
     )
   }
 })
 
 function mapStatesToProps (state) {
-  const {sidebar} = state
-  const {users} = state
+  const {sidebar, users} = state
 
   return {
     isExpanded: sidebar.isExpanded,
-    result: users.result
+    data: users.result
   }
 }
 

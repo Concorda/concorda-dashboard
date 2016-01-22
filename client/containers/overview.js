@@ -2,45 +2,50 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
-import Sidebar from '../components/sidebar'
 import {toggleSidebar} from '../actions/sidebar'
+import Sidebar from '../components/sidebar'
 
-export const Overview = React.createClass({
+export const ByService = React.createClass({
   propTypes: {
     dispatch: React.PropTypes.func.isRequired,
     isExpanded: React.PropTypes.bool.isRequired
   },
 
-  componentDidMount () {
-  },
-
-  componentWillUnmount () {
-  },
-
   handleToggle (event) {
     event.preventDefault()
-
     this.props.dispatch(toggleSidebar())
   },
 
   render () {
-    const {isExpanded, data} = this.props
     const handleToggle = this.handleToggle
+    const {isExpanded} = this.props
 
-    var styleClass = 'overview-panel'
+    let styleClass = 'page-wrapper'
     if (isExpanded) {
-      styleClass = styleClass + '-expanded'
+      styleClass = `${styleClass}-expanded`
     }
 
     return (
-      <main className="page page-overview overview" role="main">
-        <div className="container-fluid">
-          <Sidebar isExpanded={isExpanded} onToggle={handleToggle} />
-          <div className={styleClass}>
-            <h2>Overview</h2>
+      <div className={styleClass}>
+        <Sidebar isExpanded={isExpanded} onToggle={handleToggle} />
+        <div className="page container-fluid">
+          <div className="row middle-xs">
+            <h2 className="col-xs-12 col-sm-6">Overview</h2>
+            <div className="col-xs-12 col-sm-6 txt-right">
+              <select>
+                <option>120 seconds</option>
+                <option>5 minutes</option>
+                <option>30 minutes</option>
+                <option>1 hour</option>
+              </select>
+            </div>
+        </div>
+          <div className="alert alert-info alert-has-icon">
+            <span className="icon icon-refresh-blue"></span>
+            <p className="m0">Loading data...</p>
           </div>
         </div>
-      </main>
+      </div>
     )
   }
 })
@@ -53,4 +58,4 @@ function mapStatesToProps (state) {
   }
 }
 
-export default connect(mapStatesToProps)(Overview)
+export default connect(mapStatesToProps)(ByService)
