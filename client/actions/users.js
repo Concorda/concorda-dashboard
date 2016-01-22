@@ -14,7 +14,7 @@ export function getUsers () {
       .get('/api/user')
       .end((err, resp) => {
 
-        if (resp.unauthorized){
+        if (resp.unauthorized) {
           dispatch(authActionsImpl.logout())
         }
         else if (err || !resp.body) {
@@ -54,7 +54,9 @@ export function deleteUser (userId) {
           })
         }
         else {
-          var users = state.users.result.filter(function (user) {return user.id != userId })
+          var users = state.users.result.filter(function (user) {
+            return user.id != userId
+          })
           dispatch({
             type: usersActions.DELETE_USER_RESPONSE,
             niceError: null,
@@ -63,5 +65,23 @@ export function deleteUser (userId) {
           })
         }
       })
+  }
+}
+
+export function getUser (userId) {
+  return (dispatch, getState) => {
+    let state = getState()
+    dispatch({type: usersActions.LOAD_USER})
+
+    let user = state.users.result.filter(function (user) {
+      return user.id == userId
+    })
+
+    dispatch({
+      type: usersActions.LOAD_USER,
+      niceError: null,
+      hasError: false,
+      editUser: user
+    })
   }
 }
