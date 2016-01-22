@@ -36,3 +36,32 @@ export function getUsers () {
       })
   }
 }
+
+export function deleteUser (userId) {
+  return (dispatch, getState) => {
+    const state = getState()
+    dispatch({type: usersActions.DELETE_USER_REQUEST})
+
+    Request
+      .delete('/api/user/' + userId)
+      .end((err, resp) => {
+        if (err || !resp.body) {
+          dispatch({
+            type: usersActions.DELETE_USER_RESPONSE,
+            niceError: 'Can\'t delete user',
+            hasError: true,
+            result: null
+          })
+        }
+        else {
+          var users = state.users.result.filter(function (user) {return user.id != userId })
+          dispatch({
+            type: usersActions.DELETE_USER_RESPONSE,
+            niceError: null,
+            hasError: false,
+            result: users
+          })
+        }
+      })
+  }
+}

@@ -7,7 +7,7 @@ import {connect} from 'react-redux'
 
 // actions
 import {toggleSidebar} from '../actions/sidebar'
-import {getUsers} from '../actions/users'
+import {getUsers, deleteUser} from '../actions/users'
 
 // components
 import Sidebar from '../components/sidebar'
@@ -37,6 +37,13 @@ export const Users = React.createClass({
     const dispatch = this.props.dispatch
 
     dispatch(getUsers())
+  },
+
+  handleDeleteUser(userId, e){
+    e.preventDefault()
+    const dispatch = this.props.dispatch
+
+    dispatch(deleteUser(userId))
   },
 
   render () {
