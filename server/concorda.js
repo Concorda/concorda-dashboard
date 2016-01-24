@@ -1,63 +1,137 @@
-var Path = require('path')
-var Package = require('../package.json')
-var SenecaUser = require('seneca-user')
-var SenecaAuth = require('seneca-auth')
+'use strict'
 
-// load plugins
-// var MongoDB = require('mongo-store')
-var ConcordaUser = require('../server/plugins/concorda')
+const _ = require('lodash')
+const Async = require('async')
 
-var ClientRoutes = require('./routes/client')
-var DefaultData = require('./default_data')
+module.exports = function (opts) {
+  var seneca = this
 
-module.exports = function (server, options, next) {
-  // Set our realitive path (for our routes)
-  var relativePath = Path.join(__dirname, '../dist/')
-  server.realm.settings.files.relativeTo = relativePath
+  var options = {
+    name: 'concorda'
+  }
+  options = _.extend(options, opts || {})
 
-  // Session stuff
-  server.state('session', {
-    ttl: 24 * 60 * 60 * 1000,
-    isSecure: true,
-    path: '/',
-    encoding: 'base64json'
-  })
-
-  // Wire up our http routes, these are
-  // mostly for managing the dashboard.
-  server.route(ClientRoutes)
-
-  // Set up our seneca plugins
-  var seneca = server.seneca
-
-  seneca.use(SenecaUser)
-  seneca.listen({
-    pin: 'role:user, cmd:*',
-    type: 'tcp',
-    port: '3055'
-  })
-  seneca.use(SenecaAuth, {
-    restrict: '/api',
-    server: 'hapi',
-    strategies: [
-      {
-        provider: 'local'
+  function listUsers (msg, response) {
+    this.make$('sys', 'user').list$({}, function (err, users) {
+      if (err) {
+        return response(err)
       }
-    ]
+      if (!users) {
+        return response(null, {err: false, data: []})
+      }
+
+      for (var i in users) {
+        users[i] = users[i].data$(false)
+      }
+
+      response(null, {err: false, data: users, count: users.length})
+    })
+  }
+
+  function createUser (msg, response) {
+    var userData = msg.data
+
+    this.act('role: user, cmd: register', userData, function (err, result) {
+      if (err) {
+        return response(null, {err: true, msg: err})
+      }
+      if (!result.ok) {
+        return response(null, {err: true, msg: result.why})
+      }
+      response(null, {err: false, data: result.user})
+    })
+  }
+
+  function updateUser (msg, response) {
+    var userData = msg.data
+
+    this.act('role: user, cmd: update', userData, function (err, result) {
+      if (err) {
+        return response(null, {err: true, msg: err})
+      }
+      if (!result.ok) {
+        return response(null, {err: true, msg: result.why})
+      }
+      response(null, {err: false, data: result.user})
+    })
+  }
+
+  function deleteUser (msg, response) {
+    var userId = msg.req$.params.userId
+
+    this.make$('sys', 'user').load$({id: userId}, function (err, user) {
+      if (err) {
+        return response(err)
+      }
+      if (!user || !user.nick) {
+        return response(null, {err: true, msg: 'No user found'})
+      }
+
+      this.act('role: user, cmd: delete', {nick: user.nick}, function (err, result) {
+        if (err) {
+          return response(null, {err: true, msg: err})
+        }
+        if (!result.ok) {
+          return response(null, {err: true, msg: result.why})
+        }
+        response(null, {err: false})
+      })
+    })
+  }
+
+  function closeUserSessions (msg, response) {
+    var user_id = msg.req$.params.user_id
+
+    if (!user_id) {
+      return response('Invalid user selected')
+    }
+
+    this.make$('sys', 'login').list$({user: user_id, active: true}, function (err, logins) {
+      if (err) {
+        return response(err)
+      }
+      if (!logins) {
+        return response(null, {err: false, sessions: 0})
+      }
+
+      Async.each(logins, closeSession, function (err) {
+        if (err) {
+          return response(err)
+        }
+
+        response(null, {err: false, sessions: logins.length})
+      })
+    })
+  }
+
+  function closeSession (session, done) {
+    seneca.log.debug('closing session', session)
+    session.remove$(done)
+  }
+
+  seneca
+    .add({role: options.name, cmd: 'closeSession'}, closeUserSessions)
+    .add({role: options.name, cmd: 'listUsers'}, listUsers)
+    .add({role: options.name, cmd: 'createUser'}, createUser)
+    .add({role: options.name, cmd: 'updateUser'}, updateUser)
+    .add({role: options.name, cmd: 'deleteUser'}, deleteUser)
+
+  seneca.act({
+    role: 'web', use: {
+      name: options.name,
+      prefix: '/api',
+      pin: {role: options.name, cmd: '*'},
+      map: {
+        closeSession: {POST: true, alias: 'user/{user_id}/session/close'},
+        listUsers: {GET: true, alias: 'user'},
+        createUser: {POST: true, data: true, alias: 'user'},
+        updateUser: {PUT: true, data: true, alias: 'user'},
+        deleteUser: {DELETE: true, alias: 'user/{userId}'}
+      }
+    }
   })
-  seneca.use(require('seneca-local-auth'))
 
-//  seneca.use(MongoDB, seneca.options().db)
-
-  // Set up a default user
-  seneca.use(DefaultData)
-
-  seneca.use(ConcordaUser)
-  next()
-}
-
-// Hapi uses this metadata. It's convention to provide
-// it even though we are actually the same package.
-module.exports.attributes = {
-  pkg: Package
+  return {
+    name: options.name
+  }
 }

@@ -1,93 +1,77 @@
 'use strict'
 
 import React from 'react'
-import { pushPath } from 'redux-simple-router'
-import {Link} from 'react-router'
 import {connect} from 'react-redux'
-
-// actions
-import {toggleSidebar} from '../actions/sidebar'
+import {pushPath} from 'redux-simple-router'
 import {getUsers, deleteUser} from '../actions/users'
 
-// components
-import Sidebar from '../components/sidebar'
-import Grid from '../components/grid'
+import Panel from '../components/panel'
 
 export const Users = React.createClass({
-  propTypes: {
-    dispatch: React.PropTypes.func.isRequired,
-    isExpanded: React.PropTypes.bool.isRequired
+  componentDidMount () {
+    this.props.dispatch(getUsers())
   },
 
-  handleToggle (event) {
-    event.preventDefault()
-    this.props.dispatch(toggleSidebar())
-  },
-
-  handleAddNewUser() {
+  handleAdd () {
     this.props.dispatch(pushPath('user/add'))
   },
 
-  handleEditUser(userId, e){
-    e.preventDefault()
-    this.props.dispatch(pushPath('user/' + userId + '/edit'))
+  handleEdit (id) {
+    this.props.dispatch(pushPath(`user/${id}/edit`))
   },
 
-  componentDidMount () {
-    const dispatch = this.props.dispatch
-
-    dispatch(getUsers())
-  },
-
-  handleDeleteUser(userId, e){
-    e.preventDefault()
-    const dispatch = this.props.dispatch
-
-    dispatch(deleteUser(userId))
+  handleDelete (id) {
+    this.props.dispatch(deleteUser(id))
   },
 
   render () {
-    const handleToggle = this.handleToggle
-    const {isExpanded, data} = this.props
+    const {users} = this.props
+    let body = null
 
-
-    var styleClass = 'page-wrapper'
-    if (isExpanded) {
-      styleClass = styleClass + '-expanded'
+    if (users) {
+      body = (
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => {
+              return (
+                <tr key={user.id}>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>
+                    <button onClick={(e) => {this.handleEdit(user.id)}}>Edit</button>
+                    <button onClick={(e) => {this.handleDelete(user.id)}}>Delete</button>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+      )
     }
 
     return (
-      <div className={styleClass}>
-        <Sidebar isExpanded={isExpanded} onToggle={handleToggle} />
-        <div className="page container-fluid">
-          <div className="row middle-xs">
-            <h2 className="col-xs-12 col-sm-6">Users</h2>
+      <div className="page container-fluid">
+        <div className="row middle-xs">
+          <h2 className="col-xs-12 col-sm-6">Users</h2>
         </div>
-          <div className="alert alert-info alert-has-icon">
-            <span className="icon icon-refresh-blue"></span>
-            <p className="m0">Loading data...</p>
-          </div>
-
-          <div className="panel">
-            <h3 className="panel-heading m0">All Users</h3>
-            <div className="panel-body">
-              <Grid data={data} handleEditUser={this.handleEditUser} handleDeleteUser={this.handleDeleteUser}/>
-              <button onClick={this.handleAddNewUser}>Add New User</button>
-            </div>
-          </div>
-        </div>
+        <Panel title={'User List'}>
+          {body}
+          <button onClick={(e) => {this.handleAdd()}}>Add New User</button>
+        </Panel>
       </div>
     )
   }
 })
 
-function mapStatesToProps (state) {
-  const {sidebar, users} = state
-
+export default connect((state) => {
   return {
-    isExpanded: sidebar.isExpanded,
-    data: users.result
+    users: state.users.result
   }
-}
-
-export default connect(mapStatesToProps)(Users)
+})(Users)
