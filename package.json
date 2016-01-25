@@ -45,6 +45,7 @@
     "mongo-store": "0.0.2",
     "nes": "2.x.x",
     "react": "0.14.x",
+    "react-addons-linked-state-mixin": "^0.14.6",
     "react-d3-components": "0.6.x",
     "react-dom": "0.14.x",
     "react-redux": "4.0.x",

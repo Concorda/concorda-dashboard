@@ -2,8 +2,9 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
-import {pushPath} from 'redux-simple-router'
-import {getUsers, deleteUser} from '../actions/users'
+
+// actions
+import {getUsers, deleteUser, getUser} from '../actions/users'
 
 import Panel from '../components/panel'
 
@@ -16,8 +17,8 @@ export const Users = React.createClass({
     this.props.dispatch(pushPath('user/add'))
   },
 
-  handleEdit (id) {
-    this.props.dispatch(pushPath(`user/${id}/edit`))
+  handleEdit(userId, e){
+    this.props.dispatch(getUser(userId, 'user/' + userId + '/edit'))
   },
 
   handleDelete (id) {

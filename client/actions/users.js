@@ -71,9 +71,10 @@ export function deleteUser (userId) {
   }
 }
 
-export function getUser (userId) {
+export function getUser (userId, redirectTo) {
   return (dispatch, getState) => {
     let state = getState()
+
     dispatch({type: usersActions.LOAD_USER})
 
     let user = state.users.result.filter(function (user) {
@@ -86,5 +87,70 @@ export function getUser (userId) {
       hasError: false,
       editUser: user
     })
+
+    if(redirectTo){
+      return dispatch(pushPath(redirectTo))
+    }
+  }
+}
+
+export function upsertUser(userId, data){
+  return (dispatch, getState) => {
+    let state = getState()
+    dispatch({type: usersActions.UPSERT_USER_REQUEST})
+
+    if(userId){
+      Request
+        .put('/api/user')
+        .type('form')
+        .send(data)
+        .end((err, resp) => {
+          if (err || !resp.body) {
+            dispatch({
+              type: usersActions.UPDATE_USER_RESPONSE,
+              niceError: 'Can\'t delete user',
+              hasError: true,
+              result: null
+            })
+          }
+          else {
+            var users = state.users.result.filter(function (user) {
+              return user.id != userId
+            })
+            dispatch({
+              type: usersActions.UPDATE_USER_RESPONSE,
+              niceError: null,
+              hasError: false,
+              result: users
+            })
+          }
+        })
+    } else {
+      Request
+        .post('/api/user')
+        .type('form')
+        .send(data)
+        .end((err, resp) => {
+          if (err || !resp.body) {
+            dispatch({
+              type: usersActions.UPDATE_USER_RESPONSE,
+              niceError: 'Can\'t delete user',
+              hasError: true,
+              result: null
+            })
+          }
+          else {
+            var users = state.users.result.filter(function (user) {
+              return user.id != userId
+            })
+            dispatch({
+              type: usersActions.UPDATE_USER_RESPONSE,
+              niceError: null,
+              hasError: false,
+              result: users
+            })
+          }
+        })
+    }
   }
 }
