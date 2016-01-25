@@ -12,11 +12,27 @@ export const AddUser = React.createClass({
         </div>
 
         <form className="login-form col-xs-12 txt-left form-full-width form-panel">
-          <input ref="name" placeholder="Name" className="input-large col-xs-12" required />
-          <input ref="email" type="email" placeholder="Email" className="input-large col-xs-12" required />
-          <input ref="password" type="password" placeholder="Password" className="input-large col-xs-12" required />
-          <input ref="repeat" type="password" placeholder="Confirm Password" className="input-large col-xs-12" required /><br/>
-          <button type="submit" className="btn btn-large submit col-xs-6">Submit</button>
+          <div className="row">
+            <div className="col-xs-12 col-sm-6">
+              <input ref="name" placeholder="Name" className="input-large" required />
+            </div>
+            <div className="col-xs-12 col-sm-6">
+              <input ref="email" type="email" placeholder="Email" className="input-large" required />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-xs-12 col-sm-6">
+              <input ref="password" type="password" placeholder="Password" className="input-large" required />
+            </div>
+            <div className="col-xs-12 col-sm-6">
+              <input ref="repeat" type="password" placeholder="Confirm Password" className="input-large" required />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+              <button type="submit" className="btn btn-large submit">Submit</button>
+            </div>
+          </div>
         </form>
       </div>
     )
