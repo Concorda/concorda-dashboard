@@ -37,10 +37,10 @@ export const EditUser = React.createClass({
                 </div>
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
-                    <input ref="password" type="password" placeholder="Password" className="input-large" required />
+                    <input ref="password" type="password" placeholder="Password" className="input-large" />
                   </div>
                   <div className="col-xs-12 col-sm-6">
-                    <input ref="repeat" type="password" placeholder="Confirm Password" className="input-large" required />
+                    <input ref="repeat" type="password" placeholder="Confirm Password" className="input-large" />
                   </div>
                 </div>
                 <div className="row">
