@@ -18,8 +18,8 @@ export const Users = React.createClass({
     this.props.dispatch(pushPath('user/add'))
   },
 
-  handleEdit(userId, e){
-    this.props.dispatch(getUser(userId, 'user/' + userId + '/edit'))
+  handleEdit(userId){
+    this.props.dispatch(getUser(userId, `user/${userId}/edit`))
   },
 
   handleDelete (id) {
@@ -47,8 +47,8 @@ export const Users = React.createClass({
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td className="btn-group">
-                    <button onClick={(e) => {this.handleEdit(user.id)}} className="btn btn-small btn-dimmed">Edit</button>
-                    <button onClick={(e) => {this.handleDelete(user.id)}} className="btn btn-small btn-dimmed">Delete</button>
+                    <button onClick={() => {this.handleEdit(user.id)}} className="btn btn-small btn-dimmed">Edit</button>
+                    <button onClick={() => {this.handleDelete(user.id)}} className="btn btn-small btn-dimmed">Delete</button>
                   </td>
                 </tr>
               )
