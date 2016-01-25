@@ -2,28 +2,20 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
-import Sidebar from '../components/sidebar'
-import UserTemplate from '../components/userTemplate'
+import LinkedStateMixin from 'react-addons-linked-state-mixin'
 
 import {toggleSidebar} from '../actions/sidebar'
 import {upsertUser} from '../actions/users'
 
 export const EditUser = React.createClass({
-  propTypes: {
-    dispatch: React.PropTypes.func.isRequired,
-    isExpanded: React.PropTypes.bool.isRequired
+  mixins: [LinkedStateMixin],
+  getInitialState: function() {
+    return this.props.editUser || {}
   },
-
   componentDidMount () {
   },
 
   componentWillUnmount () {
-  },
-
-  handleToggle (event) {
-    event.preventDefault()
-
-    this.props.dispatch(toggleSidebar())
   },
 
   handleSubmit(event){
@@ -42,13 +34,7 @@ export const EditUser = React.createClass({
   },
 
   render () {
-    const {isExpanded, editUser} = this.props
-    const handleToggle = this.handleToggle
-
-    var styleClass = 'page-wrapper'
-    if (isExpanded) {
-      styleClass = styleClass + '-expanded'
-    }
+    const {editUser} = this.props
 
     return (
       <div className="page container-fluid">
@@ -62,10 +48,10 @@ export const EditUser = React.createClass({
               <form className="login-form col-xs-12 txt-left form-full-width form-panel">
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
-                    <input ref="name" placeholder="Name" className="input-large" value={editUser.name} />
+                    <input ref="name" placeholder="Name" className="input-large" valueLink={this.linkState('name')} />
                   </div>
                   <div className="col-xs-12 col-sm-6">
-                    <input ref="email" type="email" placeholder="Email" className="input-large" value={editUser.email} />
+                    <input ref="email" type="email" placeholder="Email" className="input-large" valueLink={this.linkState('email')} />
                   </div>
                 </div>
                 <div className="row">
@@ -82,13 +68,8 @@ export const EditUser = React.createClass({
   }
 })
 
-function mapStatesToProps (state) {
-  const {sidebar, users} = state
-
+export default connect((state) => {
   return {
-    isExpanded: sidebar.isExpanded,
-    editUser: users.editUser[0]
+    editUser: state.users.editUser ? state.users.editUser[0] : null
   }
-}
-
-export default connect(mapStatesToProps)(EditUser)
+})(EditUser)

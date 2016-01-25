@@ -2,6 +2,7 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
+import { pushPath } from 'redux-simple-router'
 
 // actions
 import {getUsers, deleteUser, getUser} from '../actions/users'
