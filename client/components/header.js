@@ -33,7 +33,7 @@ export default React.createClass({
         <div className="container-fluid">
           <div className="row middle-xs">
             <div className="has-icon col-xs-8 col-sm-6">
-              <Link to={'/'} className='logo logo-vidi'></Link>
+              <Link to={'/'} className='logo logo-concorda'></Link>
               <h2 className="m0">Concorda: Dashboard</h2>
             </div>
 
