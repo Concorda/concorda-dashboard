@@ -19,11 +19,32 @@
     
   &:hover
     background-color: $green-dark
+    
+.btn-spaced
+  margin: $ui-spacing-half
+  
+// Button dimmed
+.btn-dimmed
+  background-color: $gray-lighter
+  color: $gray-light
+  
+  &:hover
+    background-color: darken($gray-lighter, 15%)
 
 // Button sizes
 
 .btn-large
   padding: $ui-spacing-half $ui-spacing
+
+.btn-small
+  padding: $ui-spacing-fourth $ui-spacing-third
+  
+// Button group
+
+.btn-group
+
+  .btn:not(:last-child)
+    margin-right: $ui-spacing-fourth
 
 @media screen and (max-width: 480px)
 

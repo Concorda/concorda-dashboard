@@ -44,9 +44,9 @@ export const Users = React.createClass({
                 <tr key={user.id}>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
-                  <td>
-                    <button onClick={(e) => {this.handleEdit(user.id)}} className="btn">Edit</button>
-                    <button onClick={(e) => {this.handleDelete(user.id)}} className="btn">Delete</button>
+                  <td className="btn-group">
+                    <button onClick={(e) => {this.handleEdit(user.id)}} className="btn btn-small btn-dimmed">Edit</button>
+                    <button onClick={(e) => {this.handleDelete(user.id)}} className="btn btn-small btn-dimmed">Delete</button>
                   </td>
                 </tr>
               )
@@ -63,7 +63,7 @@ export const Users = React.createClass({
         </div>
         <Panel title={'User List'}>
           {body}
-          <button onClick={(e) => {this.handleAdd()}} className="btn">Add New User</button>
+          <button onClick={(e) => {this.handleAdd()}} className="btn btn-spaced">Add New User</button>
         </Panel>
       </div>
     )
