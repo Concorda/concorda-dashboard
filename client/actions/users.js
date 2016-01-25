@@ -100,6 +100,7 @@ export function upsertUser(userId, data){
     dispatch({type: usersActions.UPSERT_USER_REQUEST})
 
     if(userId){
+      data.orig_email = state.users.editUser[0].email
       Request
         .put('/api/user')
         .type('form')
