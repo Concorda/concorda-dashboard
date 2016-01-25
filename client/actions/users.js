@@ -139,15 +139,13 @@ export function upsertUser(userId, data){
             })
           }
           else {
-            var users = state.users.result.filter(function (user) {
-              return user.id != userId
-            })
             dispatch({
               type: usersActions.CREATE_USER_RESPONSE,
               niceError: null,
               hasError: false,
-              result: users
+              result: resp.body.data
             })
+            dispatch(pushPath('/users'))
           }
         })
     }
