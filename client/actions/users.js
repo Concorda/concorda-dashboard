@@ -108,21 +108,20 @@ export function upsertUser(userId, data){
           if (err || !resp.body) {
             dispatch({
               type: usersActions.UPDATE_USER_RESPONSE,
-              niceError: 'Can\'t delete user',
+              niceError: 'Can\'t update user',
               hasError: true,
               result: null
             })
           }
           else {
-            var users = state.users.result.filter(function (user) {
-              return user.id != userId
-            })
             dispatch({
               type: usersActions.UPDATE_USER_RESPONSE,
               niceError: null,
               hasError: false,
-              result: users
+              result: resp.body.data
             })
+
+            dispatch(pushPath('/users'))
           }
         })
     } else {
@@ -133,8 +132,8 @@ export function upsertUser(userId, data){
         .end((err, resp) => {
           if (err || !resp.body) {
             dispatch({
-              type: usersActions.UPDATE_USER_RESPONSE,
-              niceError: 'Can\'t delete user',
+              type: usersActions.CREATE_USER_RESPONSE,
+              niceError: 'Can\'t create user',
               hasError: true,
               result: null
             })
@@ -144,7 +143,7 @@ export function upsertUser(userId, data){
               return user.id != userId
             })
             dispatch({
-              type: usersActions.UPDATE_USER_RESPONSE,
+              type: usersActions.CREATE_USER_RESPONSE,
               niceError: null,
               hasError: false,
               result: users

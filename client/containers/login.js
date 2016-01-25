@@ -16,6 +16,7 @@ export const Login = React.createClass({
 
   handleSubmit (event) {
     event.preventDefault()
+    debugger
 
     const {email, pass} = this.refs
     const {dispatch} = this.props

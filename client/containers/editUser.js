@@ -21,13 +21,11 @@ export const EditUser = React.createClass({
   handleSubmit(event){
     event.preventDefault()
     const dispatch = this.props.dispatch
-    const {name, email, password, repeat} = this.refs
+    const {name, email} = this.refs
 
     const data = {
-      name: name,
-      email: email,
-      password: password,
-      repeat: repeat
+      name: name.value,
+      email: email.value
     }
     const userId = this.props.params.id || null
     dispatch(upsertUser(userId, data))
@@ -45,7 +43,7 @@ export const EditUser = React.createClass({
         {(() => {
           if (editUser) {
             return (
-              <form className="login-form col-xs-12 txt-left form-full-width form-panel">
+              <form className="login-form col-xs-12 txt-left form-full-width form-panel" onSubmit={this.handleSubmit}>
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
                     <input ref="name" placeholder="Name" className="input-large" valueLink={this.linkState('name')} />
