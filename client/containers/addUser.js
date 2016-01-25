@@ -3,7 +3,24 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
+import {upsertUser} from '../actions/users'
+
 export const AddUser = React.createClass({
+  handleSubmit(event){
+    event.preventDefault()
+    const dispatch = this.props.dispatch
+    const {name, email, password, repeat} = this.refs
+
+    const data = {
+      name: name.value,
+      email: email.value,
+      password: password.value,
+      repeat: repeat.value
+    }
+
+    dispatch(upsertUser(null, data))
+  },
+
   render () {
     return (
       <div className="page container-fluid">
@@ -11,7 +28,7 @@ export const AddUser = React.createClass({
           <h2 className="col-xs-12 col-sm-6">Add User</h2>
         </div>
 
-        <form className="login-form col-xs-12 txt-left form-full-width form-panel">
+        <form className="login-form col-xs-12 txt-left form-full-width form-panel" onSubmit={this.handleSubmit}>
           <div className="row">
             <div className="col-xs-12 col-sm-6">
               <input ref="name" placeholder="Name" className="input-large" required />

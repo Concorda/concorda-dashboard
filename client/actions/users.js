@@ -71,9 +71,10 @@ export function deleteUser (userId) {
   }
 }
 
-export function getUser (userId) {
+export function getUser (userId, redirectTo) {
   return (dispatch, getState) => {
     let state = getState()
+
     dispatch({type: usersActions.LOAD_USER})
 
     let user = state.users.result.filter(function (user) {
@@ -86,5 +87,67 @@ export function getUser (userId) {
       hasError: false,
       editUser: user
     })
+
+    if(redirectTo){
+      return dispatch(pushPath(redirectTo))
+    }
+  }
+}
+
+export function upsertUser(userId, data){
+  return (dispatch, getState) => {
+    let state = getState()
+    dispatch({type: usersActions.UPSERT_USER_REQUEST})
+
+    if(userId){
+      Request
+        .put('/api/user')
+        .type('form')
+        .send(data)
+        .end((err, resp) => {
+          if (err || !resp.body) {
+            dispatch({
+              type: usersActions.UPDATE_USER_RESPONSE,
+              niceError: 'Can\'t update user',
+              hasError: true,
+              result: null
+            })
+          }
+          else {
+            dispatch({
+              type: usersActions.UPDATE_USER_RESPONSE,
+              niceError: null,
+              hasError: false,
+              result: resp.body.data
+            })
+
+            dispatch(pushPath('/users'))
+          }
+        })
+    } else {
+      Request
+        .post('/api/user')
+        .type('form')
+        .send(data)
+        .end((err, resp) => {
+          if (err || !resp.body) {
+            dispatch({
+              type: usersActions.CREATE_USER_RESPONSE,
+              niceError: 'Can\'t create user',
+              hasError: true,
+              result: null
+            })
+          }
+          else {
+            dispatch({
+              type: usersActions.CREATE_USER_RESPONSE,
+              niceError: null,
+              hasError: false,
+              result: resp.body.data
+            })
+            dispatch(pushPath('/users'))
+          }
+        })
+    }
   }
 }

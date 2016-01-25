@@ -20,7 +20,7 @@ export const Shell = React.createClass({
     const {children, isLoggedIn, isExpanded} = this.props
 
     var styleClass = 'page-wrapper'
-    if (isLoggedIn & isExpanded) {
+    if (isLoggedIn && isExpanded) {
       styleClass = `${styleClass}-expanded`
     }
     if (!isLoggedIn) {

@@ -2,8 +2,10 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
-import {pushPath} from 'redux-simple-router'
-import {getUsers, deleteUser} from '../actions/users'
+import { pushPath } from 'redux-simple-router'
+
+// actions
+import {getUsers, deleteUser, getUser} from '../actions/users'
 
 import Panel from '../components/panel'
 
@@ -16,8 +18,8 @@ export const Users = React.createClass({
     this.props.dispatch(pushPath('user/add'))
   },
 
-  handleEdit (id) {
-    this.props.dispatch(pushPath(`user/${id}/edit`))
+  handleEdit(userId){
+    this.props.dispatch(getUser(userId, `user/${userId}/edit`))
   },
 
   handleDelete (id) {
@@ -45,8 +47,8 @@ export const Users = React.createClass({
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td className="btn-group">
-                    <button onClick={(e) => {this.handleEdit(user.id)}} className="btn btn-small btn-dimmed">Edit</button>
-                    <button onClick={(e) => {this.handleDelete(user.id)}} className="btn btn-small btn-dimmed">Delete</button>
+                    <button onClick={() => {this.handleEdit(user.id)}} className="btn btn-small btn-dimmed">Edit</button>
+                    <button onClick={() => {this.handleDelete(user.id)}} className="btn btn-small btn-dimmed">Delete</button>
                   </td>
                 </tr>
               )
