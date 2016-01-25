@@ -45,8 +45,8 @@ export const Users = React.createClass({
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>
-                    <button onClick={(e) => {this.handleEdit(user.id)}}>Edit</button>
-                    <button onClick={(e) => {this.handleDelete(user.id)}}>Delete</button>
+                    <button onClick={(e) => {this.handleEdit(user.id)}} className="btn">Edit</button>
+                    <button onClick={(e) => {this.handleDelete(user.id)}} className="btn">Delete</button>
                   </td>
                 </tr>
               )
@@ -57,13 +57,13 @@ export const Users = React.createClass({
     }
 
     return (
-      <div className="page container-fluid">
+      <div className="page page-users container-fluid">
         <div className="row middle-xs">
           <h2 className="col-xs-12 col-sm-6">Users</h2>
         </div>
         <Panel title={'User List'}>
           {body}
-          <button onClick={(e) => {this.handleAdd()}}>Add New User</button>
+          <button onClick={(e) => {this.handleAdd()}} className="btn">Add New User</button>
         </Panel>
       </div>
     )
