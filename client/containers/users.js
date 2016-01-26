@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import { pushPath } from 'redux-simple-router'
 
 // actions
-import {getUsers, deleteUser, getUser} from '../actions/users'
+import {getUsers, deleteUser, getUser, closeSession} from '../actions/users'
 
 import Panel from '../components/panel'
 
@@ -24,6 +24,10 @@ export const Users = React.createClass({
 
   handleDelete (id) {
     this.props.dispatch(deleteUser(id))
+  },
+
+  handleCloseSession (id) {
+    this.props.dispatch(closeSession(id))
   },
 
   render () {
@@ -49,6 +53,7 @@ export const Users = React.createClass({
                   <td className="btn-group">
                     <button onClick={() => {this.handleEdit(user.id)}} className="btn btn-small btn-dimmed">Edit</button>
                     <button onClick={() => {this.handleDelete(user.id)}} className="btn btn-small btn-dimmed">Delete</button>
+                    <button onClick={() => {this.handleCloseSession(user.id)}} className="btn btn-small btn-dimmed">Close Session</button>
                   </td>
                 </tr>
               )
