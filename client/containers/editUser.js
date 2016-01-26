@@ -31,6 +31,20 @@ export const EditUser = React.createClass({
     dispatch(upsertUser(userId, data))
   },
 
+  handleChangePassword(event){
+    event.preventDefault()
+
+    const dispatch = this.props.dispatch
+    const {password, repeat} = this.refs
+
+    const data = {
+      password: password.value,
+      repeat: repeat.value
+    }
+    const userId = this.props.params.id || null
+    dispatch(upsertUser(userId, data))
+  },
+
   render () {
     const {editUser} = this.props
 
@@ -55,6 +69,32 @@ export const EditUser = React.createClass({
                 <div className="row">
                   <div className="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                     <button type="submit" className="btn btn-large submit">Submit</button>
+                  </div>
+                </div>
+              </form>
+            )
+          }
+        })()}
+
+        <div className="row middle-xs">
+          <h2 className="col-xs-12 col-sm-6">Change Password</h2>
+        </div>
+
+        {(() => {
+          if (editUser) {
+            return (
+              <form className="login-form col-xs-12 txt-left form-full-width form-panel" onSubmit={this.handleChangePassword}>
+                <div className="row">
+                  <div className="col-xs-12 col-sm-6">
+                    <input ref="password" type="password" placeholder="Password" className="input-large"/>
+                  </div>
+                  <div className="col-xs-12 col-sm-6">
+                    <input ref="repeat" type="password" placeholder="Confirm Password" className="input-large"/>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-lg-4 col-md-6 col-sm-8 col-xs-12">
+                    <button type="submit" className="btn btn-large submit">Change Password</button>
                   </div>
                 </div>
               </form>
