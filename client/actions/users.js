@@ -71,6 +71,37 @@ export function deleteUser (userId) {
   }
 }
 
+export function closeSession (userId) {
+  return (dispatch, getState) => {
+    const state = getState()
+    dispatch({type: usersActions.CLOSE_SESSION_REQUEST})
+
+    Request
+      .post('/api/user/' + userId + '/session/close')
+      .end((err, resp) => {
+        if (resp.unauthorized) {
+          return dispatch(logout())
+        }
+
+        if (err || !resp.body) {
+          return dispatch({
+            type: usersActions.CLOSE_SESSION_RESPONSE,
+            niceError: 'Can\'t close user session',
+            hasError: true,
+            result: null
+          })
+        }
+
+        dispatch({
+          type: usersActions.CLOSE_SESSION_RESPONSE,
+          niceError: null,
+          hasError: false,
+          result: users
+        })
+      })
+  }
+}
+
 export function getUser (userId, redirectTo) {
   return (dispatch, getState) => {
     let state = getState()
