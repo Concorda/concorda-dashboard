@@ -82,6 +82,8 @@ module.exports = function (opts) {
   function closeUserSessions (msg, response) {
     var user_id = msg.req$.params.user_id
 
+    var that = this
+
     if (!user_id) {
       return response('Invalid user selected')
     }
@@ -99,7 +101,15 @@ module.exports = function (opts) {
           return response(err)
         }
 
-        response(null, {err: false, sessions: logins.length})
+        // now I should notify all other apps to logout that user
+        that.act('role: concordaclient, cmd: closeSession', {user_id: user_id}, function(err, data){
+          // do I need to verify err?
+          // nothing to do in case of error
+          if (err){
+            console.log.debug('close session error', err)
+          }
+          response(null, {err: false, sessions: logins.length})
+        })
       })
     })
   }
@@ -130,6 +140,10 @@ module.exports = function (opts) {
       }
     }
   })
+
+  seneca
+    .use('mesh',{base:true})
+    .use('mesh',{auto:true, pin:'role:user'})
 
   return {
     name: options.name
