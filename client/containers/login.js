@@ -21,7 +21,7 @@ export const Login = React.createClass({
     const {dispatch} = this.props
 
     dispatch(login(email.value, pass.value))
-    
+
     email.value = ''
     pass.value = ''
   },
@@ -30,14 +30,22 @@ export const Login = React.createClass({
     const {hasError, niceError} = this.props
     let heading = hasError ? niceError : 'Login'
 
+    let msgClass = 'mt0 has-icon'
+    let iconClass = 'icon icon-signin'
+
+    if (hasError) {
+      msgClass = `mt0 has-icon`
+      iconClass = 'icon icon-signin'
+    }
+
     return (
       <main className="page page-login" role="main">
         <div className="container-fluid">
           <div className="row middle-xs center-xs vertical-center">
             <form className="login-form col-xs-12 col-md-6 col-lg-4 txt-left form-full-width form-panel" onSubmit={this.handleSubmit}>
 
-              <h2 className="mt0 has-icon">
-                <span className='icon icon-signin'></span>
+              <h2 className={msgClass}>
+                <span className={iconClass}></span>
                 <span>{heading}</span>
               </h2>
 
