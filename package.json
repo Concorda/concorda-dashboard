@@ -52,7 +52,7 @@
     "redux-thunk": "1.0.x",
     "seneca-auth": "mirceaalexandru/seneca-auth#hapi-express",
     "seneca-local-auth": "mirceaalexandru/seneca-local-auth",
-    "seneca-user": "0.2.x",
+    "seneca-user": "https://github.com/senecajs/seneca-user.git",
     "seneca-web": "senecajs/seneca-web",
     "style-loader": "0.13.x",
     "superagent": "1.6.x",
