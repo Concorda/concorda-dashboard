@@ -12,7 +12,7 @@ export let AddUser = React.createClass({
   propTypes: {
     handleSubmit: React.PropTypes.func.isRequired
   },
-  handleSubmit(data){
+  createUser(data){
     const dispatch = this.props.dispatch
 
     dispatch(upsertUser(null, data))
@@ -26,25 +26,25 @@ export let AddUser = React.createClass({
           <h2 className="col-xs-12 col-sm-6">Add User</h2>
         </div>
 
-        <form className="login-form col-xs-12 txt-left form-full-width form-panel" onSubmit={handleSubmit(this.handleSubmit)}>
+        <form className="login-form col-xs-12 txt-left form-full-width form-panel" onSubmit={handleSubmit(this.createUser)}>
           <div className="row">
             <div className="col-xs-12 col-sm-6">
               <input type="text" {...name} placeholder="Name" className="input-large"/>
-              {name.error && name.touched && <div>{name.error}</div>}
+              {name.error && name.touched && <div className="form-err">{name.error}</div>}
             </div>
             <div className="col-xs-12 col-sm-6">
               <input type="email" {...email} placeholder="Email" className="input-large"/>
-              {email.error && email.touched && <div>{email.error}</div>}
+              {email.error && email.touched && <div className="form-err">{email.error}</div>}
             </div>
           </div>
           <div className="row">
             <div className="col-xs-12 col-sm-6">
               <input type="password" {...password} placeholder="Password" className="input-large"/>
-              {password.error && password.touched && <div>{password.error}</div>}
+              {password.error && password.touched && <div className="form-err">{password.error}</div>}
             </div>
             <div className="col-xs-12 col-sm-6">
               <input type="password" {...repeat} placeholder="Confirm Password" className="input-large"/>
-              {repeat.error && repeat.touched && <div>{repeat.error}</div>}
+              {repeat.error && repeat.touched && <div className="form-err">{repeat.error}</div>}
             </div>
           </div>
           <div className="row">
