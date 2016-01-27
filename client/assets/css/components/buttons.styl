@@ -39,14 +39,15 @@
 .btn-small
   padding: $ui-spacing-fourth $ui-spacing-third
   
-// Button group
 
-.btn-group
-
-  .btn:not(:last-child)
-    margin-right: $ui-spacing-fourth
-
-@media screen and (max-width: 480px)
+@media screen and (max-width: 30em)
 
   .btn
     width: 100%
+    
+@media screen and (min-width: 49em)
+
+  .btn-group
+
+    .btn:not(:last-child)
+      margin-right: $ui-spacing-fourth
