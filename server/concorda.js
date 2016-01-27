@@ -2,6 +2,7 @@
 
 const _ = require('lodash')
 const Async = require('async')
+var Jsonic = require('jsonic')
 
 module.exports = function (opts) {
   var seneca = this
@@ -12,7 +13,35 @@ module.exports = function (opts) {
   options = _.extend(options, opts || {})
 
   function listUsers (msg, response) {
-    this.make$('sys', 'user').list$({}, function (err, users) {
+    // @ToDo - change msg.req$.query.* to msg.* after seneca-web is published with latest version
+    var limit = msg.req$.query.limit
+    var skip = msg.req$.query.skip
+    var orderBy = msg.req$.query.order
+
+    var q = {}
+
+    if (limit) {
+      q['limit$'] = limit
+    }
+    if (skip) {
+      q['skip$'] = skip
+    }
+
+    if (orderBy) {
+      if (_.isObject(orderBy)) {
+        q['sort$'] = orderBy
+      }
+      else {
+        try {
+          orderBy = orderBy.replace(/%22/g, '\"').replace(/%20/g, ' ')
+          q['sort$'] = Jsonic(orderBy)
+        }
+        catch (e) {
+        }
+      }
+    }
+
+    this.make$('sys', 'user').list$(q, function (err, users) {
       if (err) {
         return response(null, {ok: false, why: err})
       }
@@ -111,7 +140,7 @@ module.exports = function (opts) {
   }
 
   seneca
-    .use('mesh',{auto:true, pin:'role:user'})
+    .use('mesh', {auto: true, pin: 'role: user'})
 
   seneca
     .add({role: options.name, cmd: 'closeSession'}, closeUserSessions)

@@ -82,7 +82,7 @@ suite('Hapi user suite tests ', () => {
     }, (res) => {
       Assert.equal(200, res.statusCode)
 
-      Assert.equal(false, JSON.parse(res.payload).err)
+      Assert.equal(true, JSON.parse(res.payload).ok)
       Assert(JSON.parse(res.payload).data)
       Assert.equal(user2.name, JSON.parse(res.payload).data.name)
 
@@ -92,10 +92,10 @@ suite('Hapi user suite tests ', () => {
     })
   })
 
+  let newName = 'newName'
   test('update another user test', (done) => {
     let url = '/api/user'
 
-    let newName = 'newName'
     user2.name = newName
     server.inject({
       url: url,
@@ -105,9 +105,113 @@ suite('Hapi user suite tests ', () => {
     }, (res) => {
       Assert.equal(200, res.statusCode)
 
-      Assert.equal(false, JSON.parse(res.payload).err)
+      Assert.equal(true, JSON.parse(res.payload).ok)
       Assert(JSON.parse(res.payload).data)
       Assert.equal(newName, JSON.parse(res.payload).data.name)
+
+      done()
+    })
+  })
+
+  test('list user test with name sorted ASC', (done) => {
+    let url = '/api/user?order={name: 1}'
+
+    server.inject({
+      url: url,
+      method: 'GET',
+      headers: { cookie: 'seneca-login=' + cookie }
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert.equal(2, JSON.parse(res.payload).data.length)
+      Assert.equal(2, JSON.parse(res.payload).count)
+
+      Assert.equal(newName, JSON.parse(res.payload).data[0].name)
+
+      done()
+    })
+  })
+
+  test('list user test with name sorted DESC', (done) => {
+    let url = '/api/user?order={name: -1}'
+
+    server.inject({
+      url: url,
+      method: 'GET',
+      headers: { cookie: 'seneca-login=' + cookie }
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert.equal(2, JSON.parse(res.payload).data.length)
+      Assert.equal(2, JSON.parse(res.payload).count)
+
+      Assert.equal(user.name, JSON.parse(res.payload).data[0].name)
+
+      done()
+    })
+  })
+
+  test('list user test with name sorted DESC and limit 1', (done) => {
+    let url = '/api/user?order={name: -1}&limit=1'
+
+    server.inject({
+      url: url,
+      method: 'GET',
+      headers: { cookie: 'seneca-login=' + cookie }
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert.equal(1, JSON.parse(res.payload).data.length)
+      Assert.equal(1, JSON.parse(res.payload).count)
+
+      Assert.equal(user.name, JSON.parse(res.payload).data[0].name)
+
+      done()
+    })
+  })
+
+  test('list user test with name sorted DESC and limit 1 and skip 1', (done) => {
+    let url = '/api/user?order={name: -1}&limit=1&skip=1'
+
+    server.inject({
+      url: url,
+      method: 'GET',
+      headers: { cookie: 'seneca-login=' + cookie }
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert.equal(1, JSON.parse(res.payload).data.length)
+      Assert.equal(1, JSON.parse(res.payload).count)
+
+      Assert.equal(newName, JSON.parse(res.payload).data[0].name)
+
+      done()
+    })
+  })
+
+  test('list user test with name sorted DESC and limit 1 and skip 10', (done) => {
+    let url = '/api/user?order={name: -1}&limit=1&skip=10'
+
+    server.inject({
+      url: url,
+      method: 'GET',
+      headers: { cookie: 'seneca-login=' + cookie }
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert.equal(0, JSON.parse(res.payload).data.length)
+      Assert.equal(0, JSON.parse(res.payload).count)
+
+      done()
+    })
+  })
+
+  test('list user test with name sorted DESC and limit 1 and skip 10', (done) => {
+    let url = '/api/user?order={name: -1}&limit=1&skip=10'
+
+    server.inject({
+      url: url,
+      method: 'GET',
+      headers: { cookie: 'seneca-login=' + cookie }
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      Assert.equal(0, JSON.parse(res.payload).data.length)
+      Assert.equal(0, JSON.parse(res.payload).count)
 
       done()
     })
