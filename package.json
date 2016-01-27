@@ -35,6 +35,7 @@
     "history": "1.17.x",
     "inert": "3.x.x",
     "influx": "4.0.x",
+    "jsonic": "0.2.2",
     "lodash": "3.10.1",
     "material-ui": "0.14.x",
     "moment": "2.11.x",
