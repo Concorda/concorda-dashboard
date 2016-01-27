@@ -14,17 +14,15 @@ module.exports = function (opts) {
   function listUsers (msg, response) {
     this.make$('sys', 'user').list$({}, function (err, users) {
       if (err) {
-        return response(err)
+        return response(null, {ok: false, why: err})
       }
-      if (!users) {
-        return response(null, {err: false, data: []})
-      }
+      users = users || []
 
       for (var i in users) {
         users[i] = users[i].data$(false)
       }
 
-      response(null, {err: false, data: users, count: users.length})
+      response(null, {ok: true, data: users, count: users.length})
     })
   }
 
@@ -33,12 +31,12 @@ module.exports = function (opts) {
 
     this.act('role: user, cmd: register', userData, function (err, result) {
       if (err) {
-        return response(null, {err: true, msg: err})
+        return response(null, {ok: false, why: err})
       }
       if (!result.ok) {
-        return response(null, {err: true, msg: result.why})
+        return response(null, {ok: false, why: result.why})
       }
-      response(null, {err: false, data: result.user})
+      response(null, {ok: true, data: result.user})
     })
   }
 
@@ -47,12 +45,12 @@ module.exports = function (opts) {
 
     this.act('role: user, cmd: update', userData, function (err, result) {
       if (err) {
-        return response(null, {err: true, msg: err})
+        return response(null, {ok: false, why: err})
       }
       if (!result.ok) {
-        return response(null, {err: true, msg: result.why})
+        return response(null, {ok: false, why: result.why})
       }
-      response(null, {err: false, data: result.user})
+      response(null, {ok: true, data: result.user})
     })
   }
 
@@ -61,20 +59,20 @@ module.exports = function (opts) {
 
     this.make$('sys', 'user').load$({id: userId}, function (err, user) {
       if (err) {
-        return response(err)
+        return response({ok: false, why: err})
       }
       if (!user || !user.nick) {
-        return response(null, {err: true, msg: 'No user found'})
+        return response(null, {ok: false, why: 'User not found'})
       }
 
       this.act('role: user, cmd: delete', {nick: user.nick}, function (err, result) {
         if (err) {
-          return response(null, {err: true, msg: err})
+          return response(null, {ok: false, why: err})
         }
         if (!result.ok) {
-          return response(null, {err: true, msg: result.why})
+          return response(null, {ok: false, why: result.why})
         }
-        response(null, {err: false})
+        response(null, {ok: true})
       })
     })
   }
@@ -89,20 +87,20 @@ module.exports = function (opts) {
 
     this.make$('sys', 'login').list$({user: user_id, active: true}, function (err, logins) {
       if (err) {
-        return response(err)
+        return response(null, {ok: false, why: err})
       }
       if (!logins) {
-        return response(null, {err: false, sessions: 0})
+        return response(null, {ok: true, sessions: 0})
       }
 
       Async.each(logins, closeSession, function (err) {
         if (err) {
-          return response(err)
+          return response(null, {ok: false, why: err})
         }
 
         // now I should notify all other apps to logout that user
         that.act('role: concorda, info: logout', {user_id: user_id})
-        response(null, {err: false, sessions: logins.length})
+        response(null, {ok: true, sessions: logins.length})
       })
     })
   }
