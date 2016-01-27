@@ -7,7 +7,7 @@ module.exports = function (opts) {
   var seneca = this
 
   var options = {
-    name: 'concorda'
+    name: 'concorda-server'
   }
   options = _.extend(options, opts || {})
 
@@ -80,7 +80,8 @@ module.exports = function (opts) {
   }
 
   function closeUserSessions (msg, response) {
-    var user_id = msg.req$.params.user_id
+    let user_id = msg.req$.params.user_id
+    let that = this
 
     if (!user_id) {
       return response('Invalid user selected')
@@ -99,6 +100,8 @@ module.exports = function (opts) {
           return response(err)
         }
 
+        // now I should notify all other apps to logout that user
+        that.act('role: concorda, info: logout', {user_id: user_id})
         response(null, {err: false, sessions: logins.length})
       })
     })
@@ -108,6 +111,10 @@ module.exports = function (opts) {
     seneca.log.debug('closing session', session)
     session.remove$(done)
   }
+
+  seneca
+    .use('mesh',{base:true})
+    .use('mesh',{auto:true, pin:'role:user'})
 
   seneca
     .add({role: options.name, cmd: 'closeSession'}, closeUserSessions)
