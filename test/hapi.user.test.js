@@ -82,7 +82,7 @@ suite('Hapi user suite tests ', () => {
     }, (res) => {
       Assert.equal(200, res.statusCode)
 
-      Assert.equal(false, JSON.parse(res.payload).err)
+      Assert.equal(true, JSON.parse(res.payload).ok)
       Assert(JSON.parse(res.payload).data)
       Assert.equal(user2.name, JSON.parse(res.payload).data.name)
 
@@ -105,7 +105,7 @@ suite('Hapi user suite tests ', () => {
     }, (res) => {
       Assert.equal(200, res.statusCode)
 
-      Assert.equal(false, JSON.parse(res.payload).err)
+      Assert.equal(true, JSON.parse(res.payload).ok)
       Assert(JSON.parse(res.payload).data)
       Assert.equal(newName, JSON.parse(res.payload).data.name)
 
