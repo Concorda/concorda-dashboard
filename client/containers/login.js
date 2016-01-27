@@ -30,12 +30,11 @@ export const Login = React.createClass({
     const {hasError, niceError} = this.props
     let heading = hasError ? niceError : 'Login'
 
-    let msgClass = 'mt0 has-icon'
+    let msgClass = 'alert mt0 has-icon'
     let iconClass = 'icon icon-signin'
 
     if (hasError) {
-      msgClass = `mt0 has-icon`
-      iconClass = 'icon icon-signin'
+      msgClass = `mt0 has-icon alert alert-error`
     }
 
     return (
