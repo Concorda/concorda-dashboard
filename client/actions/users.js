@@ -37,8 +37,7 @@ export function getUsers () {
 }
 
 export function deleteUser (userId) {
-  return (dispatch, getState) => {
-    const state = getState()
+  return (dispatch) => {
     dispatch({type: usersActions.DELETE_USER_REQUEST})
 
     Request
@@ -52,21 +51,17 @@ export function deleteUser (userId) {
           return dispatch({
             type: usersActions.DELETE_USER_RESPONSE,
             niceError: 'Can\'t delete user',
-            hasError: true,
-            result: null
+            hasError: true
           })
         }
-
-        var users = state.users.result.filter(function (user) {
-          return user.id != userId
-        })
 
         dispatch({
           type: usersActions.DELETE_USER_RESPONSE,
           niceError: null,
-          hasError: false,
-          result: users
+          hasError: false
         })
+
+        dispatch(getUsers())
       })
   }
 }
@@ -119,18 +114,18 @@ export function getUser (userId, redirectTo) {
       editUser: user
     })
 
-    if(redirectTo){
+    if (redirectTo) {
       return dispatch(pushPath(redirectTo))
     }
   }
 }
 
-export function upsertUser(userId, data){
+export function upsertUser (userId, data) {
   return (dispatch, getState) => {
     let state = getState()
     dispatch({type: usersActions.UPSERT_USER_REQUEST})
 
-    if(userId){
+    if (userId) {
       data.orig_email = state.users.editUser[0].email
       Request
         .put('/api/user')
