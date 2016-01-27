@@ -7,7 +7,7 @@ module.exports = function (opts) {
   var seneca = this
 
   var options = {
-    name: 'concorda-server'
+    name: 'concorda'
   }
   options = _.extend(options, opts || {})
 
@@ -113,7 +113,6 @@ module.exports = function (opts) {
   }
 
   seneca
-    .use('mesh',{base:true})
     .use('mesh',{auto:true, pin:'role:user'})
 
   seneca
