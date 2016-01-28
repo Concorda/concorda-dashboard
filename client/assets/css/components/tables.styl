@@ -4,20 +4,30 @@
 *
 --------------------------------------------------------------------*/
 
-table
-  width: 100%
+.user-list
   overflow-x: scroll
-  border-collapse: collapse
   
-th
-  text-align: left
-  background-color: lighten($gray-lighter, 70%)
-  
-td, th
+.user-list-heading,
+.user-list-row
   padding: $ui-spacing-third
   border-bottom: $ui-border
   
+.user-list-row:last-of-type
+  border: none
+  
+.user-list-heading
+  background-color: lighten($gray-lighter, 70%)
+  
+@media screen and (min-width: 49em)
+
+  .user-list-cell
+    width: calc(100%/3)
+    float: left
+  
 @media screen and (max-width: 48em)
+
+  .user-list-row:nth-child(even)
+    background-color: lighten($gray-lighter, 70%)
 
   table, thead, tbody, th, td, tr
     display: block
@@ -58,14 +68,3 @@ td, th
   	td:nth-of-type(3)
       &:before
         content: "Actions"
-      
-    .btn:nth-of-type(1),
-    .btn:nth-of-type(2)
-      margin-bottom: $ui-spacing-fourth
-      width: calc(50% - 3px)
-      
-    .btn:nth-of-type(1)
-      margin-right: $ui-spacing-fourth
-      
-    .btn:nth-of-type(3)
-      width: 100%

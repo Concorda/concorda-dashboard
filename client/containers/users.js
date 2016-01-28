@@ -36,30 +36,29 @@ export const Users = React.createClass({
 
     if (users) {
       body = (
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
+        <div className="user-list">
+            <div className="user-list-heading cf">
+              <div className="user-list-cell"><h4 className="m0">Name</h4></div>
+              <div className="user-list-cell"><h4 className="m0">Email</h4></div>
+              <div className="user-list-cell"><h4 className="m0">Actions</h4></div>
+            </div>
+
             {users.map((user) => {
               return (
-                <tr key={user.id}>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td className="btn-group">
-                    <button onClick={() => {this.handleEdit(user.id)}} className="btn btn-small btn-dimmed">Edit</button>
-                    <button onClick={() => {this.handleDelete(user.id)}} className="btn btn-small btn-dimmed">Delete</button>
-                    <button onClick={() => {this.handleCloseSession(user.id)}} className="btn btn-small btn-dimmed">Close Session</button>
-                  </td>
-                </tr>
+                <div key={user.id} className="user-list-row cf">
+                  <div className="user-list-cell">{user.name}</div>
+                  <div className="user-list-cell">{user.email}</div>
+                  <div className="user-list-cell">
+                    <ul className="list-unstyled list-inline">
+                      <li><a onClick={() => {this.handleEdit(user.id)}}>Edit</a></li>
+                      <li><a onClick={() => {this.handleDelete(user.id)}}>Delete</a></li>
+                      <li><a onClick={() => {this.handleCloseSession(user.id)}}>Close Session</a></li>
+                    </ul>  
+                  </div>
+                </div>
               )
             })}
-          </tbody>
-        </table>
+        </div>
       )
     }
 
