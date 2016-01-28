@@ -70,9 +70,20 @@ export const Users = React.createClass({
             <button onClick={(e) => {this.handleAdd()}} className="btn">Add User</button>
           </div>
         </div>
+        
+        <div className="row middle-xs">
+          <div className="col-xs-12 col-md-8">
+            <input type="search" className="input-large" placeholder="Find a user" />
+          </div>
+          <div className="col-xs-12 col-md-4 txt-left">
+            <button className="btn btn-primary btn-large btn-search">Search</button>
+          </div>
+        </div>
+        
         <Panel title={'User List'}>
           {body}
         </Panel>
+        
       </div>
     )
   }
