@@ -38,8 +38,8 @@ export const Users = React.createClass({
       body = (
         <div className="user-list">
             <div className="user-list-heading cf row">
-              <div className="col-xs-12 col-md-3"><h4 className="m0">Name <a className="icon icon-ascend"></a><a className="icon icon-descend"></a></h4></div>
-              <div className="col-xs-12 col-md-3"><h4 className="m0">Email <a className="icon icon-ascend"></a><a className="icon icon-descend"></a></h4></div>
+              <div className="col-xs-12 col-md-3"><h4 className="m0">Name</h4></div>
+              <div className="col-xs-12 col-md-3"><h4 className="m0">Email</h4></div>
               <div className="col-xs-12 col-md-6"><h4 className="m0">Actions</h4></div>
             </div>
 
