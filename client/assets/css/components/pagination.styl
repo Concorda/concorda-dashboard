@@ -1,0 +1,35 @@
+/*--------------------------------------------------------------------
+*
+* PAGINATION
+*
+--------------------------------------------------------------------*/
+
+.pagination
+  margin-top: $ui-spacing
+  margin-left: auto
+  margin-right: auto
+  display: inline-block
+  border: $ui-border
+  border-radius: $ui-radius
+  
+  &.list-inline li
+    padding: $ui-spacing-half
+    margin: 0
+    
+  a:not(.page-current):not(.page-unavailable)
+    color: $gray-light
+    
+    &:hover
+      color: $gray
+    
+  .page-current
+    font-weight: $font-weight-bold
+    
+  .page-unavailable
+    color: $gray-lighter
+    cursor: not-allowed
+    
+@media screen and (max-width: 30em)
+
+  .pagination
+    width: 100%

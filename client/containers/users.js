@@ -84,6 +84,16 @@ export const Users = React.createClass({
           {body}
         </Panel>
         
+        <nav role="navigation" className="txt-center">
+          <ul className="list-unstyled list-inline pagination">
+            <li><a href="">Prev</a></li>
+            <li><a href="">1</a></li>
+            <li><a href="" className="page-current">2</a></li>
+            <li><a href="">3</a></li>
+            <li><a href="" className="page-unavailable">Next</a></li>
+          </ul>
+        </nav>
+        
       </div>
     )
   }
