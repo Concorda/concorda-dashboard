@@ -72,8 +72,13 @@ export const Users = React.createClass({
         </div>
         
         <div className="row middle-xs">
-          <div className="col-xs-12 col-md-8">
+          <div className="col-xs-12 col-md-8 search-wrapper">
             <input type="search" className="input-large" placeholder="Find a user" />
+            <ul className="list-unstyled search-dropdown-active">
+              <li><a href="">Item one</a></li>
+              <li><a href="">Item two</a></li>
+              <li><a href="">Item three</a></li>
+            </ul>
           </div>
           <div className="col-xs-12 col-md-4 txt-left">
             <button className="btn btn-primary btn-large btn-search">Search</button>
