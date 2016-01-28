@@ -44,7 +44,7 @@ select
   background-color: white
   
 // Search
-.search-wrapper
+.search-input-wrapper
   position: relative
 
 .search-dropdown
@@ -52,6 +52,7 @@ select
 
 input[type="search"]
   width: 100%
+  box-sizing: border-box
   
 .search-dropdown-active
   position: absolute
@@ -59,7 +60,8 @@ input[type="search"]
   left: $ui-spacing-third
   box-shadow: 0 2px 10px $gray-lighter
   width: 100%
-  display: block
+  //display: block
+  display: none
   z-index: 20
   border: $ui-border
   border-top: 0
@@ -81,7 +83,6 @@ input[type="search"]
 @media screen and (max-width: 30em)
 
   input[type=search]
-    box-sizing: border-box
     margin-bottom: $ui-spacing-third
     
   select,

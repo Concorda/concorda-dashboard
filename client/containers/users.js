@@ -71,8 +71,8 @@ export const Users = React.createClass({
           </div>
         </div>
         
-        <div className="row middle-xs">
-          <div className="col-xs-12 col-md-8 search-wrapper">
+        <div className="row middle-xs search-wrapper">
+          <div className="col-xs-12 col-sm-8 col-md-8 search-input-wrapper">
             <input type="search" className="input-large" placeholder="Find a user" />
             <ul className="list-unstyled search-dropdown-active">
               <li><a href="">Item one</a></li>
@@ -80,7 +80,7 @@ export const Users = React.createClass({
               <li><a href="">Item three</a></li>
             </ul>
           </div>
-          <div className="col-xs-12 col-md-4 txt-left">
+          <div className="col-xs-12 col-sm-4 col-md-4 txt-left">
             <button className="btn btn-primary btn-large btn-search">Search</button>
           </div>
         </div>

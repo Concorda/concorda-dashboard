@@ -9,5 +9,19 @@
   .panel-body
     padding: 0
     
+.search-wrapper
+  margin: $ui-spacing 0
+  
+  *[class^="col"]
+    padding: 0
+    
+@media screen and (min-width: 49em)
+
   .btn-search
-    margin-left: $ui-spacing-half
+    margin-left: $ui-spacing-third
+    
+@media screen and (max-width: 48em)
+
+  .btn-search
+    margin-top: $ui-spacing-third
+    width: 100%
