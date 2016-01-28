@@ -1,10 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="15px" height="10px" viewBox="0 0 15 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-    <!-- Generator: Sketch 3.5.1 (25234) - http://www.bohemiancoding.com/sketch -->
-    <title>Untitled 2</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-        <path d="M14.4352217,8.90508448 L7.72687081,0.738396391 C7.66205582,0.65737766 7.58103709,0.624970168 7.50001836,0.624970168 C7.41899963,0.624970168 7.32177715,0.65737766 7.27316591,0.738396391 L0.564814985,8.90508448 C0.5,8.98610321 0.483796254,9.09952943 0.532407492,9.21295565 C0.581018731,9.31017813 0.678241208,9.37499312 0.791667432,9.37499312 L14.2083693,9.37499312 C14.3217955,9.37499312 14.419018,9.31017813 14.4676292,9.21295565 C14.5162405,9.09952943 14.5000367,8.98610321 14.4352217,8.90508448 L14.4352217,8.90508448 Z" id="ascend" fill="#333333" sketch:type="MSShapeGroup"></path>
-    </g>
-</svg>
+<svg width="15" height="10" viewBox="0 0 15 10" xmlns="http://www.w3.org/2000/svg"><title>Untitled 2</title><path d="M14.435 8.905L7.727.738C7.662.658 7.58.625 7.5.625c-.08 0-.178.032-.227.113L.565 8.905c-.065.08-.08.195-.033.308.05.097.146.162.26.162h13.416c.114 0 .21-.065.26-.162.048-.113.032-.227-.033-.308z" fill="#333" fill-rule="evenodd"/></svg>
