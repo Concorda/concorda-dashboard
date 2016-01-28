@@ -37,18 +37,18 @@ export const Users = React.createClass({
     if (users) {
       body = (
         <div className="user-list">
-            <div className="user-list-heading cf">
-              <div className="user-list-cell"><h4 className="m0">Name</h4></div>
-              <div className="user-list-cell"><h4 className="m0">Email</h4></div>
-              <div className="user-list-cell"><h4 className="m0">Actions</h4></div>
+            <div className="user-list-heading cf row">
+              <div className="col-xs-12 col-md-3"><h4 className="m0">Name</h4></div>
+              <div className="col-xs-12 col-md-3"><h4 className="m0">Email</h4></div>
+              <div className="col-xs-12 col-md-6"><h4 className="m0">Actions</h4></div>
             </div>
 
             {users.map((user) => {
               return (
-                <div key={user.id} className="user-list-row cf">
-                  <div className="user-list-cell">{user.name}</div>
-                  <div className="user-list-cell">{user.email}</div>
-                  <div className="user-list-cell">
+                <div key={user.id} className="user-list-row row cf">
+                  <div className="col-xs-12 col-md-3">{user.name}</div>
+                  <div className="col-xs-12 col-md-3">{user.email}</div>
+                  <div className="col-xs-12 col-md-6">
                     <ul className="list-unstyled list-inline">
                       <li><a onClick={() => {this.handleEdit(user.id)}}>Edit</a></li>
                       <li><a onClick={() => {this.handleDelete(user.id)}}>Delete</a></li>

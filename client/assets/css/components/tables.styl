@@ -18,53 +18,15 @@
 .user-list-heading
   background-color: lighten($gray-lighter, 70%)
   
-@media screen and (min-width: 49em)
-
-  .user-list-cell
-    width: calc(100%/3)
-    float: left
+.user-list-cell
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
   
 @media screen and (max-width: 48em)
 
+  .user-list-heading
+    display: none
+
   .user-list-row:nth-child(even)
     background-color: lighten($gray-lighter, 70%)
-
-  table, thead, tbody, th, td, tr
-    display: block
-    
-  thead tr
-    position: absolute
-    top: -9999px
-    left: -9999px
-  
-  table  
-  
-    td
-      border: none
-      border-bottom: $ui-border
-      position: relative
-      padding-left: 50%
-      
-    tr:last-of-type td
-      border-bottom: none
-      
-    td:before
-      position: absolute
-      top: $ui-spacing-third
-      left: $ui-spacing-half
-      width: 45%
-      padding-right: $ui-spacing-half
-      white-space: nowrap
-      font-weight: bold
-        
-    td:nth-of-type(1)
-      &:before
-        content: "Name"
-      
-  	td:nth-of-type(2)
-      &:before
-        content: "Email"
-      
-  	td:nth-of-type(3)
-      &:before
-        content: "Actions"
