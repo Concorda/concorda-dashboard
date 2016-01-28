@@ -19,17 +19,9 @@ export const Shell = React.createClass({
     const handleToggle = this.handleToggle
     const {children, isLoggedIn, isExpanded} = this.props
 
-    var styleClass = 'page-wrapper'
-    if (isLoggedIn && isExpanded) {
-      styleClass = `${styleClass}-expanded`
-    }
-    if (!isLoggedIn) {
-      styleClass = `${styleClass}-full`
-    }
-
     let sidebar = null
     if (isLoggedIn) {
-      sidebar = <Sidebar isExpanded={isExpanded} onToggle={handleToggle} />
+      sidebar = <Sidebar isExpanded={!isExpanded} onToggle={handleToggle} />
     }
 
 
@@ -37,7 +29,7 @@ export const Shell = React.createClass({
       <div className="shell">
         <Header showProfile={isLoggedIn} />
 
-        <div className={styleClass}>
+        <div className="page-wrapper">
           {sidebar}
           {children}
         </div>

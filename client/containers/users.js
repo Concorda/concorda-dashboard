@@ -64,7 +64,7 @@ export const Users = React.createClass({
 
     return (
       <div className="page page-users container-fluid">
-        <div className="row middle-xs">
+        <div className="row middle-xs page-heading">
           <h2 className="col-xs-4 col-sm-6">Users</h2>
           <div className="col-xs-8 col-sm-6 txt-right">
             <button onClick={(e) => {this.handleAdd()}} className="btn">Add User</button>
