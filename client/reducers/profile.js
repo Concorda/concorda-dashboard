@@ -1,46 +1,41 @@
 'use strict'
 
-import * as authActions from '../constants/auth'
+import * as profileActions from '../constants/profile'
 
-const authState = {
-  isLoggedIn: false,
+const profileState = {
   hasError: false,
   niceError: null,
-  user: null
+  data: null
 }
 
-export default function auth (state = authState, action) {
+export default function profile (state = profileState, action) {
   switch (action.type) {
-    case authActions.LOGIN_REQUEST:
+    case profileActions.GET_PROFILE_REQUEST:
       return Object.assign({}, state, {
-        isLoggedIn: false,
         hasError: false,
         niceError: null,
-        user: null
+        data: null
       })
 
-    case authActions.LOGIN_RESPONSE:
+    case profileActions.GET_PROFILE_RESPONSE:
       return Object.assign({}, state, {
-        isLoggedIn: action.isLoggedIn,
         hasError: action.hasError,
         niceError: action.niceError,
-        user: action.user
+        data: action.data
       })
 
-    case authActions.LOGOUT_REQUEST:
+    case profileActions.UPDATE_PROFILE_REQUEST:
       return Object.assign({}, state, {
-        isLoggedIn: action.isLoggedIn,
         hasError: false,
         niceError: null,
-        user: action.user
+        data: action.data
       })
 
-    case authActions.LOGOUT_RESPONSE:
+    case profileActions.UPDATE_PROFILE_RESPONSE:
       return Object.assign({}, state, {
-        isLoggedIn: action.isLoggedIn,
         hasError: action.hasError,
         niceError: action.niceError,
-        user: action.user
+        data: action.data
       })
 
     default:
