@@ -67,7 +67,7 @@ export const Users = React.createClass({
         <div className="row middle-xs page-heading">
           <h2 className="col-xs-4 col-sm-6">Users</h2>
           <div className="col-xs-8 col-sm-6 txt-right">
-            <button onClick={(e) => {this.handleAdd()}} className="btn">Add User</button>
+            <button onClick={(e) => {this.handleAdd()}} className="btn btn-primary">Add User</button>
           </div>
         </div>
         
@@ -81,7 +81,7 @@ export const Users = React.createClass({
             </ul>
           </div>
           <div className="col-xs-12 col-sm-4 col-md-4 txt-left">
-            <button className="btn btn-primary btn-large btn-search">Search</button>
+            <button className="btn btn-large btn-search">Search</button>
           </div>
         </div>
         
