@@ -4,14 +4,19 @@ import React from 'react'
 import {connect} from 'react-redux'
 import LinkedStateMixin from 'react-addons-linked-state-mixin'
 
-import {upsertUser} from '../actions/users'
+import {upsertUser, getUser} from '../actions/users'
 
 export const EditUser = React.createClass({
   mixins: [LinkedStateMixin],
-  getInitialState: function () {
-    return this.props.editUser || {}
+  getInitialState: function() {
+    return this.props.editUser || 
+      {
+        name: '',
+        email: ''
+      }
   },
   componentDidMount () {
+    this.props.dispatch(getUser(this.props.params.id))
   },
 
   componentWillUnmount () {
@@ -109,6 +114,6 @@ export const EditUser = React.createClass({
 
 export default connect((state) => {
   return {
-    editUser: state.users.editUser ? state.users.editUser[0] : null
+    editUser: state.users.editUser ? state.users.editUser : null
   }
 })(EditUser)

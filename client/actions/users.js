@@ -95,25 +95,34 @@ export function closeSession (userId) {
 }
 
 export function getUser (userId, redirectTo) {
-  return (dispatch, getState) => {
-    let state = getState()
+  return (dispatch) => {
 
-    dispatch({type: usersActions.LOAD_USER})
+    dispatch({type: usersActions.LOAD_USER_REQUEST})
 
-    let user = state.users.result.filter(function (user) {
-      return user.id === userId
-    })
+    Request
+      .get('/api/user/' + userId)
+      .end((err, resp) => {
+        if (err || !resp.body) {
+          dispatch({
+            type: usersActions.LOAD_USER_RESPONSE,
+            niceError: 'Can\'t load user',
+            hasError: true,
+            editUser: null
+          })
+        }
+        else {
+          dispatch({
+            type: usersActions.LOAD_USER_RESPONSE,
+            niceError: null,
+            hasError: false,
+            editUser: resp.body.data
+          })
 
-    dispatch({
-      type: usersActions.LOAD_USER,
-      niceError: null,
-      hasError: false,
-      editUser: user
-    })
-
-    if (redirectTo) {
-      return dispatch(pushPath(redirectTo))
-    }
+          if (redirectTo) {
+            return dispatch(pushPath(redirectTo))
+          }
+        }
+      })
   }
 }
 
