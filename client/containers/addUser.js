@@ -24,7 +24,7 @@ export const AddUser = React.createClass({
   render () {
     return (
       <div className="page container-fluid">
-        <div className="row middle-xs">
+        <div className="row middle-xs page-heading">
           <h2 className="col-xs-12 col-sm-6">Add User</h2>
         </div>
 

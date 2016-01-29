@@ -50,7 +50,7 @@ export const EditUser = React.createClass({
 
     return (
       <div className="page container-fluid">
-        <div className="row middle-xs">
+        <div className="row middle-xs page-heading">
           <h2 className="col-xs-12 col-sm-6">Edit User</h2>
         </div>
 
@@ -93,7 +93,7 @@ export const EditUser = React.createClass({
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-lg-4 col-md-6 col-sm-8 col-xs-12">
+                  <div className="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                     <button type="submit" className="btn btn-large submit">Change Password</button>
                   </div>
                 </div>
