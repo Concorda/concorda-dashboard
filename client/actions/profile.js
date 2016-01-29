@@ -39,14 +39,14 @@ export function getLoggedInUserProfile () {
   }
 }
 
-export function updateUserProfile (userId, data) {
+export function updateUserProfile (data) {
   return (dispatch, getState) => {
     let state = getState()
     dispatch({type: profileActions.UPDATE_PROFILE_REQUEST})
 
-    data.orig_email = state.profile.data.email
+    data.orig_nick = state.profile.data.email
     Request
-      .put('/api/user')
+      .post('/auth/update_user')
       .type('form')
       .send(data)
       .end((err, resp) => {
@@ -66,7 +66,7 @@ export function updateUserProfile (userId, data) {
           data: resp.body.data
         })
 
-        dispatch(pushPath('/profile'))
+        dispatch(getLoggedInUserProfile())
       })
   }
 }

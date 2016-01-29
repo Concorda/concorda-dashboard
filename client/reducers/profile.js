@@ -37,7 +37,7 @@ export default function profile (state = profileState, action) {
         hasError: action.hasError,
         niceError: action.niceError,
         data: action.data,
-        editProfile: !state.editProfile
+        editProfile: false
       })
 
     case profileActions.EDIT_PROFILE:

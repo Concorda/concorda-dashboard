@@ -9,8 +9,11 @@ import {getLoggedInUserProfile, updateUserProfile, editProfile} from '../actions
 export const Profile = React.createClass({
   mixins: [LinkedStateMixin],
 
-  getInitialState: function() {
-    return this.props.profile || {}
+  getInitialState: function () {
+    return this.props.profile || {
+        name: null,
+        email: null
+      }
   },
 
   componentDidMount () {
@@ -29,8 +32,7 @@ export const Profile = React.createClass({
       name: name.value,
       email: email.value
     }
-    const userId = this.props.profile.id || null
-    dispatch(updateUserProfile(userId, data))
+    dispatch(updateUserProfile(data))
   },
 
   handleEditProfile(event){
@@ -39,7 +41,6 @@ export const Profile = React.createClass({
   },
 
   render () {
-    debugger
     const {profile, editProfile} = this.props
     const handleEditProfile = this.handleEditProfile
 
@@ -55,10 +56,11 @@ export const Profile = React.createClass({
               <form className="login-form col-xs-12 txt-left form-full-width form-panel" onSubmit={this.handleSubmit}>
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
-                    <input ref="name" placeholder="Name" className="input-large" valueLink={this.linkState('name')} />
+                    <input ref="name" placeholder="Name" className="input-large" valueLink={this.linkState('name')}/>
                   </div>
                   <div className="col-xs-12 col-sm-6">
-                    <input ref="email" type="email" placeholder="Email" className="input-large" valueLink={this.linkState('email')} />
+                    <input ref="email" type="email" placeholder="Email" className="input-large"
+                           valueLink={this.linkState('email')}/>
                   </div>
                 </div>
                 <div className="row">
@@ -68,7 +70,7 @@ export const Profile = React.createClass({
                 </div>
               </form>
             )
-          } else if(profile) {
+          } else if (profile) {
             return (
               <div className="row middle-xs left-xs">
                 <div className="login-form col-xs-12 col-md-6 col-lg-4 txt-left form-full-width form-panel">
@@ -95,7 +97,6 @@ export const Profile = React.createClass({
 })
 
 export default connect((state) => {
-  debugger
   return {
     profile: state.profile.data,
     editProfile: state.profile.editProfile
