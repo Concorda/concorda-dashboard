@@ -5,7 +5,8 @@ import * as profileActions from '../constants/profile'
 const profileState = {
   hasError: false,
   niceError: null,
-  data: null
+  data: null,
+  editProfile: false
 }
 
 export default function profile (state = profileState, action) {
@@ -35,7 +36,13 @@ export default function profile (state = profileState, action) {
       return Object.assign({}, state, {
         hasError: action.hasError,
         niceError: action.niceError,
-        data: action.data
+        data: action.data,
+        editProfile: !state.editProfile
+      })
+
+    case profileActions.EDIT_PROFILE:
+      return Object.assign({}, state, {
+        editProfile: !state.editProfile
       })
 
     default:

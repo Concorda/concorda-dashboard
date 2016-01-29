@@ -4,14 +4,17 @@ import React from 'react'
 import {connect} from 'react-redux'
 import LinkedStateMixin from 'react-addons-linked-state-mixin'
 
-import {updateUserProfile} from '../actions/profile'
+import {getLoggedInUserProfile, updateUserProfile, editProfile} from '../actions/profile'
 
 export const Profile = React.createClass({
   mixins: [LinkedStateMixin],
+
   getInitialState: function() {
     return this.props.profile || {}
   },
+
   componentDidMount () {
+    this.props.dispatch(getLoggedInUserProfile())
   },
 
   componentWillUnmount () {
@@ -30,17 +33,24 @@ export const Profile = React.createClass({
     dispatch(updateUserProfile(userId, data))
   },
 
+  handleEditProfile(event){
+    event.preventDefault()
+    this.props.dispatch(editProfile())
+  },
+
   render () {
-    const {profile} = this.props
+    debugger
+    const {profile, editProfile} = this.props
+    const handleEditProfile = this.handleEditProfile
 
     return (
-      <div className="page container-fluid">
+      <div className="page page-profile container-fluid">
         <div className="row middle-xs page-heading">
           <h2 className="col-xs-12 col-sm-6">Profile</h2>
         </div>
 
         {(() => {
-          if (profile) {
+          if (editProfile) {
             return (
               <form className="login-form col-xs-12 txt-left form-full-width form-panel" onSubmit={this.handleSubmit}>
                 <div className="row">
@@ -58,6 +68,25 @@ export const Profile = React.createClass({
                 </div>
               </form>
             )
+          } else if(profile) {
+            return (
+              <div className="row middle-xs left-xs">
+                <div className="login-form col-xs-12 col-md-6 col-lg-4 txt-left form-full-width form-panel">
+                  <div className="profile-pic">
+                    <img src="/img/dummy.png"/>
+                  </div>
+                  <div className="row">
+                    <span col-xs-12 col-md-6 col-lg-4>Name:</span>
+                    <span col-xs-12 col-md-6 col-lg-4>{profile.name}</span>
+                  </div>
+                  <div className="row">
+                    <span col-xs-12 col-md-6 col-lg-4>Email:</span>
+                    <span col-xs-12 col-md-6 col-lg-4>{profile.email}</span>
+                  </div>
+                  <button onClick={handleEditProfile} className="btn btn-large submit">Edit</button>
+                </div>
+              </div>
+            )
           }
         })()}
       </div>
@@ -66,7 +95,9 @@ export const Profile = React.createClass({
 })
 
 export default connect((state) => {
+  debugger
   return {
-    profile: state.profile.data
+    profile: state.profile.data,
+    editProfile: state.profile.editProfile
   }
 })(Profile)

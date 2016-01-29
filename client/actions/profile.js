@@ -5,6 +5,12 @@ import { pushPath } from 'redux-simple-router'
 
 import * as profileActions from '../constants/profile'
 
+export function editProfile () {
+  return (dispatch) => {
+    dispatch({type: profileActions.EDIT_PROFILE})
+  }
+}
+
 export function getLoggedInUserProfile () {
   return (dispatch) => {
     dispatch({type: profileActions.GET_PROFILE_REQUEST})
@@ -54,7 +60,7 @@ export function updateUserProfile (userId, data) {
         }
 
         dispatch({
-          type: profileActions.GET_PROFILE_RESPONSE,
+          type: profileActions.UPDATE_PROFILE_RESPONSE,
           niceError: null,
           hasError: false,
           data: resp.body.data
