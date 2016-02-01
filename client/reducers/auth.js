@@ -43,6 +43,16 @@ export default function auth (state = authState, action) {
         user: action.user
       })
 
+    case authActions.CHECK_COOKIE_REQUEST:
+      return Object.assign({}, state, {
+        isLoggedIn: false
+      })
+
+    case authActions.CHECK_COOKIE_RESPONSE:
+      return Object.assign({}, state, {
+        isLoggedIn: action.isLoggedIn
+      })
+
     default:
       return state
   }

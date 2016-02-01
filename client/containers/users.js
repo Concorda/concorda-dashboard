@@ -15,11 +15,11 @@ export const Users = React.createClass({
   },
 
   handleAdd () {
-    this.props.dispatch(pushPath('user/add'))
+    this.props.dispatch(pushPath('/user/add'))
   },
 
   handleEdit(userId){
-    this.props.dispatch(getUser(userId, `user/${userId}/edit`))
+    this.props.dispatch(getUser(userId, `/user/${userId}/edit`))
   },
 
   handleDelete (id) {
