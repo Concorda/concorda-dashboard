@@ -5,6 +5,37 @@ import { pushPath } from 'redux-simple-router'
 
 import * as authActions from '../constants/auth'
 
+export function validateCookie (redirectUrl) {
+  return (dispatch) => {
+    dispatch({type: authActions.CHECK_COOKIE_REQUEST})
+
+    Request
+      .get('/auth/user')
+      .end((err, resp) => {
+        if (err && err.status === 401 || !resp.body.ok) {
+          dispatch({
+            type: authActions.CHECK_COOKIE_RESPONSE,
+            niceError: 'User not authenticated',
+            hasError: true
+          })
+
+          return dispatch(pushPath('/login'))
+        }
+
+        dispatch({
+          type: authActions.CHECK_COOKIE_RESPONSE,
+          hasError: false
+        })
+
+        if(redirectUrl){
+          return dispatch(pushPath(redirectUrl))
+        }
+
+        dispatch(pushPath('/'))
+      })
+  }
+}
+
 export function login (user, pass) {
   return (dispatch) => {
     dispatch({type: authActions.LOGIN_REQUEST})
@@ -33,8 +64,8 @@ export function login (user, pass) {
 
         dispatch(pushPath('/'))
       })
-    }
   }
+}
 
 export function logout () {
   return (dispatch) => {
