@@ -6,7 +6,8 @@
   "contributors": [
     "Mihai Dima",
     "Mircea Alexandru (http://alexandrumircea.ro/)",
-    "Cristian Kiss"
+    "Cristian Kiss",
+    "Karolina Szczur (http://thefox.is)"
   ],
   "main": "./server/start.js",
   "license": "MIT",
