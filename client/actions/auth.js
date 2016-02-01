@@ -15,8 +15,7 @@ export function validateCookie (redirectUrl) {
         if (err && err.status === 401 || !resp.body.ok) {
           dispatch({
             type: authActions.CHECK_COOKIE_RESPONSE,
-            niceError: 'User not authenticated',
-            hasError: true
+            isLoggedIn: false
           })
 
           return dispatch(pushPath('/login'))
@@ -24,7 +23,7 @@ export function validateCookie (redirectUrl) {
 
         dispatch({
           type: authActions.CHECK_COOKIE_RESPONSE,
-          hasError: false
+          isLoggedIn: true
         })
 
         if(redirectUrl){

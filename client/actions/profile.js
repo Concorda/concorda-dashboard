@@ -4,6 +4,7 @@ import Request from 'superagent/lib/client'
 import { pushPath } from 'redux-simple-router'
 
 import * as profileActions from '../constants/profile'
+import * as authActions from '../constants/auth'
 
 export function editProfile () {
   return (dispatch) => {
@@ -19,6 +20,14 @@ export function getLoggedInUserProfile () {
       .get('/auth/user')
       .end((err, resp) => {
         if (err || !resp.body.ok) {
+          if (err && err.status === 401){
+            dispatch({
+              type: authActions.CHECK_COOKIE_RESPONSE,
+              isLoggedIn: false
+            })
+            return dispatch(pushPath('/login'))
+          }
+
           return dispatch({
             type: profileActions.GET_PROFILE_RESPONSE,
             niceError: 'Can\'t get profile data',
