@@ -71,6 +71,30 @@ suite('Hapi user suite tests ', () => {
     })
   })
 
+  test('load user', (done) => {
+    let url = '/api/user'
+
+    server.inject({
+      url: url,
+      method: 'GET',
+      headers: { cookie: 'seneca-login=' + cookie }
+    }, function (res) {
+      Assert.equal(200, res.statusCode)
+      const userId = JSON.parse(res.payload).data[0].id
+
+      let url = '/api/user/' + userId
+      server.inject({
+        url: url,
+        method: 'GET',
+        headers: { cookie: 'seneca-login=' + cookie }
+      }, function (res) {
+        Assert.equal(200, res.statusCode)
+        Assert.equal(userId, JSON.parse(res.payload).data.id)
+        done()
+      })
+    })
+  })
+
   test('register another user test', (done) => {
     let url = '/api/user'
 

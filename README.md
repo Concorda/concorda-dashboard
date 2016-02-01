@@ -47,6 +47,7 @@ in a different terminal.
  ---------|------------------------------------|--------------------------------------
  POST     | /api/user/{user_id}/session/close  | Close sessions for selected user
  GET      | /api/user                          | Get list of users
+ GET      | /api/user/user_id                  | Load user by id
  POST     | /api/user                          | Create an user, different from the one logged in
  PUT      | /api/user                          | Update an user, different from the one logged in
  DELETE   | /api/user/{user_id}                | Delete an user

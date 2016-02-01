@@ -55,6 +55,21 @@ module.exports = function (opts) {
     })
   }
 
+  function loadUser (msg, response) {
+    var userId = msg.userId
+
+    this.make$('sys', 'user').load$({id: userId}, function (err, user) {
+      if (err) {
+        return response(null, {ok: false, why: err})
+      }
+      user = user || {}
+
+      user = user.data$(false)
+
+      response(null, {ok: true, data: user})
+    })
+  }
+
   function createUser (msg, response) {
     var userData = msg.data
 
@@ -145,6 +160,7 @@ module.exports = function (opts) {
   seneca
     .add({role: options.name, cmd: 'closeSession'}, closeUserSessions)
     .add({role: options.name, cmd: 'listUsers'}, listUsers)
+    .add({role: options.name, cmd: 'loadUser'}, loadUser)
     .add({role: options.name, cmd: 'createUser'}, createUser)
     .add({role: options.name, cmd: 'updateUser'}, updateUser)
     .add({role: options.name, cmd: 'deleteUser'}, deleteUser)
@@ -157,6 +173,7 @@ module.exports = function (opts) {
       map: {
         closeSession: {POST: true, alias: 'user/{user_id}/session/close'},
         listUsers: {GET: true, alias: 'user'},
+        loadUser: {GET: true, alias: 'user/{userId}'},
         createUser: {POST: true, data: true, alias: 'user'},
         updateUser: {PUT: true, data: true, alias: 'user'},
         deleteUser: {DELETE: true, alias: 'user/{userId}'}
