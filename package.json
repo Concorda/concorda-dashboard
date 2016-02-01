@@ -50,6 +50,7 @@
     "react-router": "1.0.x",
     "react-tap-event-plugin": "0.2.x",
     "redux": "3.0.x",
+    "redux-form": "4.1.5",
     "redux-logger": "2.3.x",
     "redux-simple-router": "1.0.x",
     "redux-thunk": "1.0.x",
