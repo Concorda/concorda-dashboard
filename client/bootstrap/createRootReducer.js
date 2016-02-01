@@ -6,6 +6,7 @@ import {routeReducer} from 'redux-simple-router'
 import authReducer from '../reducers/auth'
 import sidebarReducer from '../reducers/sidebar'
 import usersReducer from '../reducers/users'
+import profileReducer from '../reducers/profile'
 import {reducer as formReducer} from 'redux-form'
 
 export default function createRootReducer () {
@@ -14,6 +15,7 @@ export default function createRootReducer () {
     form: formReducer,
     auth: authReducer,
     sidebar: sidebarReducer,
-    users: usersReducer
+    users: usersReducer,
+    profile: profileReducer
   })
 }
