@@ -67,8 +67,7 @@ export function deleteUser (userId) {
 }
 
 export function closeSession (userId) {
-  return (dispatch, getState) => {
-    const state = getState()
+  return (dispatch) => {
     dispatch({type: usersActions.CLOSE_SESSION_REQUEST})
 
     Request
@@ -82,16 +81,14 @@ export function closeSession (userId) {
           return dispatch({
             type: usersActions.CLOSE_SESSION_RESPONSE,
             niceError: 'Can\'t close user session',
-            hasError: true,
-            result: null
+            hasError: true
           })
         }
 
         dispatch({
           type: usersActions.CLOSE_SESSION_RESPONSE,
           niceError: null,
-          hasError: false,
-          result: users
+          hasError: false
         })
       })
   }
@@ -104,7 +101,7 @@ export function getUser (userId, redirectTo) {
     dispatch({type: usersActions.LOAD_USER})
 
     let user = state.users.result.filter(function (user) {
-      return user.id == userId
+      return user.id === userId
     })
 
     dispatch({
@@ -151,7 +148,8 @@ export function upsertUser (userId, data) {
             dispatch(pushPath('/users'))
           }
         })
-    } else {
+    }
+    else {
       Request
         .post('/api/user')
         .type('form')

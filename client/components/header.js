@@ -5,14 +5,15 @@ import {Link} from 'react-router'
 
 export default React.createClass({
   render () {
+    const handleEditUserProfile = this.props.handleEditUserProfile
     let profile = (
       <div className="col-xs-4 col-sm-6 txt-right">
         <ul className="list-unstyled list-inline">
           <li>
-            <Link to={'/profile'} className="has-icon has-icon-profile">
+            <a onClick={() => { handleEditUserProfile() }} className="has-icon has-icon-profile">
               <span className="icon icon-profile"></span>
               <span>Profile</span>
-              </Link>
+            </a>
           </li>
           <li>
             <Link to={'/logout'} className="has-icon has-icon-signout">

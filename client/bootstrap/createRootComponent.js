@@ -1,12 +1,11 @@
 'use strict'
 
-import React from 'react'
 import {Provider} from 'react-redux'
 import {createHistory} from 'history'
 import {syncReduxAndRouter} from 'redux-simple-router'
 import {Router, Route, IndexRoute} from 'react-router'
 
-import {logout} from '../actions/auth'
+import {logout, validateCookie} from '../actions/auth'
 import Shell from '../containers/shell'
 import Login from '../containers/login'
 import Overview from '../containers/overview'
@@ -18,14 +17,10 @@ import Profile from '../containers/profile'
 export default function createRootComponent (store) {
   const history = createHistory()
 
-  function requireAuth (nextState, replaceState) {
-    const state = store.getState()
-    const isLoggedIn = state.auth.isLoggedIn
+  function requireAuth (nextState) {
     const nextPath = nextState.location.pathname
 
-    if (!isLoggedIn) {
-      replaceState({nextPathname: nextPath}, '/login')
-    }
+    store.dispatch(validateCookie(nextPath))
   }
 
   function handleLogout (nextState, replaceState) {

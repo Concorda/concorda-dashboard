@@ -8,11 +8,16 @@ import Footer from '../components/footer'
 import Sidebar from '../components/sidebar'
 
 import {toggleSidebar} from '../actions/sidebar'
+import {getLoggedInUserProfile} from '../actions/profile'
 
 export const Shell = React.createClass({
   handleToggle (event) {
     event.preventDefault()
     this.props.dispatch(toggleSidebar())
+  },
+
+  handleEditUserProfile () {
+    this.props.dispatch(getLoggedInUserProfile())
   },
 
   render () {
@@ -24,10 +29,9 @@ export const Shell = React.createClass({
       sidebar = <Sidebar isExpanded={!isExpanded} onToggle={handleToggle} />
     }
 
-
     return (
       <div className="shell">
-        <Header showProfile={isLoggedIn} />
+        <Header showProfile={isLoggedIn} handleEditUserProfile={this.handleEditUserProfile} />
 
         <div className="page-wrapper">
           {sidebar}
@@ -41,7 +45,6 @@ export const Shell = React.createClass({
 })
 
 export default connect((state) => {
-
   return {
     isLoggedIn: state.auth.isLoggedIn,
     isExpanded: state.sidebar.isExpanded
