@@ -3,6 +3,7 @@
 var User = require('seneca-user')
 var Auth = require('seneca-auth')
 var AuthLocal = require('seneca-local-auth')
+var AuthGoogle = require('seneca-google-auth')
 var Concorda = require('./concorda')
 var Lodash = require('lodash')
 
@@ -16,8 +17,24 @@ module.exports = function (server, options, next) {
   seneca.use(Concorda)
 
   // Local auth should come built in and preconfigured
-  seneca.use(Auth, {restrict: '/api'})
+  seneca.use(Auth, {
+    restrict: '/api'
+    //redirect:{
+    //  login: {
+    //    always: true,
+    //    win:  '/',
+    //    fail: '/login'
+    //  }
+    //}
+  })
   seneca.use(AuthLocal)
+  seneca.use(AuthGoogle, {
+    provider: 'google',
+    password: '',
+    clientId: '',
+    clientSecret: '',
+    isSecure: false
+  })
 
   // Should read from options too, should happen in Concorda
   var admin = {
