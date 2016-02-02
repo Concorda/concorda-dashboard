@@ -47,7 +47,35 @@ export function login (user, pass) {
         if (err || !resp.body.ok) {
           return dispatch({
             type: authActions.LOGIN_RESPONSE,
-            niceError: 'Wrong username or password, try again',
+            niceError: 'Wrong username or password',
+            hasError: true,
+            isLoggedIn: false
+          })
+        }
+
+        window.localStorage.setItem('isLoggedIn', true)
+
+        dispatch({
+          type: authActions.LOGIN_RESPONSE,
+          isLoggedIn: true,
+          hasError: false
+        })
+
+        dispatch(pushPath('/'))
+      })
+  }
+}
+
+export function login_google () {
+  return (dispatch) => {
+
+    Request
+      .post('/auth/login_google')
+      .end((err, resp) => {
+        if (err || !resp.body.ok) {
+          return dispatch({
+            type: authActions.LOGIN_RESPONSE,
+            niceError: 'Authorization failed',
             hasError: true,
             isLoggedIn: false
           })
