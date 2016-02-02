@@ -10,7 +10,7 @@ export default React.createClass({
       <div className="col-xs-4 col-sm-6 txt-right">
         <ul className="list-unstyled list-inline">
           <li>
-            <a onClick={() => {handleEditUserProfile()}} className="has-icon has-icon-profile">
+            <a onClick={() => { handleEditUserProfile() }} className="has-icon has-icon-profile">
               <span className="icon icon-profile"></span>
               <span>Profile</span>
             </a>

@@ -10,7 +10,8 @@ export const Profile = React.createClass({
   mixins: [LinkedStateMixin],
 
   getInitialState: function () {
-    return this.props.profile || {
+    return this.props.profile ||
+      {
         name: null,
         email: null
       }
@@ -23,7 +24,7 @@ export const Profile = React.createClass({
   componentWillUnmount () {
   },
 
-  handleSubmit(event){
+  handleSubmit (event) {
     event.preventDefault()
     const dispatch = this.props.dispatch
     const {name, email} = this.refs
@@ -35,7 +36,7 @@ export const Profile = React.createClass({
     dispatch(updateUserProfile(data))
   },
 
-  handleEditProfile(event){
+  handleEditProfile (event) {
     event.preventDefault()
     this.props.dispatch(editProfile())
   },
@@ -70,7 +71,8 @@ export const Profile = React.createClass({
                 </div>
               </form>
             )
-          } else if (profile) {
+          }
+          else if (profile) {
             return (
               <div className="row middle-xs left-xs">
                 <div className="login-form col-xs-12 col-md-6 col-lg-4 txt-left form-full-width form-panel">

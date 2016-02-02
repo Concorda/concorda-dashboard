@@ -4,12 +4,11 @@ import React from 'react'
 import {connect} from 'react-redux'
 import LinkedStateMixin from 'react-addons-linked-state-mixin'
 
-import {toggleSidebar} from '../actions/sidebar'
 import {upsertUser} from '../actions/users'
 
 export const EditUser = React.createClass({
   mixins: [LinkedStateMixin],
-  getInitialState: function() {
+  getInitialState: function () {
     return this.props.editUser || {}
   },
   componentDidMount () {
@@ -18,7 +17,7 @@ export const EditUser = React.createClass({
   componentWillUnmount () {
   },
 
-  handleSubmit(event){
+  handleSubmit (event) {
     event.preventDefault()
     const dispatch = this.props.dispatch
     const {name, email} = this.refs
@@ -31,7 +30,7 @@ export const EditUser = React.createClass({
     dispatch(upsertUser(userId, data))
   },
 
-  handleChangePassword(event){
+  handleChangePassword (event) {
     event.preventDefault()
 
     const dispatch = this.props.dispatch
@@ -60,10 +59,11 @@ export const EditUser = React.createClass({
               <form className="login-form col-xs-12 txt-left form-full-width form-panel" onSubmit={this.handleSubmit}>
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
-                    <input ref="name" placeholder="Name" className="input-large" valueLink={this.linkState('name')} />
+                    <input ref="name" placeholder="Name" className="input-large" valueLink={this.linkState('name')}/>
                   </div>
                   <div className="col-xs-12 col-sm-6">
-                    <input ref="email" type="email" placeholder="Email" className="input-large" valueLink={this.linkState('email')} />
+                    <input ref="email" type="email" placeholder="Email" className="input-large"
+                           valueLink={this.linkState('email')}/>
                   </div>
                 </div>
                 <div className="row">
@@ -83,7 +83,8 @@ export const EditUser = React.createClass({
         {(() => {
           if (editUser) {
             return (
-              <form className="login-form col-xs-12 txt-left form-full-width form-panel" onSubmit={this.handleChangePassword}>
+              <form className="login-form col-xs-12 txt-left form-full-width form-panel"
+                    onSubmit={this.handleChangePassword}>
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
                     <input ref="password" type="password" placeholder="Password" className="input-large"/>

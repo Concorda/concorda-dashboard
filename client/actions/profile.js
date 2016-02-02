@@ -20,7 +20,7 @@ export function getLoggedInUserProfile () {
       .get('/auth/user')
       .end((err, resp) => {
         if (err || !resp.body.ok) {
-          if (err && err.status === 401){
+          if (err && err.status === 401) {
             dispatch({
               type: authActions.CHECK_COOKIE_RESPONSE,
               isLoggedIn: false

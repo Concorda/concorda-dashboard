@@ -2,7 +2,7 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
-import {reduxForm} from 'redux-form';
+import {reduxForm} from 'redux-form'
 
 import {upsertUser} from '../actions/users'
 
@@ -12,21 +12,22 @@ export let AddUser = React.createClass({
   propTypes: {
     handleSubmit: React.PropTypes.func.isRequired
   },
-  createUser(data){
+  createUser (data) {
     const dispatch = this.props.dispatch
 
     dispatch(upsertUser(null, data))
   },
 
   render () {
-    const { fields: {name, email, password, repeat}, handleSubmit } = this.props;
+    const { fields: {name, email, password, repeat}, handleSubmit } = this.props
     return (
       <div className="page container-fluid">
         <div className="row middle-xs page-heading">
           <h2 className="col-xs-12 col-sm-6">Add User</h2>
         </div>
 
-        <form className="login-form col-xs-12 txt-left form-full-width form-panel" onSubmit={handleSubmit(this.createUser)}>
+        <form className="login-form col-xs-12 txt-left form-full-width form-panel"
+              onSubmit={handleSubmit(this.createUser)}>
           <div className="row">
             <div className="col-xs-12 col-sm-6">
               <input type="text" {...name} placeholder="Name" className="input-large"/>
@@ -65,7 +66,5 @@ AddUser = reduxForm({
 })(AddUser)
 
 export default connect((state, ownProps) => {
-  return {
-
-  }
+  return {}
 })(AddUser)

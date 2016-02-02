@@ -26,7 +26,7 @@ export function validateCookie (redirectUrl) {
           isLoggedIn: true
         })
 
-        if(redirectUrl){
+        if (redirectUrl) {
           return dispatch(pushPath(redirectUrl))
         }
 
