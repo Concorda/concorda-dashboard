@@ -16,7 +16,7 @@ export const Shell = React.createClass({
     this.props.dispatch(toggleSidebar())
   },
 
-  handleEditUserProfile(){
+  handleEditUserProfile () {
     this.props.dispatch(getLoggedInUserProfile())
   },
 
@@ -28,7 +28,6 @@ export const Shell = React.createClass({
     if (isLoggedIn) {
       sidebar = <Sidebar isExpanded={!isExpanded} onToggle={handleToggle} />
     }
-
 
     return (
       <div className="shell">
@@ -46,7 +45,6 @@ export const Shell = React.createClass({
 })
 
 export default connect((state) => {
-
   return {
     isLoggedIn: state.auth.isLoggedIn,
     isExpanded: state.sidebar.isExpanded

@@ -3,11 +3,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {login} from '../actions/auth'
-import {pushPath} from 'redux-simple-router'
 
 export const Login = React.createClass({
-  componentDidMount() {
-  },
+  componentDidMount () {},
 
   handleSubmit (event) {
     event.preventDefault()
