@@ -56,7 +56,7 @@ export const Login = React.createClass({
               <input ref="email" type="email" placeholder="Email" className="input-large" required />
               <input ref="pass" type="password" placeholder="Password" className="input-large" required />
               <button type="submit" className="btn btn-large submit" onClick={this.do_login}>Submit</button>
-              <button type="submit" className="btn btn-large submit" onClick={this.do_login_google}>Google</button>
+              <a href="/auth/login_google">Google</a>
             </form>
           </div>
         </div>
