@@ -30,7 +30,7 @@ function endIfErr (err) {
 }
 
 // Create our server.
-var server = new Hapi.Server()
+var server = new Hapi.Server({ debug: { request: ['error'] } })
 server.connection({port: opts.server.port})
 
 // Declare our Hapi plugin list.
