@@ -19,10 +19,6 @@ export const Login = React.createClass({
     pass.value = ''
   },
 
-  handleGoogleLogin () {
-    this.props.dispatch(googleLogin())
-  },
-
   render () {
     const {hasError, niceError} = this.props
     let heading = hasError ? niceError : 'Login'
@@ -48,7 +44,6 @@ export const Login = React.createClass({
               <input ref="email" type="email" placeholder="Email" className="input-large" required />
               <input ref="pass" type="password" placeholder="Password" className="input-large" required />
               <button type="submit" className="btn btn-large submit">Submit</button>
-              <a onClick={() => {this.handleGoogleLogin()}}>Login using Google</a>
             </form>
           </div>
         </div>
