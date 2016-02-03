@@ -44,7 +44,7 @@ export function login (user, pass) {
       .type('form')
       .send({username: user, password: pass})
       .end((err, resp) => {
-        if (err || !resp.body.ok) {
+        if (resp.unauthorized) {
           return dispatch({
             type: authActions.LOGIN_RESPONSE,
             niceError: 'Wrong username or password',
@@ -52,35 +52,6 @@ export function login (user, pass) {
             isLoggedIn: false
           })
         }
-
-        window.localStorage.setItem('isLoggedIn', true)
-
-        dispatch({
-          type: authActions.LOGIN_RESPONSE,
-          isLoggedIn: true,
-          hasError: false
-        })
-
-        dispatch(pushPath('/'))
-      })
-  }
-}
-
-export function login_google () {
-  return (dispatch) => {
-
-    Request
-      .post('/auth/login_google')
-      .end((err, resp) => {
-        if (err || !resp.body.ok) {
-          return dispatch({
-            type: authActions.LOGIN_RESPONSE,
-            niceError: 'Authorization failed',
-            hasError: true,
-            isLoggedIn: false
-          })
-        }
-
         window.localStorage.setItem('isLoggedIn', true)
 
         dispatch({
