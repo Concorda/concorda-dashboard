@@ -3,17 +3,14 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {reduxForm} from 'redux-form'
+import _ from 'lodash'
 
 import {upsertUser, getUser} from '../actions/users'
 import {validateEditUser} from '../bootstrap/validations'
 
-export const fields = ['name', 'email', 'password', 'repeat'];
-
 export let EditUser = React.createClass({
   propTypes: {
-    fields: React.PropTypes.func.isRequired,
-    load: React.PropTypes.func.isRequired,
-    submitting: React.PropTypes.func.isRequired,
+    fields: React.PropTypes.object.isRequired,
     handleSubmit: React.PropTypes.func.isRequired
   },
   componentDidMount () {
@@ -25,37 +22,20 @@ export let EditUser = React.createClass({
 
   updateUser (data) {
     const dispatch = this.props.dispatch
-    const {name, email} = this.refs
-
-    /*const data = {
-      name: name.value,
-      email: email.value
-    }*/
     const userId = this.props.params.id || null
+    data = _(data).omit(_.isUndefined).omit(_.isNull).value();
     dispatch(upsertUser(userId, data))
   },
 
   changePass (data) {
     const dispatch = this.props.dispatch
-    const {password, repeat} = this.refs
-
-  /*  const data = {
-      password: password.value,
-      repeat: repeat.value
-    }*/
     const userId = this.props.params.id || null
     dispatch(upsertUser(userId, data))
   },
 
   render () {
-    debugger
-    const { fields: {name, email, password, repeat}, handleSubmit, load } = this.props
+    const { fields: {name, email, password, repeat}, handleSubmit } = this.props
     const {editUser} = this.props
-
-    if (editUser) {
-      debugger
-      load(editUser)
-    }
 
     return (
       <div className="page container-fluid">
@@ -126,11 +106,9 @@ EditUser = reduxForm({
     fields: ['name', 'email', 'password', 'repeat'],
     validate: validateEditUser
   },
-  state => ({ // mapStateToProps
+  state => ({
     initialValues: state.users.editUser ? state.users.editUser : null
-  }),{
-    load: getUser
-  })(EditUser)
+  }))(EditUser)
 
 export default connect((state) => {
   return {
