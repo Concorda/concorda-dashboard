@@ -2,49 +2,39 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
-import LinkedStateMixin from 'react-addons-linked-state-mixin'
+import {reduxForm} from 'redux-form'
+import _ from 'lodash'
 
-import {upsertUser} from '../actions/users'
+import {upsertUser, getUser} from '../actions/users'
+import {validateEditUser} from '../bootstrap/validations'
 
-export const EditUser = React.createClass({
-  mixins: [LinkedStateMixin],
-  getInitialState: function () {
-    return this.props.editUser || {}
+export let EditUser = React.createClass({
+  propTypes: {
+    fields: React.PropTypes.object.isRequired,
+    handleSubmit: React.PropTypes.func.isRequired
   },
   componentDidMount () {
+    this.props.dispatch(getUser(this.props.params.id))
   },
 
   componentWillUnmount () {
   },
 
-  handleSubmit (event) {
-    event.preventDefault()
+  updateUser (data) {
     const dispatch = this.props.dispatch
-    const {name, email} = this.refs
-
-    const data = {
-      name: name.value,
-      email: email.value
-    }
     const userId = this.props.params.id || null
+    data = _(data).omit(_.isUndefined).omit(_.isNull).value();
     dispatch(upsertUser(userId, data))
   },
 
-  handleChangePassword (event) {
-    event.preventDefault()
-
+  changePass (data) {
     const dispatch = this.props.dispatch
-    const {password, repeat} = this.refs
-
-    const data = {
-      password: password.value,
-      repeat: repeat.value
-    }
     const userId = this.props.params.id || null
     dispatch(upsertUser(userId, data))
   },
 
   render () {
+    const { fields: {name, email, password, repeat}, handleSubmit } = this.props
     const {editUser} = this.props
 
     return (
@@ -56,19 +46,21 @@ export const EditUser = React.createClass({
         {(() => {
           if (editUser) {
             return (
-              <form className="login-form col-xs-12 txt-left form-full-width form-panel" onSubmit={this.handleSubmit}>
+              <form className="login-form col-xs-12 txt-left form-full-width form-panel"
+                    onSubmit={handleSubmit(this.updateUser)}>
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
-                    <input ref="name" placeholder="Name" className="input-large" valueLink={this.linkState('name')}/>
+                    <input {...name} placeholder="Name" className="input-large"/>
+                    {name.error && name.touched && <div className="form-err">{name.error}</div>}
                   </div>
                   <div className="col-xs-12 col-sm-6">
-                    <input ref="email" type="email" placeholder="Email" className="input-large"
-                           valueLink={this.linkState('email')}/>
+                    <input type="email" {...email} placeholder="Email" className="input-large"/>
+                    {email.error && email.touched && <div className="form-err">{email.error}</div>}
                   </div>
                 </div>
                 <div className="row">
                   <div className="col-lg-2 col-md-4 col-sm-6 col-xs-12">
-                    <button type="submit" className="btn btn-large submit">Submit</button>
+                    <button type="submit" className="btn btn-large submit">Save</button>
                   </div>
                 </div>
               </form>
@@ -84,13 +76,15 @@ export const EditUser = React.createClass({
           if (editUser) {
             return (
               <form className="login-form col-xs-12 txt-left form-full-width form-panel"
-                    onSubmit={this.handleChangePassword}>
+                    onSubmit={handleSubmit(this.changePass)}>
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
-                    <input ref="password" type="password" placeholder="Password" className="input-large"/>
+                    <input type="password" {...password} placeholder="Password" className="input-large"/>
+                    {password.error && password.touched && <div className="form-err">{password.error}</div>}
                   </div>
                   <div className="col-xs-12 col-sm-6">
-                    <input ref="repeat" type="password" placeholder="Confirm Password" className="input-large"/>
+                    <input type="password" {...repeat} placeholder="Confirm Password" className="input-large"/>
+                    {repeat.error && repeat.touched && <div className="form-err">{repeat.error}</div>}
                   </div>
                 </div>
                 <div className="row">
@@ -107,8 +101,17 @@ export const EditUser = React.createClass({
   }
 })
 
+EditUser = reduxForm({
+    form: 'editUser',
+    fields: ['name', 'email', 'password', 'repeat'],
+    validate: validateEditUser
+  },
+  state => ({
+    initialValues: state.users.editUser ? state.users.editUser : null
+  }))(EditUser)
+
 export default connect((state) => {
   return {
-    editUser: state.users.editUser ? state.users.editUser[0] : null
+    editUser: state.users.editUser ? state.users.editUser : null
   }
 })(EditUser)

@@ -49,7 +49,16 @@ export default function users (state = usersState, action) {
         result: action.result
       })
 
-    case usersActions.LOAD_USER:
+    case usersActions.LOAD_USER_REQUEST:
+      return Object.assign({}, state, {
+        isRemovingUser: false,
+        isGettingUsers: false,
+        niceError: null,
+        hasError: false,
+        editUser: null
+      })
+
+    case usersActions.LOAD_USER_RESPONSE:
       return Object.assign({}, state, {
         isRemovingUser: false,
         isGettingUsers: false,

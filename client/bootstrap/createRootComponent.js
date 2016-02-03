@@ -24,7 +24,7 @@ export default function createRootComponent (store) {
     store.dispatch(validateCookie(nextPath))
   }
 
-  function handleLogout (nextState, replaceState) {
+  function handleLogout () {
     store.dispatch(logout())
   }
 
