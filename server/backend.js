@@ -27,7 +27,7 @@ module.exports = function (server, options, next) {
       }
     }
   })
-  seneca.use(AuthLocal)
+
   seneca.use(AuthGoogle, {
     provider: 'google',
     password: '',
