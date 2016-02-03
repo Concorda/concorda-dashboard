@@ -18,14 +18,14 @@ module.exports = function (server, options, next) {
 
   // Local auth should come built in and preconfigured
   seneca.use(Auth, {
-    restrict: '/api'
-    //redirect:{
-    //  login: {
-    //    always: true,
-    //    win:  '/',
-    //    fail: '/login'
-    //  }
-    //}
+    restrict: '/api',
+    redirect:{
+      login: {
+        always: true,
+        win:  '/',
+        fail: '/login'
+      }
+    }
   })
   seneca.use(AuthLocal)
   seneca.use(AuthGoogle, {

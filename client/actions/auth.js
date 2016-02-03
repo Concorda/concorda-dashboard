@@ -44,15 +44,14 @@ export function login (user, pass) {
       .type('form')
       .send({username: user, password: pass})
       .end((err, resp) => {
-        if (err || !resp.body.ok) {
+        if (resp.unauthorized) {
           return dispatch({
             type: authActions.LOGIN_RESPONSE,
-            niceError: 'Wrong username or password, try again',
+            niceError: 'Wrong username or password',
             hasError: true,
             isLoggedIn: false
           })
         }
-
         window.localStorage.setItem('isLoggedIn', true)
 
         dispatch({

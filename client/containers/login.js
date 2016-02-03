@@ -2,12 +2,12 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
-import {login} from '../actions/auth'
+import {login, login_google} from '../actions/auth'
 
 export const Login = React.createClass({
   componentDidMount () {},
 
-  handleSubmit (event) {
+  do_login (event) {
     event.preventDefault()
 
     const {email, pass} = this.refs
@@ -17,6 +17,18 @@ export const Login = React.createClass({
 
     email.value = ''
     pass.value = ''
+  },
+
+  do_login_google (event) {
+    event.preventDefault()
+
+    const {email, pass} = this.refs
+    const {dispatch} = this.props
+
+    email.value = ''
+    pass.value = ''
+
+    dispatch(login_google())
   },
 
   render () {
@@ -34,7 +46,7 @@ export const Login = React.createClass({
       <main className="page page-login" role="main">
         <div className="container-fluid">
           <div className="row middle-xs center-xs vertical-center">
-            <form className="login-form col-xs-12 col-md-6 col-lg-4 txt-left form-full-width form-panel" onSubmit={this.handleSubmit}>
+            <form className="login-form col-xs-12 col-md-6 col-lg-4 txt-left form-full-width form-panel">
 
               <h2 className={msgClass}>
                 <span className={iconClass}></span>
@@ -43,7 +55,8 @@ export const Login = React.createClass({
 
               <input ref="email" type="email" placeholder="Email" className="input-large" required />
               <input ref="pass" type="password" placeholder="Password" className="input-large" required />
-              <button type="submit" className="btn btn-large submit">Submit</button>
+              <button type="submit" className="btn btn-large submit" onClick={this.do_login}>Submit</button>
+              <a href="/auth/login_google">Google Login</a>
             </form>
           </div>
         </div>
