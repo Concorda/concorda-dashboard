@@ -36,6 +36,19 @@ module.exports = function (server, options, next) {
     isSecure: false
   })
 
+  seneca.add('role: auth, cmd: loginGoogle', function (args, done){
+    var callback_url = Lodash.get(args, 'req$.auth.credentials.query.callback_url')
+
+    this.prior(args, function (err, data){
+      if (callback_url) {
+        data.http$ = data.http$ || {}
+        data.http$.redirect = callback_url
+      }
+      done(err, data)
+    })
+  })
+
+
   // Should read from options too, should happen in Concorda
   var admin = {
     name: process.env.USER_NAME || 'Admin',
