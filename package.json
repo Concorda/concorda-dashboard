@@ -32,7 +32,7 @@
     "d3": "3.x.x",
     "eraro": "^0.4.1",
     "file-loader": "0.8.x",
-    "hapi": "13.x.x",
+    "hapi": "12.x.x",
     "hapi-auth-cookie": "5.0.0",
     "history": "1.17.x",
     "inert": "3.x.x",
