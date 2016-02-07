@@ -165,21 +165,26 @@ module.exports = function (opts) {
     .add({role: options.name, cmd: 'updateUser'}, updateUser)
     .add({role: options.name, cmd: 'deleteUser'}, deleteUser)
 
-  seneca.act({
-    role: 'web', use: {
-      name: options.name,
-      prefix: '/api',
-      pin: {role: options.name, cmd: '*'},
-      map: {
-        closeSession: {POST: true, alias: 'user/{user_id}/session/close'},
-        listUsers: {GET: true, alias: 'user'},
-        loadUser: {GET: true, alias: 'user/{userId}'},
-        createUser: {POST: true, data: true, alias: 'user'},
-        updateUser: {PUT: true, data: true, alias: 'user'},
-        deleteUser: {DELETE: true, alias: 'user/{userId}'}
+  function init(args, done){
+    console.log('malexxx')
+    seneca.act({
+      role: 'web', use: {
+        name: options.name,
+        prefix: '/api',
+        pin: {role: options.name, cmd: '*'},
+        map: {
+          closeSession: {POST: true, alias: 'user/{user_id}/session/close'},
+          listUsers: {GET: true, alias: 'user'},
+          loadUser: {GET: true, alias: 'user/{userId}'},
+          createUser: {POST: true, data: true, alias: 'user'},
+          updateUser: {PUT: true, data: true, alias: 'user'},
+          deleteUser: {DELETE: true, alias: 'user/{userId}'}
+        }
       }
-    }
-  })
+    }, done)
+  }
+
+  seneca.add('init: ' + options.name, init)
 
   return {
     name: options.name
