@@ -166,7 +166,6 @@ module.exports = function (opts) {
     .add({role: options.name, cmd: 'deleteUser'}, deleteUser)
 
   function init(args, done){
-    console.log('malexxx')
     seneca.act({
       role: 'web', use: {
         name: options.name,
