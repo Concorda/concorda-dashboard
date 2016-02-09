@@ -19,7 +19,7 @@ aside
   width: 200px
   background-color: $green-darker
   transform: translateX(0)
-  z-index: 30
+  z-index: 5
   
   .icon-menu-container
     display: block
@@ -35,15 +35,17 @@ aside
     position: relative
     top: 20px
     cursor: pointer
-    
-  nav li:not(:last-child)
-    border-bottom: 1px solid lighten($green-darker, 10%)
-  
-.nav-item
-  display: block
+
+aside nav li:not(:last-child)
+  border-bottom: 1px solid lighten($green-darker, 10%)
+
+.nav-header,
+.nav-item a
   padding: $ui-spacing-half $ui-spacing
+
+.nav-item a,
+.nav-item
   color: white
-  transition: all .3s ease-in
-  
-  &:hover
-    background-color: lighten($green-darker, 5%)
+
+.nav-header
+  font-weight: $font-weight-bold
