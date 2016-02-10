@@ -6,7 +6,7 @@ import {reduxForm} from 'redux-form'
 import _ from 'lodash'
 
 import {upsertUser, getUser} from '../actions/users'
-import {validateEditUser} from '../bootstrap/validations'
+import {validateEditUser} from '../lib/validations'
 
 export let EditUser = React.createClass({
   propTypes: {

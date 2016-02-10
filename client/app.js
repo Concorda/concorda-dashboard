@@ -5,9 +5,9 @@ import './assets/css/main.styl'
 
 import ReactDom from 'react-dom'
 
-import createRootReducer from './bootstrap/createRootReducer'
-import configureStore from './bootstrap/configureStore'
-import createRootComponent from './bootstrap/createRootComponent'
+import createRootReducer from './lib/createRootReducer'
+import configureStore from './lib/configureStore'
+import createRootComponent from './lib/createRootComponent'
 
 const rootReducer = createRootReducer()
 const createStore = configureStore()
