@@ -2,6 +2,7 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
+import {pushPath} from 'redux-simple-router'
 import {login, login_google} from '../actions/auth'
 
 export const Login = React.createClass({
@@ -17,18 +18,6 @@ export const Login = React.createClass({
 
     email.value = ''
     pass.value = ''
-  },
-
-  do_login_google (event) {
-    event.preventDefault()
-
-    const {email, pass} = this.refs
-    const {dispatch} = this.props
-
-    email.value = ''
-    pass.value = ''
-
-    dispatch(login_google())
   },
 
   render () {
@@ -56,7 +45,14 @@ export const Login = React.createClass({
               <input ref="email" type="email" placeholder="Email" className="input-large" required />
               <input ref="pass" type="password" placeholder="Password" className="input-large" required />
               <button type="submit" className="btn btn-large submit" onClick={this.do_login}>Submit</button>
-              <a href="/auth/login_google">Google Login</a>
+              <div className="panel-footer">
+                <p>Or log in using one of the following services:</p>
+                <button className="btn btn-secondary btn-github has-icon"><span className="icon icon-github"></span> Github</button>
+                <button className="btn btn-secondary btn-twitter has-icon"><span className="icon icon-twitter"></span> Twitter</button>
+                <a className="btn btn-secondary btn-google has-icon" href="/auth/login_google"><span className="icon icon-google"></span> Google</a>
+              </div>
+              <br/>
+              <a href="/auth/login_google" >Forgot password?</a>
             </form>
           </div>
         </div>
