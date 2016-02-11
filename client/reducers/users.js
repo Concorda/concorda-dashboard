@@ -8,7 +8,8 @@ const usersState = {
   niceError: null,
   hasError: true,
   result: null,
-  editUser: null
+  editUser: null,
+  message: null
 }
 
 export default function users (state = usersState, action) {
@@ -65,6 +66,20 @@ export default function users (state = usersState, action) {
         niceError: action.niceError,
         hasError: action.hasError,
         editUser: action.editUser
+      })
+
+    case usersActions.PASS_RESET_REQUEST:
+      return Object.assign({}, state, {
+        niceError: null,
+        hasError: false,
+        message: null
+      })
+
+    case usersActions.PASS_RESET_RESPONSE:
+      return Object.assign({}, state, {
+        niceError: action.niceError,
+        hasError: action.hasError,
+        message: action.message
       })
 
     default:

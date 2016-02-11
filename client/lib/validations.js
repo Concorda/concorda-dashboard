@@ -18,8 +18,15 @@ export function validateAddUser (data) {
   return errors
 }
 
-
-export function validateEditUser (data) {
+export function validateEditUser (data){
   const errors = {}
+  return errors
+}
+
+export function validateGetPassReset(data){
+  const errors = {}
+  if (!data.email) {
+    errors.email = 'Required'
+  }
   return errors
 }

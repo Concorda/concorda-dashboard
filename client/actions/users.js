@@ -184,3 +184,32 @@ export function upsertUser (userId, data) {
     }
   }
 }
+
+export function getPasswordReset(data){
+  return (dispatch) => {
+    dispatch({type: usersActions.PASS_RESET_REQUEST})
+
+    Request
+      .post('/auth/create_reset')
+      .type('form')
+      .send({email: data.email})
+      .end((err, resp) => {
+        if (err || !resp.body) {
+          dispatch({
+            type: usersActions.PASS_RESET_RESPONSE,
+            niceError: 'Can\'t find user with email: ' + data.email,
+            hasError: true,
+            message: null
+          })
+        }
+        else {
+          dispatch({
+            type: usersActions.PASS_RESET_RESPONSE,
+            niceError: null,
+            hasError: false,
+            message: 'Check your email for a link to reset your password. If it doesn\'t appear within a few minutes, check your spam folder.'
+          })
+        }
+      })
+  }
+}
