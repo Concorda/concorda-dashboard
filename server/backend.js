@@ -106,7 +106,7 @@ module.exports = function (server, options, next) {
           var token = data.reset.id
 
           // @hack until we will have proper settings
-          var url = `http://localhost:3050/#/resetPassword?token=${token}`
+          var url = `http://localhost:3050/password_reset/${token}`
           seneca.act('role: email, cmd: send_email',
             {
               to: email,
