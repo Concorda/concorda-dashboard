@@ -188,16 +188,15 @@ export function upsertUser (userId, data) {
 export function getPasswordReset(data){
   return (dispatch) => {
     dispatch({type: usersActions.PASS_RESET_REQUEST})
-
     Request
       .post('/auth/create_reset')
       .type('form')
       .send({email: data.email})
       .end((err, resp) => {
-        if (err || !resp.body) {
+        if (err || !resp.body.ok) {
           dispatch({
             type: usersActions.PASS_RESET_RESPONSE,
-            niceError: 'Can\'t find user with email: ' + data.email,
+            niceError: resp.body.why || 'Can\'t find user with email: ' + data.email,
             hasError: true,
             message: null
           })
