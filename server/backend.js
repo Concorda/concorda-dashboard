@@ -32,17 +32,10 @@ module.exports = function (server, options, next) {
   })
 
   seneca.use(Concorda)
+  seneca.use(EmailPlugin, options)
 
   seneca.ready(function () {
-    seneca.use(AuthGoogle, {
-      provider: 'google',
-      password: '',
-      clientId: '',
-      clientSecret: '',
-      isSecure: false
-    })
-
-    seneca.use(EmailPlugin, options)
+    loadGoogleAuth()
 
     seneca.add('role: auth, cmd: loginGoogle', function (args, done) {
       var callback_url = Lodash.get(args, 'req$.auth.credentials.query.callback_url')
@@ -143,6 +136,31 @@ module.exports = function (server, options, next) {
 
     next()
   })
+
+  function loadGoogleAuth(){
+    seneca.use(AuthGoogle, {
+      provider: 'google',
+      password: '',
+      clientId: '',
+      clientSecret: '',
+      isSecure: false
+    })
+    seneca.ready(function () {
+      seneca.add('role: auth, cmd: loginGoogle', function (args, done) {
+        console.log('Google login')
+
+        var callback_url = Lodash.get(args, 'req$.auth.credentials.query.callback_url')
+        console.log('Callback: ', callback_url)
+        this.prior(args, function (err, data) {
+          if (callback_url) {
+            data.http$ = data.http$ || {}
+            data.http$.redirect = callback_url
+          }
+          done(err, data)
+        })
+      })
+    })
+  }
 }
 
 // Hapi uses this metadata.
