@@ -23,7 +23,7 @@ export let EditUser = React.createClass({
   updateUser (data) {
     const dispatch = this.props.dispatch
     const userId = this.props.params.id || null
-    data = _(data).omit(_.isUndefined).omit(_.isNull).value();
+    data = _(data).omit(_.isUndefined).omit(_.isNull).value()
     dispatch(upsertUser(userId, data))
   },
 
@@ -102,13 +102,13 @@ export let EditUser = React.createClass({
 })
 
 EditUser = reduxForm({
-    form: 'editUser',
-    fields: ['name', 'email', 'password', 'repeat'],
-    validate: validateEditUser
-  },
-  state => ({
-    initialValues: state.users.editUser ? state.users.editUser : null
-  }))(EditUser)
+  form: 'editUser',
+  fields: ['name', 'email', 'password', 'repeat'],
+  validate: validateEditUser
+},
+state => ({
+  initialValues: state.users.editUser ? state.users.editUser : null
+}))(EditUser)
 
 export default connect((state) => {
   return {
