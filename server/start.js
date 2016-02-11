@@ -15,7 +15,7 @@ var opts = {
     port: process.env.PORT || 3050
   },
   chairo: {
-    timeout: 500,
+    timeout: 2000,
     secure: true,
     web: require('seneca-web'),
     log: 'silent'
