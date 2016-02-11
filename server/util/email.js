@@ -23,14 +23,15 @@ module.exports = function (opts) {
 
     seneca.act(mailOptions, function (err) {
       if (err) {
-        response(err);
-      } else {
+        response(err)
+      }
+      else {
         seneca.log.debug(
-          'Mail sent, template name: ', '<' + template + '>',
+          'Mail sent, template name: ', '<' + msg.template + '>',
           ' \n To: ', msg.to || 'No To',
           ' \n CC: ', msg.cc || 'No CC',
           ' \n BCC: ', msg.bcc || 'No BCC')
-        response();
+        response()
       }
     })
   }
@@ -48,7 +49,7 @@ module.exports = function (opts) {
 
     }, sendEmail)
 
-  function init(args, done){
+  function init (args, done) {
     done()
   }
 

@@ -44,7 +44,7 @@ export function login (user, pass) {
       .type('form')
       .send({username: user, password: pass})
       .end((err, resp) => {
-        if (resp.unauthorized) {
+        if (err || resp.unauthorized) {
           return dispatch({
             type: authActions.LOGIN_RESPONSE,
             niceError: 'Wrong username or password',

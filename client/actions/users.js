@@ -96,7 +96,6 @@ export function closeSession (userId) {
 
 export function getUser (userId, redirectTo) {
   return (dispatch) => {
-
     dispatch({type: usersActions.LOAD_USER_REQUEST})
 
     Request

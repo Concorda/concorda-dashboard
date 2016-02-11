@@ -19,7 +19,7 @@ export function validateAddUser (data) {
 }
 
 
-export function validateEditUser (data){
+export function validateEditUser (data) {
   const errors = {}
   return errors
 }
