@@ -29,7 +29,23 @@
   
   &:hover
     background-color: $orange-dark
-  
+
+// Button secondary
+.btn.btn-secondary
+  color:#333;
+  border: $ui-border
+  background: linear-gradient(to bottom, rgba($gray-lighter, 0) 0%,rgba($gray-lighter,0.3) 100%)
+
+  &:hover
+    background-color: darken($gray-lighter, 20%)
+    background: linear-gradient(to bottom, rgba($gray-lighter, 0) 0%,rgba($gray-lighter,0.6) 100%)
+
+
+.btn-google
+  margin-left:10px
+  padding: 15px 15px
+
+
 // Button dimmed
 .btn-dimmed
   background-color: $gray-lighter
