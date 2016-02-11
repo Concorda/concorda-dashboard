@@ -6,7 +6,9 @@ var AuthGoogle = require('seneca-google-auth')
 var Concorda = require('./concorda')
 var Lodash = require('lodash')
 var SenecaMail = require('seneca-mail')
-var Path = require('path');
+
+var Path = require('path')
+
 var EmailPlugin = require('./util/email')
 
 
@@ -34,6 +36,19 @@ module.exports = function (server, options, next) {
 
   seneca.ready(function () {
     loadGoogleAuth()
+
+    seneca.add('role: auth, cmd: loginGoogle', function (args, done) {
+      var callback_url = Lodash.get(args, 'req$.auth.credentials.query.callback_url')
+
+      this.prior(args, function (err, data) {
+        if (callback_url) {
+          data.http$ = data.http$ || {}
+          data.http$.redirect = callback_url
+        }
+        done(err, data)
+      })
+    })
+
 
     // Should read from options too, should happen in Concorda
     var admin = {
@@ -67,7 +82,7 @@ module.exports = function (server, options, next) {
         from: 'contact@concorda.com'
       },
       config: {
-        host: "127.0.0.1",
+        host: '127.0.0.1',
         port: 25,
         ignoreTLS: true
       }

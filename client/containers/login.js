@@ -2,8 +2,7 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
-import {pushPath} from 'redux-simple-router'
-import {login, login_google} from '../actions/auth'
+import {login} from '../actions/auth'
 
 export const Login = React.createClass({
   componentDidMount () {},
