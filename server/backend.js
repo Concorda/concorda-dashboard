@@ -81,10 +81,13 @@ module.exports = function (server, options, next) {
       mail: {
         from: 'contact@concorda.com'
       },
-      config:{
-        host: '127.0.0.1',
-        port: 25,
-        ignoreTLS: true
+      config: {
+        host: "mailtrap.io",
+        port: 2525,
+        auth: {
+          user: "2dcf0b51368556", // these are Cristian Kiss config, so change them if you want to get any emails!
+          pass: "a17eae57fc0a2b"
+        }
       }
     })
 
