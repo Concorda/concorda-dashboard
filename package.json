@@ -63,6 +63,7 @@
     "seneca-mesh": "0.3.0",
     "seneca-user": "senecajs/seneca-user.git",
     "style-loader": "0.13.x",
+    "seneca-web": "senecajs/seneca-web",
     "superagent": "1.6.x",
     "varo": "0.3.x"
   },
