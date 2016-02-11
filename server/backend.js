@@ -81,7 +81,7 @@ module.exports = function (server, options, next) {
       mail: {
         from: 'contact@concorda.com'
       },
-      config: {
+      config:{
         host: '127.0.0.1',
         port: 25,
         ignoreTLS: true
@@ -118,7 +118,9 @@ module.exports = function (server, options, next) {
           seneca.act('role: email, cmd: send_email',
             {
               to: email,
-              data: {url: url},
+              data: {
+                email: email,
+                url: url},
               template: 'resetPassword',
               subject: 'Reset password required'
             }, function (err) {
