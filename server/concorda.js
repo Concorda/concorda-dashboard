@@ -154,6 +154,35 @@ module.exports = function (opts) {
     session.remove$(done)
   }
 
+  function inviteUser (msg, response) {
+    var email = msg.email
+    var message = msg.message
+
+    var user = msg.req$.user.user
+    var invitedBy =
+      user.firstName ? user.firstName : '' + ' ' +
+      user.lastName ? user.lastName : ''
+
+    // @hack until we will have proper settings
+    var url = `http://localhost:3050/register`
+    seneca.act('role: email, cmd: send_email',
+      {
+        to: email,
+        data: {
+          invitedBy: invitedBy,
+          message: message,
+          url: url
+        },
+        template: 'inviteUser',
+        subject: 'You have been invited to join Concorda'
+      }, function (err) {
+        if (err) {
+          return response(null, {ok: false, why: err})
+        }
+        response(null, {ok: true})
+      })
+  }
+
   seneca
     .use('mesh', {auto: true, pin: 'role: user'})
 
@@ -164,9 +193,16 @@ module.exports = function (opts) {
     .add({role: options.name, cmd: 'createUser'}, createUser)
     .add({role: options.name, cmd: 'updateUser'}, updateUser)
     .add({role: options.name, cmd: 'deleteUser'}, deleteUser)
+    .add({
+      role: options.name, cmd: 'inviteUser',
+      email: {
+        string$: true, required$: true,
+        message: {string$: true}
+      }
+    }, inviteUser)
 
-  function init(args, done){
 
+  function init (args, done) {
     seneca.act({
       role: 'web', use: {
         name: options.name,
@@ -178,7 +214,8 @@ module.exports = function (opts) {
           loadUser: {GET: true, alias: 'user/{userId}'},
           createUser: {POST: true, data: true, alias: 'user'},
           updateUser: {PUT: true, data: true, alias: 'user'},
-          deleteUser: {DELETE: true, alias: 'user/{userId}'}
+          deleteUser: {DELETE: true, alias: 'user/{userId}'},
+          inviteUser: {POST: true, alias: 'invite/user'}
         }
       }
     }, done)

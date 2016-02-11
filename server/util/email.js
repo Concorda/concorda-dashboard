@@ -19,6 +19,7 @@ module.exports = function (opts) {
     mailOptions.cc = msg.cc
     mailOptions.content = msg.data
     mailOptions.code = msg.template
+    mailOptions.subject = msg.subject
 
     seneca.act(mailOptions, function (err) {
       if (err) {
@@ -38,6 +39,7 @@ module.exports = function (opts) {
     .add({
       role: 'email',
       cmd: 'send_email',
+      subject: {string$: true, required$: true},
       to: {string$: true, required$: true},
       cc: {string$: true},
       bcc: {string$: true},
