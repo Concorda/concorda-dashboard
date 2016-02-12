@@ -13,11 +13,9 @@ export let EditUser = React.createClass({
     fields: React.PropTypes.object.isRequired,
     handleSubmit: React.PropTypes.func.isRequired
   },
+
   componentDidMount () {
     this.props.dispatch(getUser(this.props.params.id))
-  },
-
-  componentWillUnmount () {
   },
 
   updateUser (data) {

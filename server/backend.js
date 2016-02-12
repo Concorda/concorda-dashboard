@@ -123,7 +123,8 @@ module.exports = function (server, options, next) {
               to: email,
               data: {
                 email: email,
-                url: url},
+                url: url
+              },
               template: 'resetPassword',
               subject: 'Reset password required'
             }, function (err) {
@@ -142,7 +143,7 @@ module.exports = function (server, options, next) {
     next()
   })
 
-  function loadGoogleAuth(){
+  function loadGoogleAuth () {
     seneca.use(AuthGoogle, {
       provider: 'google',
       password: '',
