@@ -82,9 +82,12 @@ module.exports = function (server, options, next) {
         from: 'contact@concorda.com'
       },
       config: {
-        host: '127.0.0.1',
-        port: 25,
-        ignoreTLS: true
+        host: "mailtrap.io",
+        port: 2525,
+        auth: {
+          user: "2dcf0b51368556", // these are Cristian Kiss config, so change them if you want to get any emails!
+          pass: "a17eae57fc0a2b"
+        }
       }
     })
 
@@ -118,7 +121,10 @@ module.exports = function (server, options, next) {
           seneca.act('role: email, cmd: send_email',
             {
               to: email,
-              data: {url: url},
+              data: {
+                email: email,
+                url: url
+              },
               template: 'resetPassword',
               subject: 'Reset password required'
             }, function (err) {
@@ -137,7 +143,7 @@ module.exports = function (server, options, next) {
     next()
   })
 
-  function loadGoogleAuth(){
+  function loadGoogleAuth () {
     seneca.use(AuthGoogle, {
       provider: 'google',
       password: '',
