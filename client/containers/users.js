@@ -18,6 +18,10 @@ export const Users = React.createClass({
     this.props.dispatch(pushPath('/user/add'))
   },
 
+  handleInviteUser(){
+    this.props.dispatch(pushPath('/invite_user'))
+  },
+
   handleEdit (userId) {
     this.props.dispatch(getUser(userId, `/user/${userId}/edit`))
   },
@@ -67,7 +71,8 @@ export const Users = React.createClass({
         <div className="row middle-xs page-heading">
           <h2 className="col-xs-6 col-sm-6">Users</h2>
           <div className="col-xs-6 col-sm-6 txt-right">
-            <button onClick={(e) => { this.handleAdd() }} className="btn btn-primary">Add User</button>
+            <button onClick={() => { this.handleAdd() }} className="btn btn-primary">Add User</button>
+            <button onClick={() => { this.handleInviteUser() }} className="btn btn-primary btn-send-invite">Invite User</button>
           </div>
         </div>
 

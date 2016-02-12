@@ -109,6 +109,18 @@ export default function users (state = usersState, action) {
         hasError: action.hasError
       })
 
+    case usersActions.SEND_INVITE_USER_REQUEST:
+      return Object.assign({}, state, {
+        niceError: null,
+        hasError: false
+      })
+
+    case usersActions.SEND_INVITE_USER_RESPONSE:
+      return Object.assign({}, state, {
+        niceError: action.niceError,
+        hasError: action.hasError
+      })
+
     default:
       return state
   }
