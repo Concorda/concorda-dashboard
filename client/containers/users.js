@@ -18,7 +18,7 @@ export const Users = React.createClass({
     this.props.dispatch(pushPath('/user/add'))
   },
 
-  handleInviteUser(){
+  handleInviteUser () {
     this.props.dispatch(pushPath('/invite_user'))
   },
 

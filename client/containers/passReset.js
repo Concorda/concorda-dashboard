@@ -15,13 +15,13 @@ export let PasswordReset = React.createClass({
     handleSubmit: React.PropTypes.func.isRequired
   },
 
-  resetPassword(data){
+  resetPassword (data) {
     const dispatch = this.props.dispatch
 
     dispatch(getPasswordReset(data))
   },
 
-  navigate(where){
+  navigate (where) {
     const dispatch = this.props.dispatch
 
     dispatch(pushPath(where))
@@ -55,10 +55,11 @@ export let PasswordReset = React.createClass({
                     <button type="submit" className="btn btn-large submit">Send password reset email</button>
                   </form>
                 )
-              } else {
-                return(
+              }
+              else {
+                return (
                   <form className="login-form col-xs-12 col-md-6 col-lg-4 txt-left form-full-width form-panel"
-                        onSubmit={handleSubmit(function(){ return navigate('/login') })}>
+                        onSubmit={handleSubmit(function () { return navigate('/login') })}>
 
                     <h2 className="alert mt0 has-icon">
                       <span>Reset your password</span>

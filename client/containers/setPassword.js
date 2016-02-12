@@ -17,7 +17,7 @@ export let SetPassword = React.createClass({
     this.props.dispatch(loadPasswordResetUser(this.props.params.token))
   },
 
-  setPassword(data){
+  setPassword (data) {
     const dispatch = this.props.dispatch
     dispatch(setNewPassword(data, this.props.params.token))
   },
@@ -63,13 +63,14 @@ export let SetPassword = React.createClass({
 })
 
 SetPassword = reduxForm({
-    form: 'setPassword',
-    fields: ['password', 'repeat'],
-    validate: validateSetNewPassword
-  },
+  form: 'setPassword',
+  fields: ['password', 'repeat'],
+  validate: validateSetNewPassword
+},
   state => ({
     initialValues: state.users.resetUser ? state.users.resetUser : null
-  }))(SetPassword)
+  })
+)(SetPassword)
 
 export default connect((state) => {
   return {

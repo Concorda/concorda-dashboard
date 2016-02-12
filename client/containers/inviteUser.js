@@ -3,7 +3,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {reduxForm} from 'redux-form'
-import {pushPath} from 'redux-simple-router'
 
 import {sendInviteUser} from '../actions/users'
 
@@ -15,7 +14,7 @@ export let InviteUser = React.createClass({
     handleSubmit: React.PropTypes.func.isRequired
   },
 
-  inviteUser(data){
+  inviteUser (data) {
     const dispatch = this.props.dispatch
     dispatch(sendInviteUser(data))
   },
