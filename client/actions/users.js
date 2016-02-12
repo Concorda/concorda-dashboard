@@ -162,7 +162,7 @@ export function upsertUser (userId, data) {
       if(data.register){
         _.omit(data, ['register'])
         Request
-          .post('/auth/user')
+          .post('/auth/register')
           .type('form')
           .send(data)
           .end((err, resp) => {
