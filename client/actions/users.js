@@ -181,7 +181,7 @@ export function upsertUser (userId, data) {
                 hasError: false,
                 result: resp.body.data
               })
-              dispatch(pushPath('/users'))
+              dispatch(pushPath('/'))
             }
           })
       }

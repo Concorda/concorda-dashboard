@@ -45,8 +45,8 @@ export default function createRootComponent (store) {
           <Route path="user/:id/edit" component={EditUser} onEnter={requireAuth} />
           <Route path="profile" component={Profile} onEnter={requireAuth} />
           <Route path="login" component={Login} />
-          <Route path="login" component={Register} />
           <Route path="logout" onEnter={handleLogout} />
+          <Route path="register" component={Register} />
           <Route path="password_reset" component={PasswordReset} />
           <Route path="password_reset/:token" component={SetPassword} />
           <Route path="invite_user" component={InviteUser} onEnter={requireAuth}/>
