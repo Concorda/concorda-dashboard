@@ -82,11 +82,11 @@ module.exports = function (server, options, next) {
         from: 'contact@concorda.com'
       },
       config: {
-        host: "mailtrap.io",
+        host: 'mailtrap.io',
         port: 2525,
         auth: {
-          user: "2dcf0b51368556", // these are Cristian Kiss config, so change them if you want to get any emails!
-          pass: "a17eae57fc0a2b"
+          user: '2dcf0b51368556', // these are Cristian Kiss config, so change them if you want to get any emails!
+          pass: 'a17eae57fc0a2b'
         }
       }
     })

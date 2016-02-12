@@ -284,3 +284,37 @@ export function setNewPassword (data, token) {
       })
   }
 }
+
+/**
+ * Sends and invite through email to somebody you want to join Concorda
+ * @param data
+ */
+export function sendInviteUser (data) {
+  return (dispatch) => {
+    dispatch({type: usersActions.SEND_INVITE_USER_REQUEST})
+    Request
+      .post('/api/invite/user')
+      .type('form')
+      .send({
+        email: data.email,
+        message: data.message
+      })
+      .end((err, resp) => {
+        if (err || !resp.body || !resp.body.ok) {
+          dispatch({
+            type: usersActions.SEND_INVITE_USER_RESPONSE,
+            niceError: 'Can\'t send invite to email',
+            hasError: true
+          })
+        }
+        else {
+          dispatch({
+            type: usersActions.SEND_INVITE_USER_RESPONSE,
+            niceError: null,
+            hasError: false
+          })
+          dispatch(pushPath('/'))
+        }
+      })
+  }
+}

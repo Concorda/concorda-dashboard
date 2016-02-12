@@ -1,3 +1,4 @@
+/* eslint no-unused-vars:0 */
 'use strict'
 
 import React from 'react'
@@ -16,6 +17,7 @@ import EditUser from '../containers/editUser'
 import Profile from '../containers/profile'
 import PasswordReset from '../containers/passReset'
 import SetPassword from '../containers/setPassword'
+import InviteUser from '../containers/inviteUser'
 
 export default function createRootComponent (store) {
   const history = createHistory()
@@ -45,6 +47,7 @@ export default function createRootComponent (store) {
           <Route path="logout" onEnter={handleLogout} />
           <Route path="password_reset" component={PasswordReset} />
           <Route path="password_reset/:token" component={SetPassword} />
+          <Route path="invite_user" component={InviteUser} onEnter={requireAuth}/>
         </Route>
       </Router>
     </Provider>
