@@ -18,6 +18,7 @@ import Profile from '../containers/profile'
 import PasswordReset from '../containers/passReset'
 import SetPassword from '../containers/setPassword'
 import InviteUser from '../containers/inviteUser'
+import Register from '../containers/register'
 
 export default function createRootComponent (store) {
   const history = createHistory()
@@ -44,6 +45,7 @@ export default function createRootComponent (store) {
           <Route path="user/:id/edit" component={EditUser} onEnter={requireAuth} />
           <Route path="profile" component={Profile} onEnter={requireAuth} />
           <Route path="login" component={Login} />
+          <Route path="login" component={Register} />
           <Route path="logout" onEnter={handleLogout} />
           <Route path="password_reset" component={PasswordReset} />
           <Route path="password_reset/:token" component={SetPassword} />
