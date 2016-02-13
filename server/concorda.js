@@ -158,10 +158,10 @@ module.exports = function (opts) {
     var email = msg.email
     var message = msg.message
 
-    var user = msg.req$.user.user
-    var invitedBy =
-      user.firstName ? user.firstName : '' + ' ' +
-      user.lastName ? user.lastName : ''
+    //var user = msg.req$.user.user
+    //var invitedBy =
+    //  user.firstName ? user.firstName : '' + ' ' +
+    //  user.lastName ? user.lastName : ''
 
     // @hack until we will have proper settings
     var url = `http://localhost:3050/register`
@@ -169,7 +169,8 @@ module.exports = function (opts) {
       {
         to: email,
         data: {
-          invitedBy: invitedBy,
+          //invitedBy: invitedBy,
+          email: email,
           message: message,
           url: url
         },
