@@ -184,3 +184,137 @@ export function upsertUser (userId, data) {
     }
   }
 }
+
+/**
+ * Generates a reset password for a given email address
+ * @param data
+ */
+export function getPasswordReset (data) {
+  return (dispatch) => {
+    dispatch({type: usersActions.PASS_RESET_REQUEST})
+    Request
+      .post('/auth/create_reset')
+      .type('form')
+      .send({email: data.email})
+      .end((err, resp) => {
+        if (err || !resp.body.ok) {
+          dispatch({
+            type: usersActions.PASS_RESET_RESPONSE,
+            niceError: resp.body.why || 'Can\'t find user with email: ' + data.email,
+            hasError: true,
+            message: null
+          })
+        }
+        else {
+          dispatch({
+            type: usersActions.PASS_RESET_RESPONSE,
+            niceError: null,
+            hasError: false,
+            message: 'Check your email for a link to reset your password. If it doesn\'t appear within a few minutes, check your spam folder.'
+          })
+        }
+      })
+  }
+}
+
+/**
+ * This function loads the user details using reset token
+ * @param token
+ */
+export function loadPasswordResetUser (token) {
+  return (dispatch) => {
+    dispatch({type: usersActions.LOAD_PASSWORD_RESET_REQUEST})
+    Request
+      .post('/auth/load_reset')
+      .type('form')
+      .send({token: token})
+      .end((err, resp) => {
+        if (err || !resp.body || !resp.body.ok) {
+          dispatch({
+            type: usersActions.LOAD_PASSWORD_RESET_RESPONSE,
+            niceError: 'Can\'t load reset password informations for this token',
+            hasError: true,
+            resetUser: null
+          })
+        }
+        else {
+          dispatch({
+            type: usersActions.LOAD_PASSWORD_RESET_RESPONSE,
+            niceError: null,
+            hasError: false,
+            resetUser: resp.body
+          })
+        }
+      })
+  }
+}
+
+/**
+ * This function sets a new password for a user based on reset token
+ * @param data Contains the new password and repeat
+ * @param token
+ */
+export function setNewPassword (data, token) {
+  return (dispatch) => {
+    dispatch({type: usersActions.SET_NEW_PASSWORD_REQUEST})
+    Request
+      .post('/auth/execute_reset')
+      .type('form')
+      .send({
+        token: token,
+        password: data.password,
+        repeat: data.repeat
+      })
+      .end((err, resp) => {
+        if (err || !resp.body || !resp.body.ok) {
+          dispatch({
+            type: usersActions.SET_NEW_PASSWORD_RESPONSE,
+            niceError: 'Can\'t reset password',
+            hasError: true
+          })
+        }
+        else {
+          dispatch({
+            type: usersActions.SET_NEW_PASSWORD_RESPONSE,
+            niceError: null,
+            hasError: false
+          })
+          dispatch(pushPath('/login'))
+        }
+      })
+  }
+}
+
+/**
+ * Sends and invite through email to somebody you want to join Concorda
+ * @param data
+ */
+export function sendInviteUser (data) {
+  return (dispatch) => {
+    dispatch({type: usersActions.SEND_INVITE_USER_REQUEST})
+    Request
+      .post('/api/invite/user')
+      .type('form')
+      .send({
+        email: data.email,
+        message: data.message
+      })
+      .end((err, resp) => {
+        if (err || !resp.body || !resp.body.ok) {
+          dispatch({
+            type: usersActions.SEND_INVITE_USER_RESPONSE,
+            niceError: 'Can\'t send invite to email',
+            hasError: true
+          })
+        }
+        else {
+          dispatch({
+            type: usersActions.SEND_INVITE_USER_RESPONSE,
+            niceError: null,
+            hasError: false
+          })
+          dispatch(pushPath('/'))
+        }
+      })
+  }
+}

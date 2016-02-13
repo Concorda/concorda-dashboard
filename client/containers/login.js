@@ -51,7 +51,7 @@ export const Login = React.createClass({
                 <a className="btn btn-secondary btn-google has-icon" href="/auth/login_google"><span className="icon icon-google"></span> Google</a>
               </div>
               <br/>
-              <a href="/auth/login_google" >Forgot password?</a>
+              <a href="/password_reset">Forgot password?</a>
             </form>
           </div>
         </div>

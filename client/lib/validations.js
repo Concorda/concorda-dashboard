@@ -18,8 +18,37 @@ export function validateAddUser (data) {
   return errors
 }
 
-
 export function validateEditUser (data) {
   const errors = {}
+  return errors
+}
+
+export function validateGetPassReset (data) {
+  const errors = {}
+  if (!data.email) {
+    errors.email = 'Required'
+  }
+  return errors
+}
+
+export function validateSetNewPassword (data) {
+  const errors = {}
+  if (!data.password) {
+    errors.password = 'Required'
+  }
+  if (!data.repeat) {
+    errors.repeat = 'Required'
+  }
+  if (data.password !== data.repeat) {
+    errors.repeat = 'Confirm Password must match Password'
+  }
+  return errors
+}
+
+export function validateInviteUser (data) {
+  const errors = {}
+  if (!data.email) {
+    errors.email = 'Required'
+  }
   return errors
 }
