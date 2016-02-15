@@ -30,7 +30,12 @@ export default function createRootComponent (store) {
   }
 
   function handleLogout () {
-    store.dispatch(logout())
+    const {params} = this.props
+    let data = {}
+    if(params && params.callback_url){
+      data.callback_url = params.callback_url
+    }
+    store.dispatch(logout(data))
   }
 
   syncReduxAndRouter(history, store)
@@ -44,9 +49,9 @@ export default function createRootComponent (store) {
           <Route path="user/add" component={AddUser} onEnter={requireAuth} />
           <Route path="user/:id/edit" component={EditUser} onEnter={requireAuth} />
           <Route path="profile" component={Profile} onEnter={requireAuth} />
-          <Route path="login" component={Login} />
-          <Route path="logout" onEnter={handleLogout} />
-          <Route path="register" component={Register} />
+          <Route path="login(/:callback_url)" component={Login} />
+          <Route path="logout(/:callback_url)" onEnter={handleLogout} />
+          <Route path="register(/:callback_url)" component={Register} />
           <Route path="password_reset" component={PasswordReset} />
           <Route path="password_reset/:token" component={SetPassword} />
           <Route path="invite_user" component={InviteUser} onEnter={requireAuth}/>

@@ -11,9 +11,18 @@ export const Login = React.createClass({
     event.preventDefault()
 
     const {email, pass} = this.refs
-    const {dispatch} = this.props
+    const {dispatch, params} = this.props
 
-    dispatch(login(email.value, pass.value))
+    let data = {
+      email: email.value,
+      pass: email.pass
+    }
+
+    if(params && params.callback_url){
+      data.callback_url = params.callback_url
+    }
+
+    dispatch(login(data))
 
     email.value = ''
     pass.value = ''
