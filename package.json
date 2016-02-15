@@ -61,9 +61,10 @@
     "seneca-google-auth": "mirceaalexandru/seneca-google-auth",
     "seneca-mail": "0.2.2",
     "seneca-mesh": "0.3.0",
+    "seneca-twitter-auth": "github:mirceaalexandru/seneca-twitter-auth",
     "seneca-user": "senecajs/seneca-user.git",
-    "style-loader": "0.13.x",
     "seneca-web": "senecajs/seneca-web",
+    "style-loader": "0.13.x",
     "superagent": "1.6.x",
     "varo": "0.3.x"
   },

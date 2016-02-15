@@ -46,9 +46,9 @@ export const Login = React.createClass({
               <button type="submit" className="btn btn-large submit" onClick={this.do_login}>Submit</button>
               <div className="panel-footer">
                 <p>Or log in using one of the following services:</p>
-                <button className="btn btn-secondary btn-github has-icon"><span className="icon icon-github"></span> Github</button>
-                <button className="btn btn-secondary btn-twitter has-icon"><span className="icon icon-twitter"></span> Twitter</button>
-                <a className="btn btn-secondary btn-google has-icon" href="/auth/login_google"><span className="icon icon-google"></span> Google</a>
+                <a className="btn btn-secondary btn-github has-icon" href="/auth/login_github"><span className="icon icon-github"></span> Github</a>
+                <a className="btn btn-secondary btn-twitter has-icon" href="/auth/login_twitter"><span className="icon icon-twitter"></span> Twitter</a>
+                <a className="btn btn-secondary btn-google  has-icon" href="/auth/login_google"> <span className="icon icon-google"> </span> Google</a>
               </div>
               <br/>
               <a href="/password_reset">Forgot password?</a>
