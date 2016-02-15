@@ -29,8 +29,8 @@ export default function createRootComponent (store) {
     store.dispatch(validateCookie(nextPath))
   }
 
-  function handleLogout () {
-    const {params} = this.props
+  function handleLogout (nextState) {
+    const {params} = nextState
     let data = {}
     if (params && params.callback_url) {
       data.callback_url = params.callback_url
