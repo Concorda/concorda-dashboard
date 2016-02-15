@@ -14,8 +14,8 @@ export const Login = React.createClass({
     const {dispatch, params} = this.props
 
     let data = {
-      email: email.value,
-      pass: email.pass
+      username: email.value,
+      password: pass.value
     }
 
     if (params && params.callback_url) {
