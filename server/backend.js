@@ -13,7 +13,6 @@ var EmailPlugin = require('./util/email')
 
 var Config = require('../config/config.js')()
 
-
 module.exports = function (server, options, next) {
   server.dependency('chairo')
 
