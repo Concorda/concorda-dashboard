@@ -4,6 +4,7 @@ var User = require('seneca-user')
 var Auth = require('seneca-auth')
 var AuthGoogle = require('seneca-google-auth')
 var AuthTwitter = require('seneca-twitter-auth')
+var AuthGithub = require('seneca-github-auth')
 var Concorda = require('./concorda')
 var Lodash = require('lodash')
 var SenecaMail = require('seneca-mail')
@@ -152,6 +153,7 @@ module.exports = function (server, options, next) {
       clientSecret: '',
       isSecure: false
     })
+
     seneca.use(AuthTwitter, {
       provider: 'twitter',
       password: 'secret',
@@ -159,14 +161,38 @@ module.exports = function (server, options, next) {
       clientSecret: '',
       isSecure: false
     })
+
+    seneca.use(AuthGithub, {
+      provider: 'github',
+      password: 'secret',
+      clientId: '',
+      clientSecret: '',
+      isSecure: false
+    })
+
     seneca.ready(function () {
 
       // this is for other apps using Twitter login via redirect
       seneca.add('role: auth, cmd: loginTwitter', function (args, done) {
-        console.log('Twitter login')
+        seneca.log.debug('Twitter login')
 
         var callback_url = Lodash.get(args, 'req$.auth.credentials.query.callback_url')
-        console.log('Callback: ', callback_url)
+        seneca.log.debug('Callback: ', callback_url)
+        this.prior(args, function (err, data) {
+          if (callback_url) {
+            data.http$ = data.http$ || {}
+            data.http$.redirect = callback_url
+          }
+          done(err, data)
+        })
+      })
+
+      // this is for other apps using Github login via redirect
+      seneca.add('role: auth, cmd: loginGithub', function (args, done) {
+        seneca.log.debug('Github login')
+
+        var callback_url = Lodash.get(args, 'req$.auth.credentials.query.callback_url')
+        seneca.log.debug('Callback: ', callback_url)
         this.prior(args, function (err, data) {
           if (callback_url) {
             data.http$ = data.http$ || {}
@@ -178,10 +204,10 @@ module.exports = function (server, options, next) {
 
       // this is for other apps using Google login via redirect
       seneca.add('role: auth, cmd: loginGoogle', function (args, done) {
-        console.log('Google login')
+        seneca.log.debug('Google login')
 
         var callback_url = Lodash.get(args, 'req$.auth.credentials.query.callback_url')
-        console.log('Callback: ', callback_url)
+        seneca.log.debug('Callback: ', callback_url)
         this.prior(args, function (err, data) {
           if (callback_url) {
             data.http$ = data.http$ || {}
