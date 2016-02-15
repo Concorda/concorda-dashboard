@@ -35,14 +35,21 @@ export function validateCookie (redirectUrl) {
   }
 }
 
-export function login (user, pass) {
+/**
+ * This function performs  the login
+ *
+ * @param data Must be an object of the following form:
+ * { username: <username>, password: <password>, callback_url:<callback_url> }
+ * the callback_url property is optional
+ */
+export function login (data) {
   return (dispatch) => {
     dispatch({type: authActions.LOGIN_REQUEST})
 
     Request
       .post('/auth/login')
       .type('form')
-      .send({username: user, password: pass})
+      .send(data)
       .end((err, resp) => {
         if (err || resp.unauthorized) {
           return dispatch({
@@ -65,14 +72,19 @@ export function login (user, pass) {
   }
 }
 
-export function logout () {
+/**
+ * This function performs the user logout
+ *
+ * @param data is of type Object and can contain a callback_url property
+ */
+export function logout (data) {
   return (dispatch) => {
     dispatch({type: authActions.LOGOUT_REQUEST})
 
     Request
       .post('/auth/logout')
       .type('form')
-      .send({})
+      .send(data)
       .end(() => {
         window.localStorage.clear()
 

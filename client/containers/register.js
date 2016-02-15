@@ -13,8 +13,13 @@ export let Register = React.createClass({
     handleSubmit: React.PropTypes.func.isRequired
   },
   createUser (data) {
-    const dispatch = this.props.dispatch
+    const {dispatch, params} = this.props
+
     data.register = true
+
+    if(params && params.callback_url){
+      data.callback_url = params.callback_url
+    }
 
     dispatch(upsertUser(null, data))
   },
