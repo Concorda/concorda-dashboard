@@ -2,6 +2,7 @@
 
 import Request from 'superagent/lib/client'
 import { pushPath } from 'redux-simple-router'
+import _ from 'lodash'
 
 import * as usersActions from '../constants/users'
 import {logout} from './auth'
@@ -158,29 +159,57 @@ export function upsertUser (userId, data) {
         })
     }
     else {
-      Request
-        .post('/api/user')
-        .type('form')
-        .send(data)
-        .end((err, resp) => {
-          if (err || !resp.body) {
-            dispatch({
-              type: usersActions.CREATE_USER_RESPONSE,
-              niceError: 'Can\'t create user',
-              hasError: true,
-              result: null
-            })
-          }
-          else {
-            dispatch({
-              type: usersActions.CREATE_USER_RESPONSE,
-              niceError: null,
-              hasError: false,
-              result: resp.body.data
-            })
-            dispatch(pushPath('/users'))
-          }
-        })
+      if(data.register){
+        _.omit(data, ['register'])
+        Request
+          .post('/auth/register')
+          .type('form')
+          .send(data)
+          .end((err, resp) => {
+            if (err || !resp.body) {
+              dispatch({
+                type: usersActions.CREATE_USER_RESPONSE,
+                niceError: 'Can\'t create user',
+                hasError: true,
+                result: null
+              })
+            }
+            else {
+              dispatch({
+                type: usersActions.CREATE_USER_RESPONSE,
+                niceError: null,
+                hasError: false,
+                result: resp.body.data
+              })
+              dispatch(pushPath('/'))
+            }
+          })
+      }
+      else {
+        Request
+          .post('/api/user')
+          .type('form')
+          .send(data)
+          .end((err, resp) => {
+            if (err || !resp.body) {
+              dispatch({
+                type: usersActions.CREATE_USER_RESPONSE,
+                niceError: 'Can\'t create user',
+                hasError: true,
+                result: null
+              })
+            }
+            else {
+              dispatch({
+                type: usersActions.CREATE_USER_RESPONSE,
+                niceError: null,
+                hasError: false,
+                result: resp.body.data
+              })
+              dispatch(pushPath('/users'))
+            }
+          })
+      }
     }
   }
 }

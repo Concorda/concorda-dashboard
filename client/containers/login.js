@@ -45,6 +45,8 @@ export const Login = React.createClass({
               <input ref="pass" type="password" placeholder="Password" className="input-large" required />
               <button type="submit" className="btn btn-large submit" onClick={this.do_login}>Submit</button>
               <div className="panel-footer">
+                <a className="btn btn-secondary" href="/register">Sign in</a>
+                <br /><br />
                 <p>Or log in using one of the following services:</p>
                 <a className="btn btn-secondary btn-github has-icon" href="/auth/login_github"><span className="icon icon-github"></span> Github</a>
                 <a className="btn btn-secondary btn-twitter has-icon" href="/auth/login_twitter"><span className="icon icon-twitter"></span> Twitter</a>
