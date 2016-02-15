@@ -21,7 +21,8 @@
     "copy": "copyfiles -f ./client/assets/img/*.png ./dist/img",
     "build": "npm run copy & webpack --progress --colors",
     "watch": "webpack -w",
-    "start": "node ./server/start.js"
+    "start": "./start.sh ./config/production.env ./server/start.js",
+    "start:dev": "./start.sh ./config/development.env ./server/start.js"
   },
   "dependencies": {
     "async": "1.5.x",

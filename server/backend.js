@@ -9,9 +9,9 @@ var Concorda = require('./concorda')
 var Lodash = require('lodash')
 var SenecaMail = require('seneca-mail')
 
-var Path = require('path')
-
 var EmailPlugin = require('./util/email')
+
+var Config = require('../config/config.js')()
 
 
 module.exports = function (server, options, next) {
@@ -53,11 +53,7 @@ module.exports = function (server, options, next) {
 
 
     // Should read from options too, should happen in Concorda
-    var admin = {
-      name: process.env.USER_NAME || 'Admin',
-      email: process.env.USER_EMAIL || 'admin@concorda.com',
-      password: process.env.USER_PASS || 'concorda'
-    }
+    var admin = Config.adminData
 
     // Dummy data, to be removed
     Lodash.each([
@@ -76,23 +72,7 @@ module.exports = function (server, options, next) {
       port: '3055'
     })
 
-    var templateFolder = Path.join(Path.resolve(__dirname), 'email-templates')
-
-    seneca.use(SenecaMail, {
-      folder: templateFolder,
-      mail: {
-        from: 'contact@concorda.com'
-      },
-      config: {
-        host: 'mailtrap.io',
-        port: 2525,
-        auth: {
-          user: '2dcf0b51368556', // these are Cristian Kiss config, so change them if you want to get any emails!
-          pass: 'a17eae57fc0a2b'
-        }
-      }
-    })
-
+    seneca.use(SenecaMail, Config.mailtrap)
 
     function createReset (msg, response) {
       var email = msg.data.email
@@ -146,32 +126,13 @@ module.exports = function (server, options, next) {
   })
 
   function loadGoogleAuth () {
-    seneca.use(AuthGoogle, {
-      provider: 'google',
-      password: '',
-      clientId: '',
-      clientSecret: '',
-      isSecure: false
-    })
+    seneca.use(AuthGoogle, Config.googleLogin)
 
-    seneca.use(AuthTwitter, {
-      provider: 'twitter',
-      password: 'secret',
-      clientId: '',
-      clientSecret: '',
-      isSecure: false
-    })
+    seneca.use(AuthTwitter, Config.twitterLogin)
 
-    seneca.use(AuthGithub, {
-      provider: 'github',
-      password: 'secret',
-      clientId: '',
-      clientSecret: '',
-      isSecure: false
-    })
+    seneca.use(AuthGithub, Config.githubLogin)
 
     seneca.ready(function () {
-
       // this is for other apps using Twitter login via redirect
       seneca.add('role: auth, cmd: loginTwitter', function (args, done) {
         seneca.log.debug('Twitter login')

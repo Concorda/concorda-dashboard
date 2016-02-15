@@ -159,7 +159,7 @@ export function upsertUser (userId, data) {
         })
     }
     else {
-      if(data.register){
+      if (data.register) {
         _.omit(data, ['register'])
         Request
           .post('/auth/register')

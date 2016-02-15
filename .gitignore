@@ -3,3 +3,6 @@ node_modules
 .DS_Store
 
 dist
+
+config/*.env
+!config/sample.vars.env
