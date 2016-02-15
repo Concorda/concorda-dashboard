@@ -17,7 +17,7 @@ export let Register = React.createClass({
 
     data.register = true
 
-    if(params && params.callback_url){
+    if (params && params.callback_url) {
       data.callback_url = params.callback_url
     }
 

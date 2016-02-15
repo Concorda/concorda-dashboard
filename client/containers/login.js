@@ -18,7 +18,7 @@ export const Login = React.createClass({
       pass: email.pass
     }
 
-    if(params && params.callback_url){
+    if (params && params.callback_url) {
       data.callback_url = params.callback_url
     }
 
