@@ -1,3 +1,5 @@
+![Banner][]
+
 # Concorda
 Concorda: User management system
 
@@ -61,9 +63,10 @@ documentation, examples, extra testing, or new features please get in touch.
 - [Code of Conduct]
 
 ## License
-Copyright (c) 2015, nearForm and other contributors.
+Copyright (c) 2016, nearForm and other contributors.
 Licensed under [MIT][].
 
+[Banner]: https://raw.githubusercontent.com/nearform/concorda/master/client/assets/img/logo-concorda-banner.png
 [here]: https://github.com/nearform/vidi-concorda-nodezoo-system
 [MIT]: ./LICENSE
 [Code of Conduct]: https://github.com/nearform/vidi-contrib/docs/code_of_conduct.md
