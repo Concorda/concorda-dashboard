@@ -13,7 +13,7 @@ const usersState = {
   resetUser: null
 }
 
-export default function users (state = usersState, action) {
+export default function user (state = usersState, action) {
   switch (action.type) {
     case userActions.GET_USERS_REQUEST:
       return Object.assign({}, state, {

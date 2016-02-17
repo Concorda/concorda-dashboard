@@ -83,7 +83,7 @@ export const Clients = React.createClass({
           </div>
         </div>
 
-        <Panel title={'Clients List'}>
+        <Panel title={'Client List'}>
           {body}
         </Panel>
 
