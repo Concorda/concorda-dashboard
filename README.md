@@ -1,6 +1,6 @@
 ![Banner][]
 
-# Concorda
+# Concorda Dashboard
 Concorda: User management system
 
 - __Lead Maintainer:__ [Mircea Alexandru][lead]
@@ -81,7 +81,7 @@ Licensed under [MIT][].
 [here]: https://github.com/nearform/vidi-concorda-nodezoo-system
 [MIT]: ./LICENSE
 [Code of Conduct]: https://github.com/nearform/vidi-contrib/docs/code_of_conduct.md
-[Concorda]: https://github.com/nearform/concorda
+[Concorda]: https://github.com/nearform/concorda-dashboard
 [lead]: https://github.com/mirceaalexandru
 [nearForm]: http://www.nearform.com/
 [NodeZoo]: http://www.nodezoo.com/
