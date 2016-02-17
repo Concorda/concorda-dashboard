@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {reduxForm} from 'redux-form'
 import {pushPath} from 'redux-simple-router'
 
-import {getPasswordReset} from '../actions/users'
+import {getPasswordReset} from '../actions/user'
 
 import {validateGetPassReset} from '../lib/validations'
 
@@ -86,7 +86,7 @@ PasswordReset = reduxForm({
 })(PasswordReset)
 
 export default connect((state) => {
-  const {message} = state.users
+  const {message} = state.user
   return {
     message: message
   }

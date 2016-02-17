@@ -4,7 +4,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {reduxForm} from 'redux-form'
 
-import {upsertUser} from '../actions/users'
+import {upsertUser} from '../actions/user'
 
 import {validateAddUser} from '../lib/validations'
 

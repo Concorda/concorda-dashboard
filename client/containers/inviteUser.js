@@ -4,7 +4,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {reduxForm} from 'redux-form'
 
-import {sendInviteUser} from '../actions/users'
+import {sendInviteUser} from '../actions/user'
 
 import {validateInviteUser} from '../lib/validations'
 
