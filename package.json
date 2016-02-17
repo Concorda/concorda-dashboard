@@ -30,6 +30,7 @@
     "boom": "3.x.x",
     "chairo": "2.0.0",
     "css-loader": "0.23.x",
+    "concorda-api": "nearform/concorda-api",
     "d3": "3.x.x",
     "ejs": "2.4.1",
     "eraro": "^0.4.1",
