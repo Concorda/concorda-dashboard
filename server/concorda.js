@@ -4,13 +4,17 @@ const _ = require('lodash')
 const Async = require('async')
 var Jsonic = require('jsonic')
 
+// load related modules
+const Client = require('./client')
+
 module.exports = function (opts) {
   var seneca = this
 
-  var options = {
+  var options = _.extend({}, opts || {}, {
     name: 'concorda'
-  }
-  options = _.extend(options, opts || {})
+  })
+
+  seneca.use(Client)
 
   function listUsers (msg, response) {
     // @ToDo - change msg.req$.query.* to msg.* after seneca-web is published with latest version

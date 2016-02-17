@@ -26,7 +26,9 @@ exports.init = function (options, done) {
         secure: true,
         restrict: '/api'
       })
-    done(null, server)
+    si.ready(function () {
+      done(null, server)
+    })
   })
 }
 

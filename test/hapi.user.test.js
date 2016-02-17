@@ -27,7 +27,7 @@ suite('Hapi user suite tests ', () => {
 
       server.seneca.use(ConcordaUser)
 
-      done()
+      server.seneca.ready(done)
     })
   })
 
