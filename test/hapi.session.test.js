@@ -2,7 +2,7 @@
 
 var Assert = require('assert')
 
-const ConcordaUser = require('../server/concorda')
+const Concorda = require('../server/concorda')
 
 var Lab = require('lab')
 var lab = exports.lab = Lab.script()
@@ -25,9 +25,8 @@ suite('Hapi user session suite tests ', function () {
       server = srv
       var seneca = server.seneca
 
-      seneca.use(ConcordaUser)
-
-      done()
+      seneca.use(Concorda)
+      seneca.ready(done)
     })
   })
 

@@ -56,6 +56,17 @@ in a different terminal.
  PUT      | /api/user                          | Update an user, different from the one logged in
  DELETE   | /api/user/{user_id}                | Delete an user
 
+ ### Client management
+
+ Method   | URL                                | Description                          
+ ---------|------------------------------------|--------------------------------------
+ GET      | /api/client                        | Get list of clients
+ GET      | /api/clients                       | Get list of clients
+ POST     | /api/client                        | Create a client
+ PUT      | /api/client                        | Update a client
+ DELETE   | /api/client/{client_id}            | Delete a client
+
+
 ## Contributing
 The [Concorda][] encourages open participation. If you feel you can help in any way, be it with
 documentation, examples, extra testing, or new features please get in touch.
