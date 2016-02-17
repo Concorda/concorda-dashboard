@@ -1,5 +1,5 @@
 {
-  "name": "concorda",
+  "name": "concorda-dashboard",
   "version": "0.0.1",
   "description": "A user management system written in node",
   "author": "Dean McDonnell (http://mcdonnelldean.me/)",
@@ -13,7 +13,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/nearform/concorda.git"
+    "url": "git://github.com/nearform/concorda-dashboard.git"
   },
   "scripts": {
     "test": "lab test/*.test.js -r console -v -L -m 3000",
