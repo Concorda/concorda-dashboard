@@ -26,9 +26,9 @@ in a different terminal.
 
  This project is in it's infancy, documentation will come after stability.
 
- ## Server API
+## Server API
 
- ### Authorization
+### Authorization
 
 
  Method   | URL                                  | Description                           | Documentation
@@ -45,7 +45,7 @@ in a different terminal.
  GET/POST | /auth/login                          | Login                                 | https://github.com/senecajs/seneca-auth
 
 
- ### User management
+### User management
 
  Method   | URL                                | Description                          
  ---------|------------------------------------|--------------------------------------
