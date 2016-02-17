@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import {reduxForm} from 'redux-form'
 import _ from 'lodash'
 
-import {upsertUser, getUser} from '../actions/users'
+import {upsertUser, getUser} from '../actions/user'
 import {validateEditUser} from '../lib/validations'
 
 export let EditUser = React.createClass({
@@ -105,11 +105,11 @@ EditUser = reduxForm({
   validate: validateEditUser
 },
 state => ({
-  initialValues: state.users.editUser ? state.users.editUser : null
+  initialValues: state.user.editUser ? state.user.editUser : null
 }))(EditUser)
 
 export default connect((state) => {
   return {
-    editUser: state.users.editUser ? state.users.editUser : null
+    editUser: state.user.editUser ? state.user.editUser : null
   }
 })(EditUser)

@@ -1,6 +1,6 @@
 'use strict'
 
-import * as usersActions from '../constants/users'
+import * as userActions from '../constants/user'
 
 const usersState = {
   isGettingUsers: false,
@@ -15,7 +15,7 @@ const usersState = {
 
 export default function users (state = usersState, action) {
   switch (action.type) {
-    case usersActions.GET_USERS_REQUEST:
+    case userActions.GET_USERS_REQUEST:
       return Object.assign({}, state, {
         isGettingUsers: true,
         isRemovingUser: false,
@@ -24,7 +24,7 @@ export default function users (state = usersState, action) {
         result: null
       })
 
-    case usersActions.GET_USERS_RESPONSE:
+    case userActions.GET_USERS_RESPONSE:
       return Object.assign({}, state, {
         isGettingUsers: false,
         isRemovingUser: false,
@@ -33,7 +33,7 @@ export default function users (state = usersState, action) {
         result: action.result
       })
 
-    case usersActions.DELETE_USER_REQUEST:
+    case userActions.DELETE_USER_REQUEST:
       return Object.assign({}, state, {
         isRemovingUser: true,
         isGettingUsers: false,
@@ -42,7 +42,7 @@ export default function users (state = usersState, action) {
         result: null
       })
 
-    case usersActions.DELETE_USER_RESPONSE:
+    case userActions.DELETE_USER_RESPONSE:
       return Object.assign({}, state, {
         isRemovingUser: false,
         isGettingUsers: false,
@@ -51,7 +51,7 @@ export default function users (state = usersState, action) {
         result: action.result
       })
 
-    case usersActions.LOAD_USER_REQUEST:
+    case userActions.LOAD_USER_REQUEST:
       return Object.assign({}, state, {
         isRemovingUser: false,
         isGettingUsers: false,
@@ -60,7 +60,7 @@ export default function users (state = usersState, action) {
         editUser: null
       })
 
-    case usersActions.LOAD_USER_RESPONSE:
+    case userActions.LOAD_USER_RESPONSE:
       return Object.assign({}, state, {
         isRemovingUser: false,
         isGettingUsers: false,
@@ -69,53 +69,53 @@ export default function users (state = usersState, action) {
         editUser: action.editUser
       })
 
-    case usersActions.PASS_RESET_REQUEST:
+    case userActions.PASS_RESET_REQUEST:
       return Object.assign({}, state, {
         niceError: null,
         hasError: false,
         message: null
       })
 
-    case usersActions.PASS_RESET_RESPONSE:
+    case userActions.PASS_RESET_RESPONSE:
       return Object.assign({}, state, {
         niceError: action.niceError,
         hasError: action.hasError,
         message: action.message
       })
 
-    case usersActions.LOAD_PASSWORD_RESET_REQUEST:
+    case userActions.LOAD_PASSWORD_RESET_REQUEST:
       return Object.assign({}, state, {
         niceError: null,
         hasError: false,
         resetUser: null
       })
 
-    case usersActions.LOAD_PASSWORD_RESET_RESPONSE:
+    case userActions.LOAD_PASSWORD_RESET_RESPONSE:
       return Object.assign({}, state, {
         niceError: action.niceError,
         hasError: action.hasError,
         resetUser: action.resetUser
       })
 
-    case usersActions.SET_NEW_PASSWORD_REQUEST:
+    case userActions.SET_NEW_PASSWORD_REQUEST:
       return Object.assign({}, state, {
         niceError: null,
         hasError: false
       })
 
-    case usersActions.SET_NEW_PASSWORD_RESPONSE:
+    case userActions.SET_NEW_PASSWORD_RESPONSE:
       return Object.assign({}, state, {
         niceError: action.niceError,
         hasError: action.hasError
       })
 
-    case usersActions.SEND_INVITE_USER_REQUEST:
+    case userActions.SEND_INVITE_USER_REQUEST:
       return Object.assign({}, state, {
         niceError: null,
         hasError: false
       })
 
-    case usersActions.SEND_INVITE_USER_RESPONSE:
+    case userActions.SEND_INVITE_USER_RESPONSE:
       return Object.assign({}, state, {
         niceError: action.niceError,
         hasError: action.hasError

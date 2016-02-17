@@ -19,6 +19,7 @@ import PasswordReset from '../containers/passReset'
 import SetPassword from '../containers/setPassword'
 import InviteUser from '../containers/inviteUser'
 import Register from '../containers/register'
+import Clients from '../containers/clients'
 
 export default function createRootComponent (store) {
   const history = createHistory()
@@ -55,6 +56,7 @@ export default function createRootComponent (store) {
           <Route path="password_reset" component={PasswordReset} />
           <Route path="password_reset/:token" component={SetPassword} />
           <Route path="invite_user" component={InviteUser} onEnter={requireAuth}/>
+          <Route path="clients" component={Clients} onEnter={requireAuth}/>
         </Route>
       </Router>
     </Provider>

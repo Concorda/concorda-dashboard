@@ -16,6 +16,7 @@ export default React.createClass({
           <ul className="list-unstyled list-inline">
             <li className="nav-item"><Link to={'/'}>Overview</Link></li>
             <li className="nav-item"><Link to={'/users'}>Users</Link></li>
+            <li className="nav-item"><Link to={'/clients'}>Clients</Link></li>
             <li className="nav-item">
               <a onClick={() => { handleEditUserProfile() }} className="has-icon has-icon-profile">
                 <span className="icon icon-profile"></span>

@@ -4,7 +4,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {reduxForm} from 'redux-form'
 
-import {loadPasswordResetUser, setNewPassword} from '../actions/users'
+import {loadPasswordResetUser, setNewPassword} from '../actions/user'
 import {validateSetNewPassword} from '../lib/validations'
 
 
@@ -68,12 +68,12 @@ SetPassword = reduxForm({
   validate: validateSetNewPassword
 },
   state => ({
-    initialValues: state.users.resetUser ? state.users.resetUser : null
+    initialValues: state.user.resetUser ? state.user.resetUser : null
   })
 )(SetPassword)
 
 export default connect((state) => {
   return {
-    resetUser: state.users.resetUser ? state.users.resetUser : null
+    resetUser: state.user.resetUser ? state.user.resetUser : null
   }
 })(SetPassword)

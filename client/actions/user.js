@@ -4,12 +4,12 @@ import Request from 'superagent/lib/client'
 import { pushPath } from 'redux-simple-router'
 import _ from 'lodash'
 
-import * as usersActions from '../constants/users'
+import * as userActions from '../constants/user'
 import {logout} from './auth'
 
 export function getUsers () {
   return (dispatch) => {
-    dispatch({type: usersActions.GET_USERS_REQUEST})
+    dispatch({type: userActions.GET_USERS_REQUEST})
 
     Request
       .get('/api/user')
@@ -20,7 +20,7 @@ export function getUsers () {
 
         if (err || !resp.body) {
           return dispatch({
-            type: usersActions.GET_USERS_RESPONSE,
+            type: userActions.GET_USERS_RESPONSE,
             niceError: 'Can\'t fetch users',
             hasError: true,
             result: null
@@ -28,7 +28,7 @@ export function getUsers () {
         }
 
         dispatch({
-          type: usersActions.GET_USERS_RESPONSE,
+          type: userActions.GET_USERS_RESPONSE,
           niceError: null,
           hasError: false,
           result: resp.body.data
@@ -39,7 +39,7 @@ export function getUsers () {
 
 export function deleteUser (userId) {
   return (dispatch) => {
-    dispatch({type: usersActions.DELETE_USER_REQUEST})
+    dispatch({type: userActions.DELETE_USER_REQUEST})
 
     Request
       .delete('/api/user/' + userId)
@@ -50,14 +50,14 @@ export function deleteUser (userId) {
 
         if (err || !resp.body) {
           return dispatch({
-            type: usersActions.DELETE_USER_RESPONSE,
+            type: userActions.DELETE_USER_RESPONSE,
             niceError: 'Can\'t delete user',
             hasError: true
           })
         }
 
         dispatch({
-          type: usersActions.DELETE_USER_RESPONSE,
+          type: userActions.DELETE_USER_RESPONSE,
           niceError: null,
           hasError: false
         })
@@ -69,7 +69,7 @@ export function deleteUser (userId) {
 
 export function closeSession (userId) {
   return (dispatch) => {
-    dispatch({type: usersActions.CLOSE_SESSION_REQUEST})
+    dispatch({type: userActions.CLOSE_SESSION_REQUEST})
 
     Request
       .post('/api/user/' + userId + '/session/close')
@@ -80,14 +80,14 @@ export function closeSession (userId) {
 
         if (err || !resp.body) {
           return dispatch({
-            type: usersActions.CLOSE_SESSION_RESPONSE,
+            type: userActions.CLOSE_SESSION_RESPONSE,
             niceError: 'Can\'t close user session',
             hasError: true
           })
         }
 
         dispatch({
-          type: usersActions.CLOSE_SESSION_RESPONSE,
+          type: userActions.CLOSE_SESSION_RESPONSE,
           niceError: null,
           hasError: false
         })
@@ -97,14 +97,14 @@ export function closeSession (userId) {
 
 export function getUser (userId, redirectTo) {
   return (dispatch) => {
-    dispatch({type: usersActions.LOAD_USER_REQUEST})
+    dispatch({type: userActions.LOAD_USER_REQUEST})
 
     Request
       .get('/api/user/' + userId)
       .end((err, resp) => {
         if (err || !resp.body) {
           dispatch({
-            type: usersActions.LOAD_USER_RESPONSE,
+            type: userActions.LOAD_USER_RESPONSE,
             niceError: 'Can\'t load user',
             hasError: true,
             editUser: null
@@ -112,7 +112,7 @@ export function getUser (userId, redirectTo) {
         }
         else {
           dispatch({
-            type: usersActions.LOAD_USER_RESPONSE,
+            type: userActions.LOAD_USER_RESPONSE,
             niceError: null,
             hasError: false,
             editUser: resp.body.data
@@ -129,10 +129,10 @@ export function getUser (userId, redirectTo) {
 export function upsertUser (userId, data) {
   return (dispatch, getState) => {
     let state = getState()
-    dispatch({type: usersActions.UPSERT_USER_REQUEST})
+    dispatch({type: userActions.UPSERT_USER_REQUEST})
 
     if (userId) {
-      data.orig_email = state.users.editUser.email
+      data.orig_email = state.user.editUser.email
       Request
         .put('/api/user')
         .type('form')
@@ -140,7 +140,7 @@ export function upsertUser (userId, data) {
         .end((err, resp) => {
           if (err || !resp.body) {
             dispatch({
-              type: usersActions.UPDATE_USER_RESPONSE,
+              type: userActions.UPDATE_USER_RESPONSE,
               niceError: 'Can\'t update user',
               hasError: true,
               result: null
@@ -148,7 +148,7 @@ export function upsertUser (userId, data) {
           }
           else {
             dispatch({
-              type: usersActions.UPDATE_USER_RESPONSE,
+              type: userActions.UPDATE_USER_RESPONSE,
               niceError: null,
               hasError: false,
               result: resp.body.data
@@ -168,7 +168,7 @@ export function upsertUser (userId, data) {
           .end((err, resp) => {
             if (err || !resp.body) {
               dispatch({
-                type: usersActions.CREATE_USER_RESPONSE,
+                type: userActions.CREATE_USER_RESPONSE,
                 niceError: 'Can\'t create user',
                 hasError: true,
                 result: null
@@ -176,7 +176,7 @@ export function upsertUser (userId, data) {
             }
             else {
               dispatch({
-                type: usersActions.CREATE_USER_RESPONSE,
+                type: userActions.CREATE_USER_RESPONSE,
                 niceError: null,
                 hasError: false,
                 result: resp.body.data
@@ -193,7 +193,7 @@ export function upsertUser (userId, data) {
           .end((err, resp) => {
             if (err || !resp.body) {
               dispatch({
-                type: usersActions.CREATE_USER_RESPONSE,
+                type: userActions.CREATE_USER_RESPONSE,
                 niceError: 'Can\'t create user',
                 hasError: true,
                 result: null
@@ -201,7 +201,7 @@ export function upsertUser (userId, data) {
             }
             else {
               dispatch({
-                type: usersActions.CREATE_USER_RESPONSE,
+                type: userActions.CREATE_USER_RESPONSE,
                 niceError: null,
                 hasError: false,
                 result: resp.body.data
@@ -220,7 +220,7 @@ export function upsertUser (userId, data) {
  */
 export function getPasswordReset (data) {
   return (dispatch) => {
-    dispatch({type: usersActions.PASS_RESET_REQUEST})
+    dispatch({type: userActions.PASS_RESET_REQUEST})
     Request
       .post('/auth/create_reset')
       .type('form')
@@ -228,7 +228,7 @@ export function getPasswordReset (data) {
       .end((err, resp) => {
         if (err || !resp.body.ok) {
           dispatch({
-            type: usersActions.PASS_RESET_RESPONSE,
+            type: userActions.PASS_RESET_RESPONSE,
             niceError: resp.body.why || 'Can\'t find user with email: ' + data.email,
             hasError: true,
             message: null
@@ -236,7 +236,7 @@ export function getPasswordReset (data) {
         }
         else {
           dispatch({
-            type: usersActions.PASS_RESET_RESPONSE,
+            type: userActions.PASS_RESET_RESPONSE,
             niceError: null,
             hasError: false,
             message: 'Check your email for a link to reset your password. If it doesn\'t appear within a few minutes, check your spam folder.'
@@ -252,7 +252,7 @@ export function getPasswordReset (data) {
  */
 export function loadPasswordResetUser (token) {
   return (dispatch) => {
-    dispatch({type: usersActions.LOAD_PASSWORD_RESET_REQUEST})
+    dispatch({type: userActions.LOAD_PASSWORD_RESET_REQUEST})
     Request
       .post('/auth/load_reset')
       .type('form')
@@ -260,7 +260,7 @@ export function loadPasswordResetUser (token) {
       .end((err, resp) => {
         if (err || !resp.body || !resp.body.ok) {
           dispatch({
-            type: usersActions.LOAD_PASSWORD_RESET_RESPONSE,
+            type: userActions.LOAD_PASSWORD_RESET_RESPONSE,
             niceError: 'Can\'t load reset password informations for this token',
             hasError: true,
             resetUser: null
@@ -268,7 +268,7 @@ export function loadPasswordResetUser (token) {
         }
         else {
           dispatch({
-            type: usersActions.LOAD_PASSWORD_RESET_RESPONSE,
+            type: userActions.LOAD_PASSWORD_RESET_RESPONSE,
             niceError: null,
             hasError: false,
             resetUser: resp.body
@@ -285,7 +285,7 @@ export function loadPasswordResetUser (token) {
  */
 export function setNewPassword (data, token) {
   return (dispatch) => {
-    dispatch({type: usersActions.SET_NEW_PASSWORD_REQUEST})
+    dispatch({type: userActions.SET_NEW_PASSWORD_REQUEST})
     Request
       .post('/auth/execute_reset')
       .type('form')
@@ -297,14 +297,14 @@ export function setNewPassword (data, token) {
       .end((err, resp) => {
         if (err || !resp.body || !resp.body.ok) {
           dispatch({
-            type: usersActions.SET_NEW_PASSWORD_RESPONSE,
+            type: userActions.SET_NEW_PASSWORD_RESPONSE,
             niceError: 'Can\'t reset password',
             hasError: true
           })
         }
         else {
           dispatch({
-            type: usersActions.SET_NEW_PASSWORD_RESPONSE,
+            type: userActions.SET_NEW_PASSWORD_RESPONSE,
             niceError: null,
             hasError: false
           })
@@ -320,7 +320,7 @@ export function setNewPassword (data, token) {
  */
 export function sendInviteUser (data) {
   return (dispatch) => {
-    dispatch({type: usersActions.SEND_INVITE_USER_REQUEST})
+    dispatch({type: userActions.SEND_INVITE_USER_REQUEST})
     Request
       .post('/api/invite/user')
       .type('form')
@@ -331,14 +331,14 @@ export function sendInviteUser (data) {
       .end((err, resp) => {
         if (err || !resp.body || !resp.body.ok) {
           dispatch({
-            type: usersActions.SEND_INVITE_USER_RESPONSE,
+            type: userActions.SEND_INVITE_USER_RESPONSE,
             niceError: 'Can\'t send invite to email',
             hasError: true
           })
         }
         else {
           dispatch({
-            type: usersActions.SEND_INVITE_USER_RESPONSE,
+            type: userActions.SEND_INVITE_USER_RESPONSE,
             niceError: null,
             hasError: false
           })

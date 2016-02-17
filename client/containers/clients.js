@@ -1,3 +1,4 @@
+
 'use strict'
 
 import React from 'react'
@@ -5,58 +6,51 @@ import {connect} from 'react-redux'
 import { pushPath } from 'redux-simple-router'
 
 // actions
-import {getUsers, deleteUser, getUser, closeSession} from '../actions/user'
+import {getClients, getClient, deleteClient} from '../actions/client'
 
 import Panel from '../components/panel'
 
-export const Users = React.createClass({
+export const Clients = React.createClass({
   componentDidMount () {
-    this.props.dispatch(getUsers())
+    this.props.dispatch(getClients())
   },
 
   handleAdd () {
-    this.props.dispatch(pushPath('/user/add'))
+    this.props.dispatch(pushPath('/client/add'))
   },
 
-  handleInviteUser () {
-    this.props.dispatch(pushPath('/invite_user'))
+  handleEdit (clientId) {
+    this.props.dispatch(getUser(clientId, `/client/${clientId}/edit`))
   },
 
-  handleEdit (userId) {
-    this.props.dispatch(getUser(userId, `/user/${userId}/edit`))
-  },
-
-  handleDelete (id) {
-    this.props.dispatch(deleteUser(id))
-  },
-
-  handleCloseSession (id) {
-    this.props.dispatch(closeSession(id))
+  handleDelete (clientId) {
+    this.props.dispatch(deleteUser(clientId))
   },
 
   render () {
-    const {users} = this.props
+    const {clients} = this.props
     let body = null
 
-    if (users) {
+    if (clients) {
       body = (
-        <div className="user-list">
-          <div className="user-list-heading cf row">
+        <div className="client-list">
+          <div className="client-list-heading cf row">
             <div className="col-xs-12 col-md-3"><h4 className="m0">Name</h4></div>
-            <div className="col-xs-12 col-md-3"><h4 className="m0">Email</h4></div>
+            <div className="col-xs-12 col-md-3"><h4 className="m0">Description</h4></div>
+            <div className="col-xs-12 col-md-3"><h4 className="m0">Active</h4></div>
             <div className="col-xs-12 col-md-6"><h4 className="m0">Actions</h4></div>
           </div>
 
-          {users.map((user) => {
+          {clients.map((client) => {
             return (
-              <div key={user.id} className="user-list-row row cf">
-                <div className="col-xs-12 col-md-3">{user.name}</div>
-                <div className="col-xs-12 col-md-3">{user.email}</div>
+              <div key={client.id} className="user-list-row row cf">
+                <div className="col-xs-12 col-md-3">{client.name}</div>
+                <div className="col-xs-12 col-md-3">{client.description}</div>
+                <div className="col-xs-12 col-md-3">{client.active}</div>
                 <div className="col-xs-12 col-md-6">
                   <ul className="list-unstyled list-inline">
-                    <li><a onClick={() => { this.handleEdit(user.id) }}>Edit</a></li>
-                    <li><a onClick={() => { this.handleDelete(user.id) }}>Delete</a></li>
-                    <li><a onClick={() => { this.handleCloseSession(user.id) }}>Close Session</a></li>
+                    <li><a onClick={() => { this.handleEdit(client.id) }}>Edit</a></li>
+                    <li><a onClick={() => { this.handleDelete(client.id) }}>Delete</a></li>
                   </ul>
                 </div>
               </div>
@@ -67,18 +61,17 @@ export const Users = React.createClass({
     }
 
     return (
-      <div className="page page-users container-fluid">
+      <div className="page page-clients container-fluid">
         <div className="row middle-xs page-heading">
-          <h2 className="col-xs-6 col-sm-6">Users</h2>
+          <h2 className="col-xs-6 col-sm-6">External Clients</h2>
           <div className="col-xs-6 col-sm-6 txt-right">
-            <button onClick={() => { this.handleAdd() }} className="btn btn-primary">Add User</button>
-            <button onClick={() => { this.handleInviteUser() }} className="btn btn-primary btn-send-invite">Invite User</button>
+            <button onClick={() => { this.handleAdd() }} className="btn btn-primary">Add Client</button>
           </div>
         </div>
 
         <div className="row middle-xs search-wrapper">
           <div className="col-xs-12 col-sm-8 col-md-8 search-input-wrapper">
-            <input type="search" className="input-large" placeholder="Find a user"/>
+            <input type="search" className="input-large" placeholder="Find a client"/>
             <ul className="list-unstyled search-dropdown-active">
               <li><a href="">Item one</a></li>
               <li><a href="">Item two</a></li>
@@ -90,7 +83,7 @@ export const Users = React.createClass({
           </div>
         </div>
 
-        <Panel title={'User List'}>
+        <Panel title={'Clients List'}>
           {body}
         </Panel>
 
@@ -111,6 +104,6 @@ export const Users = React.createClass({
 
 export default connect((state) => {
   return {
-    users: state.user.result
+    clients: state.client.list
   }
-})(Users)
+})(Clients)
