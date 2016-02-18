@@ -80,3 +80,11 @@ export function deleteClient (clientId) {
       })
   }
 }
+
+export function upsertClient (userId, data) {
+  return (dispatch, getState) => {
+    let state = getState()
+    dispatch({type: clientActions.UPSERT_CLIENT_REQUEST})
+    dispatch({type: clientActions.UPSERT_CLIENT_RESPONSE})
+  }
+}

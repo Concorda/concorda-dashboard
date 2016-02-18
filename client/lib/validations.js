@@ -52,3 +52,8 @@ export function validateInviteUser (data) {
   }
   return errors
 }
+
+export function validateAddClient (data) {
+  const errors = {}
+  return errors
+}
