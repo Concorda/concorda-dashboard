@@ -8,12 +8,9 @@ module.exports = function (server, options, next) {
 
   seneca
     .use('mesh', {auto: true})
+    .use('concorda-api')
 
-  seneca.ready(function () {
-    seneca.use('concorda-api')
-
-    next()
-  })
+  next()
 }
 
 // Hapi uses this metadata.
