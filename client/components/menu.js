@@ -7,7 +7,7 @@ export default React.createClass({
   render () {
     const {handleEditUserProfile} = this.props
     return (
-      <div className="col-xs-4 col-sm-6 nav-main-wrapper">
+      <div className="nav-main-wrapper">
         <input type="checkbox" name="nav-menu-handle" id="nav-menu-handle" className="nav-menu-handle"/>
         <label htmlFor="nav-menu-handle"></label>
 

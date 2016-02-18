@@ -12,11 +12,13 @@ export default React.createClass({
       <header className="header" role="banner">
         <div className="container-fluid">
           <div className="row middle-xs">
-            <div className="has-icon col-xs-8 col-sm-6">
-              <Link to={'/'} className='logo logo-concorda'></Link>
-              <h2 className="m0">Concorda: Dashboard</h2>
-            </div>
+            
             {(showProfile ? <Menu handleEditUserProfile={handleEditUserProfile} /> : null)}
+            
+            <div className="col-xs-12">
+              <Link to={'/'} className='logo logo-concorda'><h2 className="m0">Concorda: Dashboard</h2></Link>
+            </div>
+            
           </div>
         </div>
       </header>

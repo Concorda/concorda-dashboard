@@ -16,5 +16,9 @@
 
 .logo-concorda
   height: 30px
-  width: 30px
+  padding-left: $ui-spacing + $ui-spacing-third
   background-image: url("../img/logo-concorda.svg")
+  line-height: @height
+  
+.nav-main-wrapper + .col-xs-12 .logo-concorda
+  margin-left: $ui-spacing-double
