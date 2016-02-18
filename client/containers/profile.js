@@ -47,7 +47,7 @@ export const Profile = React.createClass({
 
     return (
       <div className="page page-profile container-fluid">
-        <div className="row middle-xs page-heading">
+        <div className="row middle-xs page-heading center-xs">
           <h2 className="col-xs-12 col-sm-6">Profile</h2>
         </div>
 
@@ -74,18 +74,14 @@ export const Profile = React.createClass({
           }
           else if (profile) {
             return (
-              <div className="row middle-xs left-xs">
+              <div className="row middle-xs center-xs">
                 <div className="login-form col-xs-12 col-md-6 col-lg-4 txt-left form-full-width form-panel">
-                  <div className="profile-pic">
-                    <img src="/img/dummy.png"/>
+                  <div class="row center-xs">
+                    <img src="/img/dummy.png" className="avatar" />
                   </div>
                   <div className="row">
-                    <span col-xs-12 col-md-6 col-lg-4>Name:</span>
-                    <span col-xs-12 col-md-6 col-lg-4>{profile.name}</span>
-                  </div>
-                  <div className="row">
-                    <span col-xs-12 col-md-6 col-lg-4>Email:</span>
-                    <span col-xs-12 col-md-6 col-lg-4>{profile.email}</span>
+                    <div className="col-xs-12"><p className="m0 mt"><strong>Name:</strong> {profile.name}</p></div>
+                    <div className="col-xs-12"><p><strong>Email:</strong> {profile.email}</p></div>
                   </div>
                   <button onClick={handleEditProfile} className="btn btn-large submit">Edit</button>
                 </div>
