@@ -43,7 +43,7 @@ export const Login = React.createClass({
       <main className="page page-login" role="main">
         <div className="container-fluid">
           <div className="row middle-xs center-xs vertical-center">
-            <form className="login-form col-xs-12 col-md-6 col-lg-4 txt-left form-full-width form-panel">
+            <form className="login-form col-xs-12 col-md-6 col-lg-6 txt-left form-full-width form-panel">
 
               <h2 className={msgClass}>
                 <span className={iconClass}></span>
