@@ -81,10 +81,59 @@ export function deleteClient (clientId) {
   }
 }
 
-export function upsertClient (userId, data) {
-  return (dispatch, getState) => {
-    let state = getState()
+export function upsertClient (clientId, data) {
+  return (dispatch) => {
     dispatch({type: clientActions.UPSERT_CLIENT_REQUEST})
-    dispatch({type: clientActions.UPSERT_CLIENT_RESPONSE})
+    if (clientId) {
+      Request
+        .put('/api/client')
+        .type('form')
+        .send(data)
+        .end((err, resp) => {
+          if (err || !resp.body) {
+            dispatch({
+              type: clientActions.UPDATE_CLIENT_RESPONSE,
+              niceError: 'Can\'t update client',
+              hasError: true,
+              result: null
+            })
+          }
+          else {
+            dispatch({
+              type: clientActions.UPDATE_CLIENT_RESPONSE,
+              niceError: null,
+              hasError: false,
+              result: resp.body.data
+            })
+
+            dispatch(pushPath('/clients'))
+          }
+        })
+    }
+    else {
+      Request
+        .post('/api/client')
+        .type('form')
+        .send(data)
+        .end((err, resp) => {
+          if (err || !resp.body) {
+            dispatch({
+              type: clientActions.CREATE_CLIENT_RESPONSE,
+              niceError: 'Can\'t create client',
+              hasError: true,
+              result: null
+            })
+          }
+          else {
+            dispatch({
+              type: clientActions.CREATE_CLIENT_RESPONSE,
+              niceError: null,
+              hasError: false,
+              result: resp.body.data
+            })
+            dispatch(pushPath('/clients'))
+          }
+        })
+    }
   }
 }
