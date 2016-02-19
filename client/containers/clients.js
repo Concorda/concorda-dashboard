@@ -33,11 +33,9 @@ export const Clients = React.createClass({
 
     if (clients) {
       body = (
-        <div className="client-list">
-          <div className="client-list-heading cf row">
+        <div className="user-list">
+          <div className="user-list-heading cf row">
             <div className="col-xs-12 col-md-3"><h4 className="m0">Name</h4></div>
-            <div className="col-xs-12 col-md-3"><h4 className="m0">Description</h4></div>
-            <div className="col-xs-12 col-md-3"><h4 className="m0">Active</h4></div>
             <div className="col-xs-12 col-md-6"><h4 className="m0">Actions</h4></div>
           </div>
 
@@ -45,8 +43,6 @@ export const Clients = React.createClass({
             return (
               <div key={client.id} className="user-list-row row cf">
                 <div className="col-xs-12 col-md-3">{client.name}</div>
-                <div className="col-xs-12 col-md-3">{client.description}</div>
-                <div className="col-xs-12 col-md-3">{client.active}</div>
                 <div className="col-xs-12 col-md-6">
                   <ul className="list-unstyled list-inline">
                     <li><a onClick={() => { this.handleEdit(client.id) }}>Edit</a></li>
