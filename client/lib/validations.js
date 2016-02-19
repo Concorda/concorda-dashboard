@@ -57,3 +57,8 @@ export function validateAddClient (data) {
   const errors = {}
   return errors
 }
+
+export function validateEditClient (data) {
+  const errors = {}
+  return errors
+}

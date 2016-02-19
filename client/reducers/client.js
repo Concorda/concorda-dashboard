@@ -6,6 +6,7 @@ const clientState = {
   hasError: false,
   niceError: null,
   isRemovingClient: false,
+  edit: false,
   list: null,
   details: null
 }
@@ -54,6 +55,11 @@ export default function client (state = clientState, action) {
         niceError: action.niceError,
         hasError: action.hasError,
         details: action.details
+      })
+
+    case clientActions.EDIT_CLIENT:
+      return Object.assign({}, state, {
+        edit: !state.edit
       })
 
     default:
