@@ -23,7 +23,7 @@ export default function client (state = clientState, action) {
       return Object.assign({}, state, {
         hasError: action.hasError,
         niceError: action.niceError,
-        list: action.data
+        list: action.list
       })
 
     case clientActions.DELETE_CLIENT_REQUEST:
