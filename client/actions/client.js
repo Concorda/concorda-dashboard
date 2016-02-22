@@ -9,7 +9,7 @@ export function validateInitConfig () {
   return (dispatch) => {
     dispatch({type: clientActions.GET_INIT_CONF_REQUEST})
     Request
-      // HACK app name is hardcoded for now to "Concorda"
+    // HACK app name is hardcoded for now to "Concorda"
       .get('/client/Concorda')
       .end((err, resp) => {
         if (err || !resp.body) {
@@ -32,8 +32,36 @@ export function validateInitConfig () {
           configuration: clientConf
         })
 
-        if(!clientConf.configured) {
+        if (!clientConf.configured) {
           return dispatch(pushPath('/public_client_conf'))
+        }
+      })
+  }
+}
+
+export function saveInitConfig (clientId, data, redirectTo) {
+  return (dispatch) => {
+    dispatch({type: clientActions.SAVE_INIT_CONFIG_REQUEST})
+    data.id = clientId
+    Request
+      .put('/client')
+      .type('form')
+      .send(data)
+      .end((err, resp) => {
+        if (err || !resp.body) {
+          dispatch({
+            type: clientActions.SAVE_INIT_CONFIG_RESPONSE,
+            niceError: 'Can\'t update client',
+            hasError: true
+          })
+        }
+        else {
+          dispatch({
+            type: clientActions.SAVE_INIT_CONFIG_RESPONSE,
+            niceError: null,
+            hasError: false
+          })
+          redirectTo ? dispatch(pushPath(redirectTo)) : dispatch(pushPath('/clients'))
         }
       })
   }
@@ -125,7 +153,7 @@ export function deleteClient (clientId) {
   }
 }
 
-export function upsertClient (clientId, data, redirectTo) {
+export function upsertClient (clientId, data) {
   return (dispatch) => {
     dispatch({type: clientActions.UPSERT_CLIENT_REQUEST})
     if (clientId) {
@@ -151,7 +179,7 @@ export function upsertClient (clientId, data, redirectTo) {
               result: resp.body.data
             })
             dispatch(editClient())
-            redirectTo ? dispatch(pushPath(redirectTo)) : dispatch(pushPath('/clients'))
+            dispatch(pushPath('/clients'))
           }
         })
     }
