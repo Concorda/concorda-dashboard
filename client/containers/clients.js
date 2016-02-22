@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import { pushPath } from 'redux-simple-router'
 
 // actions
-import {getClients, getClient, deleteClient} from '../actions/client'
+import {getClients, getClient, deleteClient, editClient} from '../actions/client'
 
 import Panel from '../components/panel'
 
@@ -19,8 +19,15 @@ export const Clients = React.createClass({
     this.props.dispatch(pushPath('/client/add'))
   },
 
+  handleView (clientId) {
+    const {dispatch}  = this.props
+    dispatch(pushPath(`/client/${clientId}/view`))
+  },
+
   handleEdit (clientId) {
-    this.props.dispatch(getUser(clientId, `/client/${clientId}/edit`))
+    const {dispatch}  = this.props
+    dispatch(editClient())
+    dispatch(getClient(clientId, `/client/${clientId}/edit`))
   },
 
   handleDelete (clientId) {
@@ -42,7 +49,7 @@ export const Clients = React.createClass({
           {clients.map((client) => {
             return (
               <div key={client.id} className="user-list-row row cf">
-                <div className="col-xs-12 col-md-3">{client.name}</div>
+                <div className="col-xs-12 col-md-3"><a className="no-href" onClick={() => { this.handleView(client.id) }}>{client.name}</a></div>
                 <div className="col-xs-12 col-md-6">
                   <ul className="list-unstyled list-inline">
                     <li><a onClick={() => { this.handleEdit(client.id) }}>Edit</a></li>

@@ -21,6 +21,7 @@ import InviteUser from '../containers/inviteUser'
 import Register from '../containers/register'
 import Clients from '../containers/clients'
 import AddClient from '../containers/addClient'
+import Client from '../containers/client'
 
 export default function createRootComponent (store) {
   const history = createHistory()
@@ -59,6 +60,8 @@ export default function createRootComponent (store) {
           <Route path="invite_user" component={InviteUser} onEnter={requireAuth}/>
           <Route path="clients" component={Clients} onEnter={requireAuth}/>
           <Route path="client/add" component={AddClient} onEnter={requireAuth}/>
+          <Route path="client/:id/edit" component={Client} onEnter={requireAuth}/>
+          <Route path="client/:id/view" component={Client} onEnter={requireAuth}/>
         </Route>
       </Router>
     </Provider>

@@ -2,7 +2,7 @@
 
 FILE=$1
 START=$2
-USAGE="Usage: ./start.sh <config> <startscript> [startscript_opts]..."
+USAGE="Usage: ./start.sh <config> <startscript>"
 
 if [ ! -r $FILE ] ; then
     echo "config file not found: $1"
@@ -18,4 +18,4 @@ fi
 
 source $FILE
 
-exec node $START $@
+exec node $START

@@ -5,6 +5,12 @@ import { pushPath } from 'redux-simple-router'
 
 import * as clientActions from '../constants/client'
 
+export function editClient () {
+  return (dispatch) => {
+    dispatch({type: clientActions.EDIT_CLIENT})
+  }
+}
+
 export function getClients () {
   return (dispatch) => {
     dispatch({type: clientActions.GET_CLIENTS_REQUEST})
@@ -30,7 +36,7 @@ export function getClients () {
   }
 }
 
-export function getClient (clientId) {
+export function getClient (clientId, redirectTo) {
   return (dispatch) => {
     dispatch({type: clientActions.GET_CLIENT_REQUEST})
     Request
@@ -51,6 +57,10 @@ export function getClient (clientId) {
             hasError: false,
             details: resp.body.data
           })
+
+          if (redirectTo) {
+            return dispatch(pushPath(redirectTo))
+          }
         }
       })
   }
@@ -85,6 +95,7 @@ export function upsertClient (clientId, data) {
   return (dispatch) => {
     dispatch({type: clientActions.UPSERT_CLIENT_REQUEST})
     if (clientId) {
+      data.id = clientId
       Request
         .put('/api/client')
         .type('form')
@@ -105,7 +116,7 @@ export function upsertClient (clientId, data) {
               hasError: false,
               result: resp.body.data
             })
-
+            dispatch(editClient())
             dispatch(pushPath('/clients'))
           }
         })
