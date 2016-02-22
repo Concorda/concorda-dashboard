@@ -7,10 +7,12 @@ exports.init = function (options, done) {
   var server = new Hapi.Server()
   server.connection()
 
-  server.register([Hapi_Cookie, Bell, {
+  server.register([
+    Hapi_Cookie,
+    Bell, {
     register: Chairo,
     options: {
-      web: require('seneca-web')
+      web: true
     }
   }], function (err) {
     if (err) {
