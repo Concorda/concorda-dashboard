@@ -27,15 +27,14 @@ export let Client = React.createClass({
 
   componentDidMount () {
     const {route, dispatch} = this.props
-    if(_.endsWith(route.path, '/edit') && !this.props.edit){
+    if (_.endsWith(route.path, '/edit') && !this.props.edit) {
       dispatch(editClient())
     }
     dispatch(getClient(this.props.params.id))
-
   },
 
-  componentWillReceiveProps: function(nextProps) {
-    if(nextProps.client){
+  componentWillReceiveProps: function (nextProps) {
+    if (nextProps.client) {
       this.setState({
         registerType: nextProps.client.registerType,
         authType: nextProps.client.authType
@@ -63,7 +62,7 @@ export let Client = React.createClass({
     this.setState({registerType: value})
   },
 
-  handleAuthTypeChange: function() {
+  handleAuthTypeChange: function () {
     let selectedValues = this.refs.authType.getCheckedValues()
     this.setState({authType: selectedValues})
   },
@@ -82,7 +81,8 @@ export let Client = React.createClass({
         {(() => {
           if (edit && client) {
             return (
-              <form className="login-form col-xs-12 txt-left form-full-width form-panel" onSubmit={handleSubmit(this.handleSubmit)}>
+              <form className="login-form col-xs-12 txt-left form-full-width form-panel"
+                    onSubmit={handleSubmit(this.handleSubmit)}>
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
                     <input {...name} placeholder="Name" className="input-large"/>
@@ -99,7 +99,8 @@ export let Client = React.createClass({
                   <div className="col-xs-12 col-sm-6">
                     <div className="row">
                       Register Type
-                      <RadioGroup name="registerType" selectedValue={this.state.registerType} onChange={this.handleRegisterTypeChange}>
+                      <RadioGroup name="registerType" selectedValue={this.state.registerType}
+                                  onChange={this.handleRegisterTypeChange}>
                         {Radio => (
                           <div className="row">
                             <Radio value="public"/>Public
@@ -115,7 +116,8 @@ export let Client = React.createClass({
                   <div className="col-xs-12 col-sm-6">
                     <div className="row">
                       Authentication Type
-                      <CheckboxGroup name="authType" value={this.state.authType} ref="authType" onChange={this.handleAuthTypeChange}>
+                      <CheckboxGroup name="authType" value={this.state.authType} ref="authType"
+                                     onChange={this.handleAuthTypeChange}>
                         <div>
                           <label>
                             <input type="checkbox" value="github"/>GitHub
@@ -147,8 +149,10 @@ export let Client = React.createClass({
                   <div className="row">
                     <div className="col-xs-12"><p className="m0 mt"><strong>Name:</strong> {client.name}</p></div>
                     <div className="col-xs-12"><p className="m0 mt"><strong>Url:</strong> {client.url}</p></div>
-                    <div className="col-xs-12"><p className="m0 mt"><strong>Register Type:</strong> {client.registerType}</p></div>
-                    <div className="col-xs-12"><p className="m0 mt"><strong>Authentication Types:</strong> {client.authType}</p></div>
+                    <div className="col-xs-12"><p className="m0 mt"><strong>Register
+                      Type:</strong> {client.registerType}</p></div>
+                    <div className="col-xs-12"><p className="m0 mt"><strong>Authentication
+                      Types:</strong> {client.authType}</p></div>
                   </div>
                   <button onClick={handleEditClient} className="btn btn-large submit">Edit</button>
                 </div>
@@ -162,7 +166,8 @@ export let Client = React.createClass({
 })
 
 
-Client = reduxForm({
+Client = reduxForm(
+  {
     form: 'editClient',
     fields: ['name', 'url', 'registerType', 'authType'],
     validate: validateEditClient

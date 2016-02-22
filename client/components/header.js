@@ -12,13 +12,10 @@ export default React.createClass({
       <header className="header" role="banner">
         <div className="container-fluid">
           <div className="row middle-xs">
-            
-            {(showProfile ? <Menu handleEditUserProfile={handleEditUserProfile} /> : null)}
-            
+            {(showProfile ? <Menu handleEditUserProfile={handleEditUserProfile}/> : null)}
             <div className="col-xs-12">
               <Link to={'/'} className='logo logo-concorda'><h2 className="m0">Concorda: Dashboard</h2></Link>
             </div>
-            
           </div>
         </div>
       </header>

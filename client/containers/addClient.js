@@ -31,7 +31,7 @@ export let AddClient = React.createClass({
     this.setState({registerType: value})
   },
 
-  handleAuthTypeChange: function() {
+  handleAuthTypeChange () {
     let selectedValues = this.refs.authType.getCheckedValues()
     this.setState({authType: selectedValues})
   },
