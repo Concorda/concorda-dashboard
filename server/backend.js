@@ -16,9 +16,9 @@ module.exports = function (server, options, next) {
     .use('mesh', {auto: true})
     .use(Concorda, {
       local: true,
-      'google-auth' : Config.googleLogin,
+      'google-auth': Config.googleLogin,
       'twitter-auth': Config.twitterLogin,
-      'github-auth' : Config.githubLogin
+      'github-auth': Config.githubLogin
     })
 
   next()

@@ -2,7 +2,7 @@
 
 var Assert = require('assert')
 
-const Concorda = require('../server/concorda')
+const Concorda = require('concorda')
 
 var Lab = require('lab')
 var lab = exports.lab = Lab.script()

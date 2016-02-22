@@ -1,4 +1,3 @@
-
 'use strict'
 
 import React from 'react'
@@ -20,18 +19,18 @@ export const Clients = React.createClass({
   },
 
   handleView (clientId) {
-    const {dispatch}  = this.props
+    const {dispatch} = this.props
     dispatch(pushPath(`/client/${clientId}/view`))
   },
 
   handleEdit (clientId) {
-    const {dispatch}  = this.props
+    const {dispatch} = this.props
     dispatch(editClient())
     dispatch(getClient(clientId, `/client/${clientId}/edit`))
   },
 
   handleDelete (clientId) {
-    this.props.dispatch(deleteUser(clientId))
+    this.props.dispatch(deleteClient(clientId))
   },
 
   render () {
@@ -49,7 +48,8 @@ export const Clients = React.createClass({
           {clients.map((client) => {
             return (
               <div key={client.id} className="user-list-row row cf">
-                <div className="col-xs-12 col-md-3"><a className="no-href" onClick={() => { this.handleView(client.id) }}>{client.name}</a></div>
+                <div className="col-xs-12 col-md-3"><a className="no-href" onClick={() => { this.handleView(client.id) }}>{client.name}</a>
+                </div>
                 <div className="col-xs-12 col-md-6">
                   <ul className="list-unstyled list-inline">
                     <li><a onClick={() => { this.handleEdit(client.id) }}>Edit</a></li>

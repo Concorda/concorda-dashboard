@@ -2,7 +2,7 @@
 
 const Assert = require('assert')
 
-const ConcordaUser = require('../server/concorda')
+const Concorda = require('concorda')
 
 const Lab = require('lab')
 const lab = exports.lab = Lab.script()
@@ -25,7 +25,7 @@ suite('Hapi user suite tests ', () => {
 
       server = srv
 
-      server.seneca.use(ConcordaUser)
+      server.seneca.use(Concorda)
 
       server.seneca.ready(done)
     })
