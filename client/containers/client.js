@@ -102,7 +102,7 @@ export let Client = React.createClass({
                       <RadioGroup name="registerType" selectedValue={this.state.registerType}
                                   onChange={this.handleRegisterTypeChange}>
                         {Radio => (
-                          <div className="row">
+                          <div className="row generic-inputs-list">
                             <Radio value="public"/>Public
                             <Radio value="closed"/>Closed
                           </div>
@@ -118,7 +118,7 @@ export let Client = React.createClass({
                       Authentication Type
                       <CheckboxGroup name="authType" value={this.state.authType} ref="authType"
                                      onChange={this.handleAuthTypeChange}>
-                        <div>
+                        <div className="row generic-inputs-list">
                           <label>
                             <input type="checkbox" value="github"/>GitHub
                           </label>

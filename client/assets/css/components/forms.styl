@@ -22,7 +22,23 @@ input
 
 .input-large
   padding: $ui-spacing-half $ui-spacing-third
-  
+
+input[type="checkbox"],
+input[type="radio"]
+  box-sizing: border-box
+  padding: 0
+  width: auto !important
+
+.generic-inputs-list
+  margin-left: $ui-spacing-double
+
+  input[type="radio"]
+    margin-top:3px
+
+  label span,
+  span:not(:last-of-type)
+    margin-right: $ui-spacing-third
+
 // Form panel
 .form-panel
   padding: $ui-spacing
