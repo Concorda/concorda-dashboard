@@ -8,6 +8,7 @@ import {syncReduxAndRouter} from 'redux-simple-router'
 import {Router, Route, IndexRoute} from 'react-router'
 
 import {logout, validateCookie} from '../actions/auth'
+import {validateInitConfig} from '../actions/client'
 import Shell from '../containers/shell'
 import Login from '../containers/login'
 import Overview from '../containers/overview'
@@ -22,6 +23,7 @@ import Register from '../containers/register'
 import Clients from '../containers/clients'
 import AddClient from '../containers/addClient'
 import Client from '../containers/client'
+import PublicClientConf from '../containers/publicClientConf'
 
 export default function createRootComponent (store) {
   const history = createHistory()
@@ -30,6 +32,10 @@ export default function createRootComponent (store) {
     const nextPath = nextState.location.pathname
 
     store.dispatch(validateCookie(nextPath))
+  }
+
+  function requireConf () {
+    store.dispatch(validateInitConfig())
   }
 
   function handleLogout (nextState) {
@@ -52,16 +58,17 @@ export default function createRootComponent (store) {
           <Route path="user/add" component={AddUser} onEnter={requireAuth} />
           <Route path="user/:id/edit" component={EditUser} onEnter={requireAuth} />
           <Route path="profile" component={Profile} onEnter={requireAuth} />
-          <Route path="login(/:callback_url)" component={Login} />
+          <Route path="login(/:callback_url)" component={Login} onEnter={requireConf} />
           <Route path="logout(/:callback_url)" onEnter={handleLogout} />
           <Route path="register(/:callback_url)" component={Register} />
           <Route path="password_reset" component={PasswordReset} />
           <Route path="password_reset/:token" component={SetPassword} />
           <Route path="invite_user" component={InviteUser} onEnter={requireAuth}/>
           <Route path="clients" component={Clients} onEnter={requireAuth}/>
-          <Route path="client/add" component={AddClient} onEnter={requireAuth}/>
+          <Route path="client/add/new" component={AddClient} onEnter={requireAuth}/>
           <Route path="client/:id/edit" component={Client} onEnter={requireAuth}/>
           <Route path="client/:id/view" component={Client} onEnter={requireAuth}/>
+          <Route path="public_client_conf" component={PublicClientConf} />
         </Route>
       </Router>
     </Provider>

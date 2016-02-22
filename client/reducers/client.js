@@ -8,7 +8,9 @@ const clientState = {
   isRemovingClient: false,
   edit: false,
   list: null,
-  details: null
+  details: null,
+  isConfigured: false,
+  configuration: null
 }
 
 export default function client (state = clientState, action) {
@@ -60,6 +62,22 @@ export default function client (state = clientState, action) {
     case clientActions.EDIT_CLIENT:
       return Object.assign({}, state, {
         edit: !state.edit
+      })
+
+    case clientActions.GET_INIT_CONF_REQUEST:
+      return Object.assign({}, state, {
+        niceError: null,
+        hasError: false,
+        isConfigured: false,
+        configuration: null
+      })
+
+    case clientActions.GET_INIT_CONF_RESPONSE:
+      return Object.assign({}, state, {
+        niceError: action.niceError,
+        hasError: action.hasError,
+        isConfigured: action.isConfigured,
+        configuration: action.configuration
       })
 
     default:
