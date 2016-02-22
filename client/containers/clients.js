@@ -21,7 +21,7 @@ export const Clients = React.createClass({
 
   handleView (clientId) {
     const {dispatch}  = this.props
-    dispatch(pushPath(`/client/${clientId}`))
+    dispatch(pushPath(`/client/${clientId}/view`))
   },
 
   handleEdit (clientId) {

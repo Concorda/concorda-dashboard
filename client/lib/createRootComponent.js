@@ -61,7 +61,7 @@ export default function createRootComponent (store) {
           <Route path="clients" component={Clients} onEnter={requireAuth}/>
           <Route path="client/add" component={AddClient} onEnter={requireAuth}/>
           <Route path="client/:id/edit" component={Client} onEnter={requireAuth}/>
-          <Route path="client/:id" component={Client} onEnter={requireAuth}/>
+          <Route path="client/:id/view" component={Client} onEnter={requireAuth}/>
         </Route>
       </Router>
     </Provider>

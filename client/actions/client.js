@@ -116,7 +116,7 @@ export function upsertClient (clientId, data) {
               hasError: false,
               result: resp.body.data
             })
-
+            dispatch(editClient())
             dispatch(pushPath('/clients'))
           }
         })

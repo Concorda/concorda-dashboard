@@ -26,10 +26,21 @@ export let Client = React.createClass({
   },
 
   componentDidMount () {
-    if(_.endsWith(this.props.route.path, '/edit')){
-      this.props.dispatch(editClient())
+    const {route, dispatch} = this.props
+    if(_.endsWith(route.path, '/edit') && !this.props.edit){
+      dispatch(editClient())
     }
-    this.props.dispatch(getClient(this.props.params.id))
+    dispatch(getClient(this.props.params.id))
+
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    if(nextProps.client){
+      this.setState({
+        registerType: nextProps.client.registerType,
+        authType: nextProps.client.authType
+      })
+    }
   },
 
   componentWillUnmount () {
