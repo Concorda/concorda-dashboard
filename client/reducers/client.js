@@ -8,7 +8,9 @@ const clientState = {
   isRemovingClient: false,
   edit: false,
   list: null,
-  details: null
+  details: null,
+  isConfigured: false,
+  configuration: null
 }
 
 export default function client (state = clientState, action) {

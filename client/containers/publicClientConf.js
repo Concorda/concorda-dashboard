@@ -10,7 +10,7 @@ import {upsertClient} from '../actions/client'
 
 import {validateAddClient} from '../lib/validations'
 
-export let AddClient = React.createClass({
+export let PublicClientConf = React.createClass({
   propTypes: {
     handleSubmit: React.PropTypes.func.isRequired
   },
@@ -51,7 +51,7 @@ export let AddClient = React.createClass({
               <input type="text" {...name} placeholder="Name" className="input-large"/>
               {name.error && name.touched && <div className="form-err">{name.error}</div>}
             </div>
-            </div>
+          </div>
           <div className="row">
             <div className="col-xs-12 col-sm-6">
               <input type="text" {...url} placeholder="Url" className="input-large"/>
@@ -106,13 +106,13 @@ export let AddClient = React.createClass({
   }
 })
 
-AddClient = reduxForm({
+PublicClientConf = reduxForm({
   form: 'addClient',
   fields: ['name', 'url', 'registerType', 'authType'],
   validate: validateAddClient
-})(AddClient)
+})(PublicClientConf)
 
 export default connect((state, ownProps) => {
   return {
   }
-})(AddClient)
+})(PublicClientConf)
