@@ -80,6 +80,18 @@ export default function client (state = clientState, action) {
         configuration: action.configuration
       })
 
+    case clientActions.SAVE_INIT_CONFIG_REQUEST:
+      return Object.assign({}, state, {
+        niceError: null,
+        hasError: false,
+      })
+
+    case clientActions.SAVE_INIT_CONFIG_RESPONSE:
+      return Object.assign({}, state, {
+        niceError: action.niceError,
+        hasError: action.hasError,
+      })
+
     default:
       return state
   }

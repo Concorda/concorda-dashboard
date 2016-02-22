@@ -6,9 +6,7 @@ import {reduxForm} from 'redux-form'
 import RadioGroup from 'react-radio-group'
 import CheckboxGroup from 'react-checkbox-group'
 
-import {upsertClient} from '../actions/client'
-
-import {validateInitConfig} from '../actions/client'
+import {validateInitConfig, saveInitConfig} from '../actions/client'
 import {validateEditClient} from '../lib/validations'
 
 export let PublicClientConf = React.createClass({
@@ -43,7 +41,7 @@ export let PublicClientConf = React.createClass({
 
     const clientId = this.props.configuration.id
     const redirectTo = '/login'
-    dispatch(upsertClient(clientId, data, redirectTo))
+    dispatch(saveInitConfig(clientId, data, redirectTo))
   },
 
   handleRegisterTypeChange (value) {

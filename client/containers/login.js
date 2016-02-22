@@ -44,22 +44,22 @@ export const Login = React.createClass({
     let googleStrategy = null
 
     if (configuration) {
-      if (configuration.registerType === 'public') {
+      if (configuration.registerType && configuration.registerType === 'public') {
         register = (<a className="btn btn-secondary" href="/register">Sign in</a>)
       }
 
-      if (configuration.authType.indexOf('github') !== -1) {
+      if (configuration.authType && configuration.authType.indexOf('github') !== -1) {
         githubStrategy = (<a className="btn btn-secondary btn-github has-icon" href="/auth/login_github">
           <span className="icon icon-github"></span> Github
         </a>)
       }
 
-      if (configuration.authType.indexOf('twitter') !== -1) {
+      if (configuration.authType && configuration.authType.indexOf('twitter') !== -1) {
         twitterStrategy = (<a className="btn btn-secondary btn-twitter has-icon" href="/auth/login_twitter"><span
           className="icon icon-twitter"></span> Twitter</a>)
       }
 
-      if (configuration.authType.indexOf('google') !== -1) {
+      if (configuration.authType && configuration.authType.indexOf('google') !== -1) {
         googleStrategy = (<a className="btn btn-secondary btn-google  has-icon" href="/auth/login_google"> <span
           className="icon icon-google"> </span> Google</a>)
       }
