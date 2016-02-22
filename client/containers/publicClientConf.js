@@ -8,7 +8,8 @@ import CheckboxGroup from 'react-checkbox-group'
 
 import {upsertClient} from '../actions/client'
 
-import {validateAddClient} from '../lib/validations'
+import {validateInitConfig} from '../actions/client'
+import {validateEditClient} from '../lib/validations'
 
 export let PublicClientConf = React.createClass({
   propTypes: {
@@ -20,11 +21,29 @@ export let PublicClientConf = React.createClass({
       authType: []
     }
   },
-  createClient (data) {
+
+  componentDidMount () {
+    this.props.dispatch(validateInitConfig())
+  },
+
+  componentWillReceiveProps: function (nextProps) {
+    if (nextProps.configuration) {
+      this.setState({
+        registerType: nextProps.configuration.registerType || 'closed',
+        authType: nextProps.configuration.authType || []
+      })
+    }
+  },
+
+  updateClient (data) {
     const dispatch = this.props.dispatch
     data.registerType = this.state.registerType
     data.authType = this.state.authType
-    dispatch(upsertClient(null, data))
+    data.configured = true
+
+    const clientId = this.props.configuration.id
+    const redirectTo = '/login'
+    dispatch(upsertClient(clientId, data, redirectTo))
   },
 
   handleRegisterTypeChange (value) {
@@ -38,14 +57,15 @@ export let PublicClientConf = React.createClass({
 
   render () {
     const { fields: {name, url, registerType, authType}, handleSubmit } = this.props
+
     return (
       <div className="page container-fluid">
         <div className="row middle-xs page-heading">
-          <h2 className="col-xs-12 col-sm-6">Add Client</h2>
+          <h2 className="col-xs-12 col-sm-6">Initialize Client Configuration</h2>
         </div>
 
         <form className="login-form col-xs-12 txt-left form-full-width form-panel"
-              onSubmit={handleSubmit(this.createClient)}>
+              onSubmit={handleSubmit(this.updateClient)}>
           <div className="row">
             <div className="col-xs-12 col-sm-6">
               <input type="text" {...name} placeholder="Name" className="input-large"/>
@@ -62,7 +82,8 @@ export let PublicClientConf = React.createClass({
             <div className="col-xs-12 col-sm-6">
               <div className="row">
                 Register Type
-                <RadioGroup name="registerType" selectedValue={this.state.registerType} onChange={this.handleRegisterTypeChange}>
+                <RadioGroup name="registerType" selectedValue={this.state.registerType}
+                            onChange={this.handleRegisterTypeChange}>
                   {Radio => (
                     <div className="row generic-inputs-list">
                       <Radio value="public"/>Public
@@ -78,7 +99,8 @@ export let PublicClientConf = React.createClass({
             <div className="col-xs-12 col-sm-6">
               <div className="row">
                 Authentication Type
-                <CheckboxGroup name="authType" value={this.state.authType} ref="authType" onChange={this.handleAuthTypeChange}>
+                <CheckboxGroup name="authType" value={this.state.authType} ref="authType"
+                               onChange={this.handleAuthTypeChange}>
                   <div className="row generic-inputs-list">
                     <label>
                       <input type="checkbox" value="github"/>GitHub
@@ -106,13 +128,18 @@ export let PublicClientConf = React.createClass({
   }
 })
 
-PublicClientConf = reduxForm({
-  form: 'addClient',
-  fields: ['name', 'url', 'registerType', 'authType'],
-  validate: validateAddClient
-})(PublicClientConf)
+PublicClientConf = reduxForm(
+  {
+    form: 'initClientConf',
+    fields: ['name', 'url', 'registerType', 'authType'],
+    validate: validateEditClient
+  },
+  state => ({
+    initialValues: state.client.configuration ? state.client.configuration : null
+  }))(PublicClientConf)
 
-export default connect((state, ownProps) => {
+export default connect((state) => {
   return {
+    configuration: state.client.configuration ? state.client.configuration : null
   }
 })(PublicClientConf)

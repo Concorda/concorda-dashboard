@@ -125,7 +125,7 @@ export function deleteClient (clientId) {
   }
 }
 
-export function upsertClient (clientId, data) {
+export function upsertClient (clientId, data, redirectTo) {
   return (dispatch) => {
     dispatch({type: clientActions.UPSERT_CLIENT_REQUEST})
     if (clientId) {
@@ -151,7 +151,7 @@ export function upsertClient (clientId, data) {
               result: resp.body.data
             })
             dispatch(editClient())
-            dispatch(pushPath('/clients'))
+            redirectTo ? dispatch(pushPath(redirectTo)) : dispatch(pushPath('/clients'))
           }
         })
     }

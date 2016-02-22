@@ -64,6 +64,22 @@ export default function client (state = clientState, action) {
         edit: !state.edit
       })
 
+    case clientActions.GET_INIT_CONF_REQUEST:
+      return Object.assign({}, state, {
+        niceError: null,
+        hasError: false,
+        isConfigured: false,
+        configuration: null
+      })
+
+    case clientActions.GET_INIT_CONF_RESPONSE:
+      return Object.assign({}, state, {
+        niceError: action.niceError,
+        hasError: action.hasError,
+        isConfigured: action.isConfigured,
+        configuration: action.configuration
+      })
+
     default:
       return state
   }

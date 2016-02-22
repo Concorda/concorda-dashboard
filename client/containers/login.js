@@ -5,8 +5,6 @@ import {connect} from 'react-redux'
 import {login} from '../actions/auth'
 
 export const Login = React.createClass({
-  componentDidMount () {},
-
   do_login (event) {
     event.preventDefault()
 
@@ -29,7 +27,7 @@ export const Login = React.createClass({
   },
 
   render () {
-    const {hasError, niceError} = this.props
+    const {hasError, niceError, configuration} = this.props
     let heading = hasError ? niceError : 'Login'
 
     let msgClass = 'alert mt0 has-icon'
@@ -37,6 +35,45 @@ export const Login = React.createClass({
 
     if (hasError) {
       msgClass = `mt0 has-icon alert alert-error`
+    }
+
+    let register = null
+    let configurableBody = null
+    let githubStrategy = null
+    let twitterStrategy = null
+    let googleStrategy = null
+
+    if (configuration) {
+      if (configuration.registerType === 'public') {
+        register = (<a className="btn btn-secondary" href="/register">Sign in</a>)
+      }
+
+      if (configuration.authType.indexOf('github') !== -1) {
+        githubStrategy = (<a className="btn btn-secondary btn-github has-icon" href="/auth/login_github">
+          <span className="icon icon-github"></span> Github
+        </a>)
+      }
+
+      if (configuration.authType.indexOf('twitter') !== -1) {
+        twitterStrategy = (<a className="btn btn-secondary btn-twitter has-icon" href="/auth/login_twitter"><span
+          className="icon icon-twitter"></span> Twitter</a>)
+      }
+
+      if (configuration.authType.indexOf('google') !== -1) {
+        googleStrategy = (<a className="btn btn-secondary btn-google  has-icon" href="/auth/login_google"> <span
+          className="icon icon-google"> </span> Google</a>)
+      }
+
+      configurableBody = (
+        <div className="panel-footer">
+          {register}
+          <br /><br />
+          <p>Or log in using one of the following services:</p>
+          {githubStrategy}
+          {twitterStrategy}
+          {googleStrategy}
+        </div>
+      )
     }
 
     return (
@@ -50,16 +87,11 @@ export const Login = React.createClass({
                 <span>{heading}</span>
               </h2>
 
-              <input ref="email" type="email" placeholder="Email" className="input-large" required />
-              <input ref="pass" type="password" placeholder="Password" className="input-large" required />
+              <input ref="email" type="email" placeholder="Email" className="input-large" required/>
+              <input ref="pass" type="password" placeholder="Password" className="input-large" required/>
               <button type="submit" className="btn btn-large submit" onClick={this.do_login}>Submit</button>
               <div className="panel-footer">
-                <a className="btn btn-secondary" href="/register">Sign in</a>
-                <br /><br />
-                <p>Or log in using one of the following services:</p>
-                <a className="btn btn-secondary btn-github has-icon" href="/auth/login_github"><span className="icon icon-github"></span> Github</a>
-                <a className="btn btn-secondary btn-twitter has-icon" href="/auth/login_twitter"><span className="icon icon-twitter"></span> Twitter</a>
-                <a className="btn btn-secondary btn-google  has-icon" href="/auth/login_google"> <span className="icon icon-google"> </span> Google</a>
+                {configurableBody}
               </div>
               <br/>
               <a href="/password_reset">Forgot password?</a>
@@ -76,6 +108,7 @@ export default connect((state) => {
 
   return {
     hasError: hasError,
-    niceError: niceError
+    niceError: niceError,
+    configuration: state.client.configuration
   }
 })(Login)

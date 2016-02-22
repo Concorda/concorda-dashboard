@@ -23,6 +23,7 @@ import Register from '../containers/register'
 import Clients from '../containers/clients'
 import AddClient from '../containers/addClient'
 import Client from '../containers/client'
+import PublicClientConf from '../containers/publicClientConf'
 
 export default function createRootComponent (store) {
   const history = createHistory()
@@ -67,7 +68,7 @@ export default function createRootComponent (store) {
           <Route path="client/add/new" component={AddClient} onEnter={requireAuth}/>
           <Route path="client/:id/edit" component={Client} onEnter={requireAuth}/>
           <Route path="client/:id/view" component={Client} onEnter={requireAuth}/>
-          <Route path="public_client_conf" component={Client} />
+          <Route path="public_client_conf" component={PublicClientConf} />
         </Route>
       </Router>
     </Provider>
