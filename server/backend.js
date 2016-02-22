@@ -18,7 +18,8 @@ module.exports = function (server, options, next) {
       local: true,
       'google-auth': Config.googleLogin,
       'twitter-auth': Config.twitterLogin,
-      'github-auth': Config.githubLogin
+      'github-auth': Config.githubLogin,
+      'mail': Config.mail
     })
 
   next()
