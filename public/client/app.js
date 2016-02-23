@@ -1,6 +1,6 @@
 'use strict'
 
-import './index.html'
+import '../index.html'
 import './assets/css/main.styl'
 
 import ReactDom from 'react-dom'

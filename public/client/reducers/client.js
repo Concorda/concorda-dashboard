@@ -83,13 +83,13 @@ export default function client (state = clientState, action) {
     case clientActions.SAVE_INIT_CONFIG_REQUEST:
       return Object.assign({}, state, {
         niceError: null,
-        hasError: false,
+        hasError: false
       })
 
     case clientActions.SAVE_INIT_CONFIG_RESPONSE:
       return Object.assign({}, state, {
         niceError: action.niceError,
-        hasError: action.hasError,
+        hasError: action.hasError
       })
 
     default:
