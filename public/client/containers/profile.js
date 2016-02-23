@@ -76,7 +76,7 @@ export const Profile = React.createClass({
             return (
               <div className="row middle-xs center-xs">
                 <div className="login-form col-xs-12 col-md-6 col-lg-4 txt-left form-full-width form-panel">
-                  <div class="row center-xs">
+                  <div className="row center-xs">
                     <img src="/img/dummy.png" className="avatar" />
                   </div>
                   <div className="row">

@@ -1,6 +1,6 @@
 'use strict'
 
-import * as authActions from '../constants/auth'
+import * as authActions from '../constants'
 
 const authState = {
   isLoggedIn: false,

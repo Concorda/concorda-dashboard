@@ -5,7 +5,7 @@ import { pushPath } from 'redux-simple-router'
 import _ from 'lodash'
 
 import * as userActions from '../constants/user'
-import {logout} from './auth'
+import {logout} from '../modules/auth/actions/logout'
 
 export function getUsers () {
   return (dispatch) => {

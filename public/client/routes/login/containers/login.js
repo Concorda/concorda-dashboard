@@ -2,7 +2,7 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
-import {login} from '../actions/auth'
+import {login} from '../../../modules/auth/actions/login'
 
 export const Login = React.createClass({
   do_login (event) {
@@ -50,13 +50,13 @@ export const Login = React.createClass({
 
       if (configuration.authType && configuration.authType.indexOf('github') !== -1) {
         githubStrategy = (<a className="btn btn-secondary btn-github has-icon" href="/auth/login_github">
-          <span className="icon icon-github"></span> Github
+          <span className="icon icon-github"> </span> Github
         </a>)
       }
 
       if (configuration.authType && configuration.authType.indexOf('twitter') !== -1) {
-        twitterStrategy = (<a className="btn btn-secondary btn-twitter has-icon" href="/auth/login_twitter"><span
-          className="icon icon-twitter"></span> Twitter</a>)
+        twitterStrategy = (<a className="btn btn-secondary btn-twitter has-icon" href="/auth/login_twitter">
+          <span className="icon icon-twitter"> </span> Twitter</a>)
       }
 
       if (configuration.authType && configuration.authType.indexOf('google') !== -1) {

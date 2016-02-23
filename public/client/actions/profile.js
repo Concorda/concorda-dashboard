@@ -4,7 +4,7 @@ import Request from 'superagent/lib/client'
 import { pushPath } from 'redux-simple-router'
 
 import * as profileActions from '../constants/profile'
-import * as authActions from '../constants/auth'
+import * as authActions from '../modules/auth/constants'
 
 export function editProfile () {
   return (dispatch) => {
