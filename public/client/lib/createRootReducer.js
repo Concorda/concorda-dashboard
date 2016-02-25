@@ -2,18 +2,16 @@
 
 import {combineReducers} from 'redux'
 
-import {routeReducer} from 'redux-simple-router'
-import authReducer from '../reducers/auth'
+import {reducers} from '../modules/reducers'
 import userReducer from '../reducers/user'
 import profileReducer from '../reducers/profile'
 import clientReducer from '../reducers/client'
-import {reducer as formReducer} from 'redux-form'
 
 export default function createRootReducer () {
   return combineReducers({
-    routing: routeReducer,
-    form: formReducer,
-    auth: authReducer,
+    routing: reducers.routeReducer,
+    form: reducers.formReducer,
+    auth: reducers.authReducer,
     user: userReducer,
     profile: profileReducer,
     client: clientReducer

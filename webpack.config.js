@@ -3,7 +3,7 @@ var Path = require('path')
 
 var buildPath = Path.resolve(__dirname, 'dist')
 var nodeModulesPath = Path.resolve(__dirname, 'node_modules')
-var contextPath = Path.join(__dirname, '/client')
+var contextPath = Path.join(__dirname, '/public/client')
 var entryPath = Path.join(contextPath, '/app.js')
 
 module.exports = {

@@ -18,7 +18,7 @@
   "scripts": {
     "test": "lab test/*.test.js -r console -v -L -m 3000",
     "lint": "lab test -dL",
-    "copy": "copyfiles -f ./client/assets/img/*.png ./dist/img",
+    "copy": "copyfiles -f ./public/assets/img/*.png ./dist/img",
     "build": "npm run copy & webpack --progress --colors",
     "watch": "webpack -w",
     "start": "./start.sh ./config/production.env ./server/start.js",
