@@ -57,21 +57,21 @@ export default function createRootComponent (store) {
     component: Shell,
     indexRoute: {component: Overview, onEnter: requireAuth},
     childRoutes: [
-      {path: "login(/:callback_url)", getComponents: Login, onEnter: requireConf},
-      {path: "logout(/:callback_url)", onEnter: handleLogout},
-      {path: "users", component: Users, onEnter: requireAuth},
-      {path: "user/add", component: AddUser, onEnter: requireAuth},
-      {path: "user/:id/edit", component: EditUser, onEnter: requireAuth},
-      {path: "profile", component: Profile, onEnter: requireAuth},
-      {path: "register(/:callback_url)", component: Register},
-      {path: "password_reset", component: PasswordReset},
-      {path: "password_reset/:token", component: SetPassword},
-      {path: "invite_user", component: InviteUser, onEnter: requireAuth},
-      {path: "clients", component: Clients, onEnter: requireAuth},
-      {path: "client/add/new", component: AddClient, onEnter: requireAuth},
-      {path: "client/:id/edit", component: Client, onEnter: requireAuth},
-      {path: "client/:id/view", component: Client, onEnter: requireAuth},
-      {path: "public_client_conf", component: PublicClientConf}
+      {path: 'login(/:callback_url)', getComponents: Login, onEnter: requireConf},
+      {path: 'logout(/:callback_url)', onEnter: handleLogout},
+      {path: 'users', component: Users, onEnter: requireAuth},
+      {path: 'user/add', component: AddUser, onEnter: requireAuth},
+      {path: 'user/:id/edit', component: EditUser, onEnter: requireAuth},
+      {path: 'profile', component: Profile, onEnter: requireAuth},
+      {path: 'register(/:callback_url)', component: Register},
+      {path: 'password_reset', component: PasswordReset},
+      {path: 'password_reset/:token', component: SetPassword},
+      {path: 'invite_user', component: InviteUser, onEnter: requireAuth},
+      {path: 'clients', component: Clients, onEnter: requireAuth},
+      {path: 'client/add/new', component: AddClient, onEnter: requireAuth},
+      {path: 'client/:id/edit', component: Client, onEnter: requireAuth},
+      {path: 'client/:id/view', component: Client, onEnter: requireAuth},
+      {path: 'public_client_conf', component: PublicClientConf}
     ]
   }
 

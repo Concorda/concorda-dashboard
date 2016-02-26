@@ -23,6 +23,34 @@ input
 .input-large
   padding: $ui-spacing-half $ui-spacing-third
 
+.select2-custom
+  width: 100%
+
+.select2
+  margin-bottom:10px
+
+  .select2-selection
+    border: $ui-border
+    border-radius: $ui-radius
+    transition: all .3s ease-in
+
+  &.select2-container--focus
+
+    .select2-selection
+      border: 1px solid $blue-light
+      box-shadow: 0 0 5px $blue-light
+      outline: none
+
+.select2-dropdown
+  border: 1px solid $blue-light !important
+  border-bottom: 0px !important
+  box-shadow: 0 0 5px $blue-light
+  outline: none
+
+.select2-container .select2-search--inline .select2-search__field
+  margin-bottom: 0px !important
+  margin-top: 0px !important
+
 input[type="checkbox"],
 input[type="radio"]
   box-sizing: border-box

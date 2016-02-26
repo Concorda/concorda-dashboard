@@ -3,9 +3,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {reduxForm} from 'redux-form'
+import Select2 from 'react-select2-wrapper'
 import _ from 'lodash'
 
 import {upsertUser, getUser} from '../actions/user'
+import getTags from '../modules/tag/actions/getTags'
 import {validateEditUser} from '../lib/validations'
 
 export let EditUser = React.createClass({
@@ -16,12 +18,15 @@ export let EditUser = React.createClass({
 
   componentDidMount () {
     this.props.dispatch(getUser(this.props.params.id))
+    this.props.dispatch(getTags())
   },
 
   updateUser (data) {
+    const selectedTags = this.refs.tags.el.val()
     const dispatch = this.props.dispatch
     const userId = this.props.params.id || null
     data = _(data).omit(_.isUndefined).omit(_.isNull).value()
+    data.tags = selectedTags
     dispatch(upsertUser(userId, data))
   },
 
@@ -33,7 +38,7 @@ export let EditUser = React.createClass({
 
   render () {
     const { fields: {name, email, password, repeat}, handleSubmit } = this.props
-    const {editUser} = this.props
+    const {editUser, tags} = this.props
 
     return (
       <div className="page container-fluid">
@@ -42,7 +47,7 @@ export let EditUser = React.createClass({
         </div>
 
         {(() => {
-          if (editUser) {
+          if (editUser && tags) {
             return (
               <form className="login-form col-xs-12 txt-left form-full-width form-panel"
                     onSubmit={handleSubmit(this.updateUser)}>
@@ -54,6 +59,14 @@ export let EditUser = React.createClass({
                   <div className="col-xs-12 col-sm-6">
                     <input type="email" {...email} placeholder="Email" className="input-large"/>
                     {email.error && email.touched && <div className="form-err">{email.error}</div>}
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-xs-12 col-sm-6">
+                    <Select2 multiple className="input-large select2-custom" ref="tags"
+                             data={tags}
+                             options={{placeholder: 'search by tags', tags: true, theme: 'classic'}}
+                    />
                   </div>
                 </div>
                 <div className="row">
@@ -99,17 +112,19 @@ export let EditUser = React.createClass({
   }
 })
 
-EditUser = reduxForm({
-  form: 'editUser',
-  fields: ['name', 'email', 'password', 'repeat'],
-  validate: validateEditUser
-},
-state => ({
-  initialValues: state.user.editUser ? state.user.editUser : null
-}))(EditUser)
+EditUser = reduxForm(
+  {
+    form: 'editUser',
+    fields: ['name', 'email', 'password', 'repeat'],
+    validate: validateEditUser
+  },
+  state => ({
+    initialValues: state.user.editUser ? state.user.editUser : null
+  }))(EditUser)
 
 export default connect((state) => {
   return {
-    editUser: state.user.editUser ? state.user.editUser : null
+    editUser: state.user.editUser ? state.user.editUser : null,
+    tags: state.tag.list ? state.tag.list : null
   }
 })(EditUser)
