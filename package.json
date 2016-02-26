@@ -54,6 +54,7 @@
     "react-radio-group": "2.2.0",
     "react-redux": "4.0.x",
     "react-router": "1.0.x",
+    "react-select2-wrapper": "0.4.0",
     "react-tap-event-plugin": "0.2.x",
     "redux": "3.0.x",
     "redux-form": "4.1.5",
