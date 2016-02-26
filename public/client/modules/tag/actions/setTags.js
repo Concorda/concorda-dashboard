@@ -11,7 +11,7 @@ export default function setTags (tags, userId) {
     Request
       .post('/api/user/' + userId + '/tag')
       .type('form')
-      .send(tags)
+      .send({ tag: [tags] })
       .end((err, resp) => {
         if (err || !resp.body) {
           return dispatch({
