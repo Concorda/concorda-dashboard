@@ -16,9 +16,24 @@ export let EditUser = React.createClass({
     handleSubmit: React.PropTypes.func.isRequired
   },
 
+  getInitialState () {
+    return {
+      defaultTags: null,
+      tagsChanged: false
+    }
+  },
+
   componentDidMount () {
     this.props.dispatch(getUser(this.props.params.id))
     this.props.dispatch(getTags())
+  },
+
+  componentWillReceiveProps: function (nextProps) {
+    if(nextProps.editUser && nextProps.editUser.tags){
+      this.setState({
+        defaultTags: nextProps.editUser.tags
+      })
+    }
   },
 
   updateUser (data) {
@@ -27,6 +42,7 @@ export let EditUser = React.createClass({
     const userId = this.props.params.id || null
     data = _(data).omit(_.isUndefined).omit(_.isNull).value()
     data.tags = selectedTags
+    data.tagsChanged = this.state.tagsChanged
     dispatch(upsertUser(userId, data))
   },
 
@@ -34,6 +50,10 @@ export let EditUser = React.createClass({
     const dispatch = this.props.dispatch
     const userId = this.props.params.id || null
     dispatch(upsertUser(userId, data))
+  },
+
+  tagsOnChange () {
+    this.setState({tagsChanged: true})
   },
 
   render () {
@@ -64,7 +84,7 @@ export let EditUser = React.createClass({
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
                     <Select2 multiple className="input-large select2-custom" ref="tags"
-                             data={tags}
+                             data={tags} defaultValue={this.state.defaultTags} onChange={this.tagsOnChange}
                              options={{placeholder: 'search by tags', tags: true, theme: 'classic'}}
                     />
                   </div>

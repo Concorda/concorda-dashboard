@@ -3,6 +3,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { pushPath } from 'redux-simple-router'
+import _ from 'lodash'
 
 // actions
 import {getUsers, deleteUser, getUser, closeSession} from '../actions/user'
@@ -53,7 +54,7 @@ export const Users = React.createClass({
               <div key={user.id} className="user-list-row row cf">
                 <div className="col-xs-12 col-md-2">{user.name}</div>
                 <div className="col-xs-12 col-md-3">{user.email}</div>
-                <div className="col-xs-12 col-md-3">{user.tags}</div>
+                <div className="col-xs-12 col-md-3">{_.map(user.tags, (tag) => { return (tag.name)})}</div>
                 <div className="col-xs-12 col-md-4">
                   <ul className="list-unstyled list-inline">
                     <li><a onClick={() => { this.handleEdit(user.id) }}>Edit</a></li>
@@ -74,7 +75,9 @@ export const Users = React.createClass({
           <h2 className="col-xs-6 col-sm-6">Users</h2>
           <div className="col-xs-6 col-sm-6 txt-right">
             <button onClick={() => { this.handleAdd() }} className="btn btn-primary">Add User</button>
-            <button onClick={() => { this.handleInviteUser() }} className="btn btn-primary btn-send-invite">Invite User</button>
+            <button onClick={() => { this.handleInviteUser() }} className="btn btn-primary btn-send-invite">Invite
+              User
+            </button>
           </div>
         </div>
 
