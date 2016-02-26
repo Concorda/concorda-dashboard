@@ -1,7 +1,6 @@
 'use strict'
 
 import Request from 'superagent/lib/client'
-import _ from 'lodash'
 
 import * as tagsActions from '../constants'
 

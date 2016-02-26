@@ -133,7 +133,7 @@ export function upsertUser (userId, data) {
     dispatch({type: userActions.UPSERT_USER_REQUEST})
 
     const TAGS_CHANGED = data.tagsChanged || false
-    const IS_REGISTER  = data.register || false
+    const IS_REGISTER = data.register || false
     const TAGS = data.tags
 
     _.omit(data, ['tagsChanged', 'register', 'tags'])
@@ -167,15 +167,15 @@ export function upsertUser (userId, data) {
     }
     else {
       if (IS_REGISTER) {
-        doRegister(data)
+        doRegister({data: data, dispatch: dispatch})
       }
       else {
-        doRegister(data)
+        doRegister({data: data, dispatch: dispatch})
       }
     }
 
-    if(TAGS_CHANGED){
-      //set user Tags
+    if (TAGS_CHANGED) {
+      // set user Tags
       dispatch(setTags(TAGS, userId))
     }
 
@@ -183,14 +183,14 @@ export function upsertUser (userId, data) {
   }
 }
 
-function doRegister(data){
+function doRegister (options) {
   Request
     .post('/api/user')
     .type('form')
-    .send(data)
+    .send(options.data)
     .end((err, resp) => {
       if (err || !resp.body) {
-        dispatch({
+        options.dispatch({
           type: userActions.CREATE_USER_RESPONSE,
           niceError: 'Can\'t create user',
           hasError: true,
@@ -198,7 +198,7 @@ function doRegister(data){
         })
       }
       else {
-        dispatch({
+        options.dispatch({
           type: userActions.CREATE_USER_RESPONSE,
           niceError: null,
           hasError: false,

@@ -29,7 +29,7 @@ export let EditUser = React.createClass({
   },
 
   componentWillReceiveProps: function (nextProps) {
-    if(nextProps.editUser && nextProps.editUser.tags){
+    if (nextProps.editUser && nextProps.editUser.tags) {
       this.setState({
         defaultTags: nextProps.editUser.tags
       })
