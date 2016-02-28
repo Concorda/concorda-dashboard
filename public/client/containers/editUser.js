@@ -24,14 +24,14 @@ export let EditUser = React.createClass({
   },
 
   componentDidMount () {
-    this.props.dispatch(getUser(this.props.params.id))
     this.props.dispatch(getTags())
+    this.props.dispatch(getUser(this.props.params.id))
   },
 
   componentWillReceiveProps: function (nextProps) {
     if (nextProps.editUser && nextProps.editUser.tags) {
       this.setState({
-        defaultTags: nextProps.editUser.tags
+        defaultTags: _.map(nextProps.editUser.tags, 'id')
       })
     }
   },
