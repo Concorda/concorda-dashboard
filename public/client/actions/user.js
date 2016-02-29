@@ -112,11 +112,15 @@ export function getUser (userId, redirectTo) {
           })
         }
         else {
+          let userDetails = resp.body.data
+          userDetails.tags = _.map(userDetails.tags, function (tag) {
+            return _.assign(_.omit(tag, ['id', 'userId', 'tagId', 'tagName']), {id: tag.tagId, text: tag.tagName})
+          })
           dispatch({
             type: userActions.LOAD_USER_RESPONSE,
             niceError: null,
             hasError: false,
-            editUser: resp.body.data
+            editUser: userDetails
           })
 
           if (redirectTo) {
