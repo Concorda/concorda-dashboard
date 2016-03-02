@@ -29,7 +29,7 @@
     "bell": "6.1.0",
     "boom": "3.x.x",
     "chairo": "2.0.0",
-    "concorda": "github:nearform/concorda",
+    "concorda": "0.x.x",
     "css-loader": "0.23.x",
     "d3": "3.x.x",
     "ejs": "2.4.1",

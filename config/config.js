@@ -12,7 +12,8 @@ module.exports = function () {
         port: process.env.MAIL_PORT,
         auth: {
           user: process.env.MAIL_USER,
-          pass: process.env.MAIL_PASS
+          pass: process.env.MAIL_PASS,
+          ignoreTLS: true
         }
       }
     }
@@ -57,7 +58,7 @@ module.exports = function () {
   }
 
   return {
-    mailtrap: mailConfig(),
+    mail: mailConfig(),
     googleLogin: googleLoginConfig(),
     githubLogin: githubLoginConfig(),
     twitterLogin: twitterLoginConfig(),

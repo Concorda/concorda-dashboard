@@ -7,7 +7,10 @@ Concorda: User management system
 - __Sponsor:__ [nearForm][]
 
 ## Demo system
-This is the Concorda project. It is a user management system built using Node.js. It is a micro-service designed to be used in tandem with other micro-services, as with the [NodeZoo][] project. There is an in-depth demo configuration available for the system, to learn more go [here][].
+This is the Concorda project. It is a user management system built using Node.js. It is a micro-service designed to be used in tandem with other micro-services, as with the [NodeZoo][] project. 
+There is an in-depth demo configuration available for the system, to learn more go [here][].
+
+A detailed documentation can be found [here](https://github.com/nearform/concorda/blob/master/docs/Readme.md)
 
 ## Running
 To run the server,

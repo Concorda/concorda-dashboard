@@ -60,7 +60,7 @@ export const Login = React.createClass({
       }
 
       if (configuration.authType && configuration.authType.indexOf('google') !== -1) {
-        googleStrategy = (<a className="btn btn-secondary btn-google  has-icon" href="/auth/login_google"> <span
+        googleStrategy = (<a className="btn btn-secondary btn-google  has-icon" href="/auth/google"> <span
           className="icon icon-google"> </span> Google</a>)
       }
 
