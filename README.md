@@ -10,28 +10,8 @@ Concorda: User management system
 This is the Concorda project. It is a user management system built using Node.js. It is a micro-service designed to be used in tandem with other micro-services, as with the [NodeZoo][] project. 
 There is an in-depth demo configuration available for the system, to learn more go [here][].
 
-A detailed documentation can be found [here](https://github.com/nearform/concorda/blob/master/docs/Readme.md)
 
-## Running
-To run the server,
-
-1. Run `npm install` to install all dependencies
-2. Copy config/sample.env to config/production.env or config/development.env and put the right configuration in there 
-3. Run `npm run build` to build the project
-4. Run `npm run start` to create a deploy and server on port `3050` in production mode
-	OR
-	`npm run start:dev` to create a deploy and server on port `3050` in development mode
-
-Also you can watch the files for changes and automatically rebuild the sources by running `npm run watch`
-in a different terminal.
-
-## Documentation
-
-This project is in it's infancy, documentation will come after stability.
-
-## Server API
-
-Server API is implemented as separate plugin. For details please check [Concorda-API]'s repository.
+A detailed documentation can be found in [Concorda wiki](https://github.com/nearform/concorda/blob/master/doc/Readme.md)
 
 
 ## Contributing
