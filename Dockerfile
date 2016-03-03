@@ -1,5 +1,9 @@
-FROM node:4
+FROM node
+
 ADD . /
 RUN npm install
-RUN npm build
-CMD ["node", "server/start.js"]
+RUN npm run build
+
+EXPOSE 3050
+
+CMD ["npm", "start", "--seneca.log.all"]

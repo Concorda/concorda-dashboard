@@ -14,13 +14,17 @@ module.exports = function (server, options, next) {
   // and also decree will be integrated in concorda-dashboard
   seneca
     .use('mesh', {auto: true, pin: ['role: user', 'role: concorda-communication']})
-    .use(Concorda, {
-      local: true,
-      'google-auth': Config.googleLogin,
-      'twitter-auth': Config.twitterLogin,
-      'github-auth': Config.githubLogin,
-      'mail': Config.mail
-    })
+
+  seneca.ready(function(){
+    seneca
+      .use(Concorda, {
+        local: process.env.LOCAL || true,
+        'google-auth': Config.googleLogin,
+        'twitter-auth': Config.twitterLogin,
+        'github-auth': Config.githubLogin,
+        'mail': Config.mail
+      })
+  })
 
   next()
 }

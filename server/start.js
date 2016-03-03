@@ -17,7 +17,6 @@ var opts = {
   chairo: {
     timeout: 2000,
     secure: true,
-    web: require('seneca-web'),
     log: 'silent'
   }
 }
