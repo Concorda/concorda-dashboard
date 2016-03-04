@@ -10,11 +10,6 @@ module.exports = function (server, options, next) {
   // Set up our seneca plugins
   var seneca = server.seneca
 
-  // this should be changed after decree will support configuration
-  // and also decree will be integrated in concorda-dashboard
-  seneca
-    .use('mesh', {auto: true, pin: ['role: user', 'role: concorda-communication']})
-
   seneca.ready(function(){
     seneca
       .use(Concorda, {
