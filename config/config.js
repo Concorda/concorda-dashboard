@@ -57,11 +57,18 @@ module.exports = function () {
     }
   }
 
+  function Concorda () {
+    return {
+      local: process.env.LOCAL || true
+    }
+  }
+
   return {
-    mail: mailConfig(),
-    googleLogin: googleLoginConfig(),
-    githubLogin: githubLoginConfig(),
-    twitterLogin: twitterLoginConfig(),
-    adminData: adminDataConfig()
+    'mail': mailConfig(),
+    'google-auth': googleLoginConfig(),
+    'github-auth': githubLoginConfig(),
+    'twitter-auth': twitterLoginConfig(),
+    'adminData': adminDataConfig(),
+    'concorda': Concorda()
   }
 }
