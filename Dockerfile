@@ -6,4 +6,4 @@ RUN npm run build
 
 EXPOSE 3050
 
-CMD ["npm", "start", "--seneca.log.all"]
+CMD ["npm", "start", "--seneca.log=level:info"]
