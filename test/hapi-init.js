@@ -10,11 +10,11 @@ exports.init = function (options, done) {
   server.register([
     Hapi_Cookie,
     Bell, {
-    register: Chairo,
-    options: {
-      web: true
-    }
-  }], function (err) {
+      register: Chairo,
+      options: {
+        web: true
+      }
+    }], function (err) {
     if (err) {
       return done(err)
     }

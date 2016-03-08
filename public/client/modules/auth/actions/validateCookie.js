@@ -4,7 +4,7 @@ import Request from 'superagent/lib/client'
 import { pushPath } from 'redux-simple-router'
 import * as authActions from '../constants'
 
-export function validateCookie (redirectUrl) {
+export default function validateCookie (redirectUrl) {
   return (dispatch) => {
     dispatch({type: authActions.CHECK_COOKIE_REQUEST})
 

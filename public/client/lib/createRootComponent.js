@@ -7,10 +7,10 @@ import {createHistory} from 'history'
 import {syncReduxAndRouter} from 'redux-simple-router'
 import {Router, Route, IndexRoute} from 'react-router'
 
-import {logout} from '../modules/auth/actions/logout'
-import {validateCookie} from '../modules/auth/actions/validateCookie'
+import logout from '../modules/auth/actions/logout'
+import validateCookie from '../modules/auth/actions/validateCookie'
 
-import {validateInitConfig} from '../actions/client'
+import validateInitConfig from '../modules/client/actions/validateInitConfig'
 import Shell from '../containers/shell'
 import Overview from '../containers/overview'
 import Users from '../containers/users'
@@ -21,12 +21,12 @@ import PasswordReset from '../containers/passReset'
 import SetPassword from '../containers/setPassword'
 import InviteUser from '../containers/inviteUser'
 import Register from '../containers/register'
-import Clients from '../containers/clients'
-import AddClient from '../containers/addClient'
-import Client from '../containers/client'
 import PublicClientConf from '../containers/publicClientConf'
 
 import Login from '../routes/login'
+import Client from '../routes/client'
+import AddClient from '../routes/addClient'
+import Clients from '../routes/clients'
 
 export default function createRootComponent (store) {
   const history = createHistory()
@@ -67,10 +67,10 @@ export default function createRootComponent (store) {
       {path: 'password_reset', component: PasswordReset},
       {path: 'password_reset/:token', component: SetPassword},
       {path: 'invite_user', component: InviteUser, onEnter: requireAuth},
-      {path: 'clients', component: Clients, onEnter: requireAuth},
-      {path: 'client/add/new', component: AddClient, onEnter: requireAuth},
-      {path: 'client/:id/edit', component: Client, onEnter: requireAuth},
-      {path: 'client/:id/view', component: Client, onEnter: requireAuth},
+      {path: 'clients', getComponents: Clients, onEnter: requireAuth},
+      {path: 'client/add/new', getComponents: AddClient, onEnter: requireAuth},
+      {path: 'client/:id/edit', getComponents: Client, onEnter: requireAuth},
+      {path: 'client/:id/view', getComponents: Client, onEnter: requireAuth},
       {path: 'public_client_conf', component: PublicClientConf}
     ]
   }

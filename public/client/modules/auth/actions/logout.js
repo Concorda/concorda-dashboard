@@ -10,7 +10,7 @@ import * as authActions from '../constants'
  *
  * @param data is of type Object and can contain a callback_url property
  */
-export function logout (data) {
+export default function logout (data) {
   return (dispatch) => {
     dispatch({type: authActions.LOGOUT_REQUEST})
 
