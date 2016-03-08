@@ -4,7 +4,6 @@ import {combineReducers} from 'redux'
 
 import {reducers} from '../modules/reducers'
 import userReducer from '../reducers/user'
-import profileReducer from '../reducers/profile'
 
 export default function createRootReducer () {
   return combineReducers({
@@ -13,7 +12,7 @@ export default function createRootReducer () {
     auth: reducers.authReducer,
     tag: reducers.tagReducer,
     user: userReducer,
-    profile: profileReducer,
+    profile: reducers.profileReducer,
     client: reducers.clientReducer
   })
 }

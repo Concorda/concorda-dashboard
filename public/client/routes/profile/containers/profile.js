@@ -4,7 +4,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import LinkedStateMixin from 'react-addons-linked-state-mixin'
 
-import {getLoggedInUserProfile, updateUserProfile, editProfile} from '../actions/profile'
+import {getLoggedInUserProfile, updateUserProfile, editProfile} from '../../../modules/profile/actions/index'
 
 export const Profile = React.createClass({
   mixins: [LinkedStateMixin],

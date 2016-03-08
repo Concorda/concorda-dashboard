@@ -1,6 +1,6 @@
 'use strict'
 
-import * as profileActions from '../constants/profile'
+import * as profileActions from '../constants'
 
 const profileState = {
   hasError: false,
