@@ -1,6 +1,6 @@
 'use strict'
 
-import * as clientActions from '../constants/client'
+import * as clientActions from '../constants'
 
 const clientState = {
   hasError: false,

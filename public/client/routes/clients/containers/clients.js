@@ -5,9 +5,12 @@ import {connect} from 'react-redux'
 import { pushPath } from 'redux-simple-router'
 
 // actions
-import {getClients, getClient, deleteClient, editClient} from '../actions/client'
+import deleteClient from '../../../modules/client/actions/deleteClient'
+import getClient from '../../../modules/client/actions/getClient'
+import getClients from '../../../modules/client/actions/getClients'
+import editClient from '../../../modules/client/actions/editClient'
 
-import Panel from '../components/panel'
+import Panel from '../../../components/panel'
 
 export const Clients = React.createClass({
   componentDidMount () {

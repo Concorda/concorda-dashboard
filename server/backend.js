@@ -10,7 +10,7 @@ module.exports = function (server, options, next) {
   // Set up our seneca plugins
   var seneca = server.seneca
 
-  seneca.ready(function(){
+  seneca.ready(function () {
     seneca
       .use(Concorda, {
         local: process.env.LOCAL || true,

@@ -8,9 +8,11 @@ import _ from 'lodash'
 import RadioGroup from 'react-radio-group'
 import CheckboxGroup from 'react-checkbox-group'
 
-import {validateEditClient} from '../lib/validations'
+import {validateEditClient} from '../../../lib/validations'
 
-import {editClient, upsertClient, getClient} from '../actions/client'
+import getClient from '../../../modules/client/actions/getClient'
+import upsertClient from '../../../modules/client/actions/upsertClient'
+import editClient from '../../../modules/client/actions/editClient'
 
 export let Client = React.createClass({
   propTypes: {
