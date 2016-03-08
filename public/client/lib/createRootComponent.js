@@ -16,7 +16,6 @@ import Overview from '../containers/overview'
 import Users from '../containers/users'
 import AddUser from '../containers/addUser'
 import EditUser from '../containers/editUser'
-import Profile from '../containers/profile'
 import PasswordReset from '../containers/passReset'
 import SetPassword from '../containers/setPassword'
 import InviteUser from '../containers/inviteUser'
@@ -27,6 +26,7 @@ import Login from '../routes/login'
 import Client from '../routes/client'
 import AddClient from '../routes/addClient'
 import Clients from '../routes/clients'
+import Profile from '../routes/profile'
 
 export default function createRootComponent (store) {
   const history = createHistory()
@@ -62,7 +62,7 @@ export default function createRootComponent (store) {
       {path: 'users', component: Users, onEnter: requireAuth},
       {path: 'user/add', component: AddUser, onEnter: requireAuth},
       {path: 'user/:id/edit', component: EditUser, onEnter: requireAuth},
-      {path: 'profile', component: Profile, onEnter: requireAuth},
+      {path: 'profile', getComponents: Profile, onEnter: requireAuth},
       {path: 'register(/:callback_url)', component: Register},
       {path: 'password_reset', component: PasswordReset},
       {path: 'password_reset/:token', component: SetPassword},
