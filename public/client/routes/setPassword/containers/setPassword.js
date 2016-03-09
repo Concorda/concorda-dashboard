@@ -4,8 +4,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {reduxForm} from 'redux-form'
 
-import {loadPasswordResetUser, setNewPassword} from '../actions/user'
-import {validateSetNewPassword} from '../lib/validations'
+import {loadPasswordResetUser, setNewPassword} from '../../../modules/user/actions/index'
+import {validateSetNewPassword} from '../../../lib/validations'
 
 
 export let SetPassword = React.createClass({

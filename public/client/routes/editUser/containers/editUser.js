@@ -6,9 +6,9 @@ import {reduxForm} from 'redux-form'
 import Select2 from 'react-select2-wrapper'
 import _ from 'lodash'
 
-import {upsertUser, getUser} from '../actions/user'
-import getTags from '../modules/tag/actions/getTags'
-import {validateEditUser} from '../lib/validations'
+import {upsertUser, getUser} from '../../../modules/user/actions/index'
+import {getTags} from '../../../modules/tag/actions/index'
+import {validateEditUser} from '../../../lib/validations'
 
 export let EditUser = React.createClass({
   propTypes: {

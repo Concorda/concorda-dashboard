@@ -1,6 +1,6 @@
 'use strict'
 
-import * as userActions from '../constants/user'
+import * as userActions from '../constants'
 
 const usersState = {
   isGettingUsers: false,

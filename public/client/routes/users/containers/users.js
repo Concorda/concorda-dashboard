@@ -6,9 +6,9 @@ import { pushPath } from 'redux-simple-router'
 import _ from 'lodash'
 
 // actions
-import {getUsers, deleteUser, getUser, closeSession} from '../actions/user'
+import {getUsers, deleteUser, getUser, closeSession} from '../../../modules/user/actions/index'
 
-import Panel from '../components/panel'
+import Panel from '../../components/panel'
 
 export const Users = React.createClass({
   componentDidMount () {

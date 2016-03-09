@@ -4,22 +4,16 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {reduxForm} from 'redux-form'
 
-import {upsertUser} from '../actions/user'
+import {upsertUser} from '../../../modules/user/actions/index'
 
-import {validateAddUser} from '../lib/validations'
+import {validateAddUser} from '../../../lib/validations'
 
-export let Register = React.createClass({
+export let AddUser = React.createClass({
   propTypes: {
     handleSubmit: React.PropTypes.func.isRequired
   },
   createUser (data) {
-    const {dispatch, params} = this.props
-
-    data.register = true
-
-    if (params && params.callback_url) {
-      data.callback_url = params.callback_url
-    }
+    const dispatch = this.props.dispatch
 
     dispatch(upsertUser(null, data))
   },
@@ -65,12 +59,12 @@ export let Register = React.createClass({
   }
 })
 
-Register = reduxForm({
+AddUser = reduxForm({
   form: 'addUser',
   fields: ['name', 'email', 'password', 'repeat'],
   validate: validateAddUser
-})(Register)
+})(AddUser)
 
-export default connect(() => {
+export default connect((state, ownProps) => {
   return {}
-})(Register)
+})(AddUser)

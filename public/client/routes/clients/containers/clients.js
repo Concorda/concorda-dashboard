@@ -10,7 +10,7 @@ import getClient from '../../../modules/client/actions/getClient'
 import getClients from '../../../modules/client/actions/getClients'
 import editClient from '../../../modules/client/actions/editClient'
 
-import Panel from '../../../components/panel'
+import Panel from '../../components/panel'
 
 export const Clients = React.createClass({
   componentDidMount () {
