@@ -5,9 +5,9 @@ import {connect} from 'react-redux'
 import {reduxForm} from 'redux-form'
 import {pushPath} from 'redux-simple-router'
 
-import {getPasswordReset} from '../actions/user'
+import {getPasswordReset} from '../../../modules/user/actions/index'
 
-import {validateGetPassReset} from '../lib/validations'
+import {validateGetPassReset} from '../../../lib/validations'
 
 
 export let PasswordReset = React.createClass({

@@ -4,9 +4,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {reduxForm} from 'redux-form'
 
-import {sendInviteUser} from '../actions/user'
+import {sendInviteUser} from '../../../modules/user/actions/index'
 
-import {validateInviteUser} from '../lib/validations'
+import {validateInviteUser} from '../../../lib/validations'
 
 
 export let InviteUser = React.createClass({

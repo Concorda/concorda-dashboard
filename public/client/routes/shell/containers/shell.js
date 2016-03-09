@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import Header from '../components/header'
 import Footer from '../components/footer'
 
-import {getLoggedInUserProfile} from '../modules/profile/actions/index'
+import {getLoggedInUserProfile} from '../../../modules/profile/actions/index'
 
 export const Shell = React.createClass({
   handleEditUserProfile () {
