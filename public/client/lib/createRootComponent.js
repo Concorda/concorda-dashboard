@@ -7,10 +7,9 @@ import {createHistory} from 'history'
 import {syncReduxAndRouter} from 'redux-simple-router'
 import {Router, Route, IndexRoute} from 'react-router'
 
-import logout from '../modules/auth/actions/logout'
-import validateCookie from '../modules/auth/actions/validateCookie'
+import {logout, validateCookie} from '../modules/auth/actions/index'
 
-import validateInitConfig from '../modules/client/actions/validateInitConfig'
+import {validateInitConfig} from '../modules/client/actions/index'
 
 import Shell from '../routes/shell'
 import Overview from '../routes/overview'
