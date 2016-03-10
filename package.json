@@ -21,6 +21,7 @@
     "copy": "copyfiles -f ./public/assets/img/*.png ./dist/img",
     "build": "npm run copy & webpack --progress --colors",
     "watch": "webpack -w",
+    "prestart": "npm run build",
     "start": "node ./server/start.js",
     "start:production": "./start.sh ./config/production.env ./server/start.js",
     "start:dev": "./start.sh ./config/development.env ./server/start.js"
@@ -66,7 +67,9 @@
     "seneca-mesh": "0.5.0",
     "style-loader": "0.13.x",
     "superagent": "1.x.x",
-    "varo": "0.3.x"
+    "varo": "0.3.x",
+    "copyfiles": "^0.2.1",
+    "webpack": "1.12.x"
   },
   "devDependencies": {
     "babel-core": "6.x.x",
@@ -79,7 +82,6 @@
     "babel-preset-react": "6.3.x",
     "babel-preset-stage-0": "6.3.x",
     "code": "2.1.x",
-    "copyfiles": "^0.2.1",
     "eslint-config-seneca": "1.1.x",
     "eslint-plugin-hapi": "4.0.x",
     "eslint-plugin-react": "3.16.x",
@@ -88,7 +90,6 @@
     "postcss": "5.0.x",
     "postcss-loader": "0.8.x",
     "stylus-loader": "1.4.x",
-    "url-loader": "0.5.x",
-    "webpack": "1.12.x"
+    "url-loader": "0.5.x"
   }
 }
