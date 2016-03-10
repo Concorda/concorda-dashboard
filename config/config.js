@@ -59,7 +59,8 @@ module.exports = function () {
 
   function Concorda () {
     return {
-      local: process.env.LOCAL || true
+      external_api: process.env.EXTERNAL_API || false,
+      external_core: process.env.EXTERNAL_CORE || false
     }
   }
 

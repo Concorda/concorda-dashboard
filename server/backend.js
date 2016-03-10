@@ -10,11 +10,17 @@ module.exports = function (server, options, next) {
   // Set up our seneca plugins
   var seneca = server.seneca
 
-  seneca.use('options', Config)
+  seneca.log.info('Using configuration', JSON.stringify(Config))
 
   seneca.ready(function(){
-    seneca
-      .use(ConcordaRest, Config)
+    if (!Config.concorda || Config.concorda.external_api === false || Config.concorda.external_api === 'false') {
+      seneca.log.info('Using internal REST API')
+      seneca
+        .use(ConcordaRest, Config)
+    }
+    else {
+      seneca.log.info('Using external REST API')
+    }
   })
 
   next()
