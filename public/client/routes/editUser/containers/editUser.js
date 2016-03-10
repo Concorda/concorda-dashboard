@@ -57,8 +57,7 @@ export let EditUser = React.createClass({
   },
 
   render () {
-    const { fields: {name, email, password, repeat}, handleSubmit } = this.props
-    const {editUser, tags} = this.props
+    const { tags, editUser, fields: {name, email, password, repeat}, handleSubmit } = this.props
 
     return (
       <div className="page container-fluid">
@@ -85,7 +84,7 @@ export let EditUser = React.createClass({
                   <div className="col-xs-12 col-sm-6">
                     <Select2 multiple className="input-large select2-custom" ref="tags"
                              data={tags} defaultValue={this.state.defaultTags} onChange={this.tagsOnChange}
-                             options={{placeholder: 'search by tags', tags: true, theme: 'classic'}}
+                             options={{placeholder: 'Search tags', tags: true, theme: 'classic'}}
                     />
                   </div>
                 </div>
