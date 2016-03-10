@@ -10,9 +10,7 @@ import CheckboxGroup from 'react-checkbox-group'
 
 import {validateEditClient} from '../../../lib/validations'
 
-import getClient from '../../../modules/client/actions/getClient'
-import upsertClient from '../../../modules/client/actions/upsertClient'
-import editClient from '../../../modules/client/actions/editClient'
+import {getClient, upsertClient, editClient} from '../../../modules/client/actions/index'
 
 export let Client = React.createClass({
   propTypes: {

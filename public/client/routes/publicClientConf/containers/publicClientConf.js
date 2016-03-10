@@ -6,8 +6,7 @@ import {reduxForm} from 'redux-form'
 import RadioGroup from 'react-radio-group'
 import CheckboxGroup from 'react-checkbox-group'
 
-import validateInitConfig from '../../../modules/client/actions/validateInitConfig'
-import saveInitConfig from '../../../modules/client/actions/saveInitConfig'
+import {validateInitConfig, saveInitConfig} from '../../../modules/client/actions/index'
 
 import {validateEditClient} from '../../../lib/validations'
 

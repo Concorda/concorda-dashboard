@@ -2,7 +2,7 @@
 
 import React from 'react'
 import {connect} from 'react-redux'
-import login from '../../../modules/auth/actions/login'
+import {login} from '../../../modules/auth/actions/index'
 
 export const Login = React.createClass({
   do_login (event) {

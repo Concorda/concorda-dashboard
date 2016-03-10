@@ -6,7 +6,7 @@ import {reduxForm} from 'redux-form'
 import RadioGroup from 'react-radio-group'
 import CheckboxGroup from 'react-checkbox-group'
 
-import upsertClient from '../../../modules/client/actions/upsertClient'
+import {upsertClient} from '../../../modules/client/actions/index'
 
 import {validateAddClient} from '../../../lib/validations'
 
