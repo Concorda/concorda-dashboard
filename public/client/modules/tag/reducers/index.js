@@ -1,6 +1,3 @@
-/**
- * Created by cristik on 2/25/16.
- */
 'use strict'
 
 import * as tagActions from '../constants'

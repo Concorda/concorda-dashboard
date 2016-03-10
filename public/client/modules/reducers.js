@@ -2,6 +2,10 @@
 
 import authReducer from './auth/reducers/index'
 import tagReducer from './tag/reducers/index'
+import clientReducer from './client/reducers/index'
+import profileReducer from './profile/reducers/index'
+import userReducer from './user/reducers/index'
+
 import {routeReducer} from 'redux-simple-router'
 import {reducer as formReducer} from 'redux-form'
 
@@ -9,5 +13,8 @@ export var reducers = {
   tagReducer: tagReducer,
   authReducer: authReducer,
   routeReducer: routeReducer,
-  formReducer: formReducer
+  clientReducer: clientReducer,
+  formReducer: formReducer,
+  profileReducer: profileReducer,
+  userReducer: userReducer
 }

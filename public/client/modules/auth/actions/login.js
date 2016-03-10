@@ -12,7 +12,7 @@ import * as authActions from '../constants'
  * { username: <username>, password: <password>, callback_url:<callback_url> }
  * the callback_url property is optional
  */
-export function login (data) {
+export default function login (data) {
   return (dispatch) => {
     dispatch({type: authActions.LOGIN_REQUEST})
 
