@@ -1,7 +1,7 @@
 'use strict'
 
 const ConcordaRest = require('concorda-rest')
-
+const ConcordaProxy = require('./proxy.js')
 const Config = require('../config/config.js')()
 
 module.exports = function (server, options, next) {
@@ -20,6 +20,7 @@ module.exports = function (server, options, next) {
     }
     else {
       seneca.log.info('Using external REST API')
+      ConcordaProxy(server)
     }
   })
 
