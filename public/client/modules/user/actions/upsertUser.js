@@ -16,7 +16,7 @@ export default function upsertUser (userId, data) {
     const IS_REGISTER = data.register || false
     const TAGS = data.tags
 
-    _.omit(data, ['tagsChanged', 'register', 'tags'])
+    data = _.omit(data, ['tagsChanged', 'register', 'tags'])
 
     if (userId) {
       data.orig_email = state.user.editUser.email
@@ -41,29 +41,27 @@ export default function upsertUser (userId, data) {
               result: resp.body.data
             })
 
-            dispatch(pushPath('/users'))
+            if (TAGS_CHANGED) {
+              // set user Tags
+              dispatch(setTags(TAGS, userId))
+            }
+            IS_REGISTER ? dispatch(pushPath('/')) : dispatch(pushPath('/users'))
           }
         })
     }
     else {
-      if (IS_REGISTER) {
-        doRegister({data: data, dispatch: dispatch})
-      }
-      else {
-        doRegister({data: data, dispatch: dispatch})
-      }
+      doRegister({data: data, dispatch: dispatch}, function (user) {
+        if (TAGS_CHANGED) {
+          // set user Tags
+          dispatch(setTags(TAGS, user.id))
+        }
+        IS_REGISTER ? dispatch(pushPath('/')) : dispatch(pushPath('/users'))
+      })
     }
-
-    if (TAGS_CHANGED) {
-      // set user Tags
-      dispatch(setTags(TAGS, userId))
-    }
-
-    IS_REGISTER ? dispatch(pushPath('/')) : dispatch(pushPath('/users'))
   }
 }
 
-function doRegister (options) {
+function doRegister (options, done) {
   Request
     .post('/api/user')
     .type('form')
@@ -76,14 +74,15 @@ function doRegister (options) {
           hasError: true,
           result: null
         })
+        return done()
       }
-      else {
-        options.dispatch({
-          type: userActions.CREATE_USER_RESPONSE,
-          niceError: null,
-          hasError: false,
-          result: resp.body.data
-        })
-      }
+      options.dispatch({
+        type: userActions.CREATE_USER_RESPONSE,
+        niceError: null,
+        hasError: false,
+        result: resp.body.data
+      })
+
+      return done(resp.body.data)
     })
 }
