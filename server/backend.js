@@ -1,6 +1,6 @@
 'use strict'
 
-const Concorda = require('concorda')
+const ConcordaRest = require('concorda-rest')
 
 const Config = require('../config/config.js')()
 
@@ -14,7 +14,7 @@ module.exports = function (server, options, next) {
 
   seneca.ready(function(){
     seneca
-      .use(Concorda, seneca.options)
+      .use(ConcordaRest, Config)
   })
 
   next()
