@@ -40,7 +40,7 @@
     "babel-preset-stage-0": "6.3.x",
     "boom": "3.x.x",
     "chairo": "2.0.1",
-    "concorda-rest": "concorda/concorda-rest#dev",
+    "concorda-rest": "concorda/concorda-rest",
     "css-loader": "0.23.x",
     "d3": "3.x.x",
     "eraro": "^0.4.1",
