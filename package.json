@@ -31,7 +31,7 @@
     "bell": "6.1.0",
     "boom": "3.x.x",
     "chairo": "2.0.1",
-    "concorda-rest": "concorda/concorda-rest",
+    "concorda-rest": "0.0.x",
     "css-loader": "0.23.x",
     "d3": "3.x.x",
     "eraro": "^0.4.1",
