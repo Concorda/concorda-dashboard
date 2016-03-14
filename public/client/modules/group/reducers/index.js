@@ -1,36 +1,36 @@
 'use strict'
 
-import * as tagActions from '../constants'
+import * as groupActions from '../constants'
 
-const tagState = {
+const groupState = {
   hasError: false,
   niceError: null,
   list: null
 }
 
-export default function tag (state = tagState, action) {
+export default function tag (state = groupState, action) {
   switch (action.type) {
-    case tagActions.GET_TAGS_REQUEST:
+    case groupActions.GET_GROUPS_REQUEST:
       return Object.assign({}, state, {
         hasError: false,
         niceError: null,
         list: null
       })
 
-    case tagActions.GET_TAGS_RESPONSE:
+    case groupActions.GET_GROUPS_RESPONSE:
       return Object.assign({}, state, {
         hasError: action.hasError,
         niceError: action.niceError,
         list: action.list
       })
 
-    case tagActions.SET_TAGS_REQUEST:
+    case groupActions.SET_GROUPS_REQUEST:
       return Object.assign({}, state, {
         hasError: false,
         niceError: null
       })
 
-    case tagActions.SET_TAGS_RESPONSE:
+    case groupActions.SET_GROUPS_RESPONSE:
       return Object.assign({}, state, {
         hasError: action.hasError,
         niceError: action.niceError

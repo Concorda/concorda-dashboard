@@ -23,8 +23,8 @@ export const Users = React.createClass({
     this.props.dispatch(pushPath('/invite_user'))
   },
 
-  handleEdit (userId) {
-    this.props.dispatch(getUser(userId, `/user/${userId}/edit`))
+  handleEditGroup (groupId) {
+    this.props.dispatch(pushPath('/groups'))
   },
 
   handleDelete (id) {

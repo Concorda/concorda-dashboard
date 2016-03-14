@@ -7,7 +7,7 @@ import Select2 from 'react-select2-wrapper'
 import _ from 'lodash'
 
 import {upsertUser} from '../../../modules/user/actions/index'
-import {getTags} from '../../../modules/tag/actions/index'
+import {getTags} from '../../../modules/group/actions/index'
 
 import {validateAddUser} from '../../../lib/validations'
 

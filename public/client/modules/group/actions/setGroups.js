@@ -2,27 +2,27 @@
 
 import Request from 'superagent/lib/client'
 
-import * as tagsActions from '../constants'
+import * as groupsActions from '../constants'
 
-export default function setTags (tags, userId) {
+export default function setTags (groups, userId) {
   return (dispatch) => {
-    dispatch({type: tagsActions.SET_TAGS_REQUEST})
+    dispatch({type: groupsActions.SET_GROUPS_REQUEST})
 
     Request
       .post('/api/user/' + userId + '/tag')
       .type('json')
-      .send({ tag: tags })
+      .send({ tag: groups })
       .end((err, resp) => {
         if (err || !resp.body) {
           return dispatch({
-            type: tagsActions.SET_TAGS_RESPONSE,
-            niceError: 'Can\'t set tags',
+            type: groupsActions.SET_GROUPS_RESPONSE,
+            niceError: 'Can\'t set groups',
             hasError: true
           })
         }
 
         dispatch({
-          type: tagsActions.SET_TAGS_RESPONSE,
+          type: groupsActions.SET_GROUPS_RESPONSE,
           niceError: null,
           hasError: false
         })
