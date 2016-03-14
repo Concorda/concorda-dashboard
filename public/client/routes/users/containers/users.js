@@ -45,7 +45,7 @@ export const Users = React.createClass({
           <div className="user-list-heading cf row">
             <div className="col-xs-12 col-md-2"><h4 className="m0">Name</h4></div>
             <div className="col-xs-12 col-md-3"><h4 className="m0">Email</h4></div>
-            <div className="col-xs-12 col-md-3"><h4 className="m0">Tags</h4></div>
+            <div className="col-xs-12 col-md-3"><h4 className="m0">Groups</h4></div>
             <div className="col-xs-12 col-md-4"><h4 className="m0">Actions</h4></div>
           </div>
 
@@ -54,8 +54,7 @@ export const Users = React.createClass({
               <div key={user.id} className="user-list-row row cf">
                 <div className="col-xs-12 col-md-2">{user.name}</div>
                 <div className="col-xs-12 col-md-3">{user.email}</div>
-                {/* <div className="col-xs-12 col-md-3">{_.map(user.tags, (tag) => { return (tag.name) })}</div>*/}
-                <div className="col-xs-12 col-md-3">{_.join(user.tags, ', ')}</div>
+                <div className="col-xs-12 col-md-3">{_.map(user.tags, (group) => { return <a onClick={() => { this.handleEditGroup(group.id) }}>{group.name}</a> })}</div>
                 <div className="col-xs-12 col-md-4">
                   <ul className="list-unstyled list-inline">
                     <li><a onClick={() => { this.handleEdit(user.id) }}>Edit</a></li>

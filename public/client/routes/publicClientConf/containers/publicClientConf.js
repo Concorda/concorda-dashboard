@@ -78,40 +78,48 @@ export let PublicClientConf = React.createClass({
             </div>
           </div>
           <div className="row">
-            <div className="col-xs-12 col-sm-6">
+            <div className="col-xs-12 col-sm-8">
               <div className="row">
-                Register Type
-                <RadioGroup name="registerType" selectedValue={this.state.registerType}
-                            onChange={this.handleRegisterTypeChange}>
-                  {Radio => (
-                    <div className="row generic-inputs-list">
-                      <Radio value="public"/>Public
-                      <Radio value="closed"/>Closed
-                    </div>
-                  )}
-                </RadioGroup>
+                <div className="col-xs-2 col-sm-2">
+                  Register Type:
+                </div>
+                <div className="col-xs-10 col-sm-6">
+                  <RadioGroup name="registerType" selectedValue={this.state.registerType}
+                              onChange={this.handleRegisterTypeChange}>
+                    {Radio => (
+                      <div className="row generic-inputs-list">
+                        <Radio value="public"/>Public
+                        <Radio value="closed"/>Closed
+                      </div>
+                    )}
+                  </RadioGroup>
+                </div>
               </div>
               {registerType.error && registerType.touched && <div className="form-err">{registerType.error}</div>}
             </div>
           </div>
           <div className="row">
-            <div className="col-xs-12 col-sm-6">
+            <div className="col-xs-12 col-sm-8">
               <div className="row">
-                Authentication Type
-                <CheckboxGroup name="authType" value={this.state.authType} ref="authType"
-                               onChange={this.handleAuthTypeChange}>
-                  <div className="row generic-inputs-list">
-                    <label>
-                      <input type="checkbox" value="github"/>GitHub
-                    </label>
-                    <label>
-                      <input type="checkbox" value="twitter"/>Twitter
-                    </label>
-                    <label>
-                      <input type="checkbox" value="google"/>Google
-                    </label>
-                  </div>
-                </CheckboxGroup>
+                <div className="col-xs-2 col-sm-2">
+                  Authentication Type:
+                </div>
+                <div className="col-xs-10 col-sm-6">
+                  <CheckboxGroup name="authType" value={this.state.authType} ref="authType"
+                                 onChange={this.handleAuthTypeChange}>
+                    <div className="row generic-inputs-list">
+                      <label>
+                        <input type="checkbox" value="github"/>GitHub
+                      </label>
+                      <label>
+                        <input type="checkbox" value="twitter"/>Twitter
+                      </label>
+                      <label>
+                        <input type="checkbox" value="google"/>Google
+                      </label>
+                    </div>
+                  </CheckboxGroup>
+                </div>
                 {authType.error && authType.touched && <div className="form-err">{authType.error}</div>}
               </div>
             </div>
