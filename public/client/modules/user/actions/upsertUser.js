@@ -5,7 +5,7 @@ import { pushPath } from 'redux-simple-router'
 import _ from 'lodash'
 
 import * as userActions from '../constants'
-import {setTags} from '../../tag/actions/index'
+import {setTags} from '../../group/actions/index'
 
 export default function upsertUser (userId, data) {
   return (dispatch, getState) => {

@@ -25,6 +25,9 @@ import PasswordReset from '../routes/passReset'
 import Register from '../routes/register'
 import SetPassword from '../routes/setPassword'
 import Users from '../routes/users'
+
+import Groups from '../routes/groups'
+
 import PublicClientConf from '../routes/publicClientConf'
 
 export default function createRootComponent (store) {
@@ -58,14 +61,19 @@ export default function createRootComponent (store) {
     childRoutes: [
       {path: 'login(/:callback_url)', getComponents: Login, onEnter: requireConf},
       {path: 'logout(/:callback_url)', onEnter: handleLogout},
+
       {path: 'users', getComponents: Users, onEnter: requireAuth},
       {path: 'user/add', getComponents: AddUser, onEnter: requireAuth},
       {path: 'user/:id/edit', getComponents: EditUser, onEnter: requireAuth},
       {path: 'profile', getComponents: Profile, onEnter: requireAuth},
+
+      {path: 'groups', getComponents: Groups, onEnter: requireAuth},
+
       {path: 'register(/:callback_url)', getComponents: Register},
       {path: 'password_reset', getComponents: PasswordReset},
       {path: 'password_reset/:token', getComponents: SetPassword},
       {path: 'invite_user', getComponents: InviteUser, onEnter: requireAuth},
+
       {path: 'clients', getComponents: Clients, onEnter: requireAuth},
       {path: 'client/add/new', getComponents: AddClient, onEnter: requireAuth},
       {path: 'client/:id/edit', getComponents: Client, onEnter: requireAuth},

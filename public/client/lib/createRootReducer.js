@@ -9,7 +9,7 @@ export default function createRootReducer () {
     routing: reducers.routeReducer,
     form: reducers.formReducer,
     auth: reducers.authReducer,
-    tag: reducers.tagReducer,
+    group: reducers.groupReducer,
     user: reducers.userReducer,
     profile: reducers.profileReducer,
     client: reducers.clientReducer
