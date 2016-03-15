@@ -4,10 +4,11 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {reduxForm} from 'redux-form'
 import Select2 from 'react-select2-wrapper'
+import CustomUserFields from '../components/customFields'
 import _ from 'lodash'
 
 import {upsertUser, getUser} from '../../../modules/user/actions/index'
-import {getTags} from '../../../modules/group/actions/index'
+import {getGroups} from '../../../modules/group/actions/index'
 import {validateEditUser} from '../../../lib/validations'
 
 export let EditUser = React.createClass({
@@ -18,31 +19,31 @@ export let EditUser = React.createClass({
 
   getInitialState () {
     return {
-      defaultTags: null,
-      tagsChanged: false
+      defaultGroups: null,
+      groupsChanged: false
     }
   },
 
   componentDidMount () {
-    this.props.dispatch(getTags())
+    this.props.dispatch(getGroups())
     this.props.dispatch(getUser(this.props.params.id))
   },
 
   componentWillReceiveProps: function (nextProps) {
     if (nextProps.editUser && nextProps.editUser.tags) {
       this.setState({
-        defaultTags: _.map(nextProps.editUser.tags, 'id')
+        defaultGroups: _.map(nextProps.editUser.tags, 'id')
       })
     }
   },
 
   updateUser (data) {
-    const selectedTags = this.refs.tags.el.val()
+    const selectedGroups = this.refs.groups.el.val()
     const dispatch = this.props.dispatch
     const userId = this.props.params.id || null
     data = _(data).omit(_.isUndefined).omit(_.isNull).value()
-    data.tags = selectedTags
-    data.tagsChanged = this.state.tagsChanged
+    data.groups = selectedGroups
+    data.groupsChanged = this.state.groupsChanged
     dispatch(upsertUser(userId, data))
   },
 
@@ -52,12 +53,12 @@ export let EditUser = React.createClass({
     dispatch(upsertUser(userId, data))
   },
 
-  tagsOnChange () {
-    this.setState({tagsChanged: true})
+  groupsOnChange () {
+    this.setState({groupsChanged: true})
   },
 
   render () {
-    const { tags, editUser, fields: {name, email, password, repeat}, handleSubmit } = this.props
+    const { groups, editUser, fields: {name, email, password, repeat, custom}, handleSubmit } = this.props
 
     return (
       <div className="page container-fluid">
@@ -66,7 +67,7 @@ export let EditUser = React.createClass({
         </div>
 
         {(() => {
-          if (editUser && tags) {
+          if (editUser && groups) {
             return (
               <form className="login-form col-xs-12 txt-left form-full-width form-panel"
                     onSubmit={handleSubmit(this.updateUser)}>
@@ -82,17 +83,22 @@ export let EditUser = React.createClass({
                 </div>
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
-                    <Select2 multiple className="input-large select2-custom" ref="tags"
-                             data={tags} defaultValue={this.state.defaultTags} onChange={this.tagsOnChange}
-                             options={{placeholder: 'Search tags', tags: true, theme: 'classic'}}
+                    <Select2 multiple className="input-large select2-custom" ref="groups"
+                             data={groups} defaultValue={this.state.defaultGroups} onChange={this.groupsOnChange}
+                             options={{placeholder: 'Search Groups', groups: true, theme: 'classic'}}
                     />
                   </div>
                 </div>
+
+                <CustomUserFields model={custom} />
+
                 <div className="row">
                   <div className="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                     <button type="submit" className="btn btn-large submit">Save</button>
                   </div>
                 </div>
+
+
               </form>
             )
           }
@@ -134,7 +140,7 @@ export let EditUser = React.createClass({
 EditUser = reduxForm(
   {
     form: 'editUser',
-    fields: ['name', 'email', 'password', 'repeat'],
+    fields: ['name', 'email', 'password', 'repeat', 'custom'],
     validate: validateEditUser
   },
   state => ({
@@ -144,6 +150,6 @@ EditUser = reduxForm(
 export default connect((state) => {
   return {
     editUser: state.user.editUser ? state.user.editUser : null,
-    tags: state.tag.list ? state.tag.list : null
+    groups: state.group.list ? state.group.list : null
   }
 })(EditUser)
