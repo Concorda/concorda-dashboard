@@ -4,7 +4,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {reduxForm} from 'redux-form'
 import Select2 from 'react-select2-wrapper'
-import CustomUserFields from '../components/customFields'
+import CustomUserFields from '../components/customUserFields'
 import _ from 'lodash'
 
 import {upsertUser, getUser} from '../../../modules/user/actions/index'
@@ -90,7 +90,7 @@ export let EditUser = React.createClass({
                   </div>
                 </div>
 
-                <CustomUserFields model={custom} />
+                <CustomUserFields user={editUser}/>
 
                 <div className="row">
                   <div className="col-lg-2 col-md-4 col-sm-6 col-xs-12">
