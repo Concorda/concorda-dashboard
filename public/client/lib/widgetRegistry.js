@@ -1,20 +1,25 @@
 'use strict'
 
 import React from 'react'
-var PersonalAddress = require('../routes/editUser/components/personalAddressFields')
-var OfficeAddress = require('../routes/editUser/components/officeAddressFields')
+const _ = require('lodash')
 
-var widgets = {
-  PersonalAddress: React.createClass(PersonalAddress),
-  OfficeAddress: React.createClass(OfficeAddress)
-}
+var widgets = {}
 
-module.exports.getWidget = function (user) {
+var getWidget = function (user) {
+
+  var PersonalAddress = React.createClass(require('../routes/editUser/components/personalAddressFields'))
+  var OfficeAddress = React.createClass(require('../routes/editUser/components/officeAddressFields'))
+  var Rcslider = React.createClass(require('rc-slider'))
+
+  widgets['user'] = {
+    PersonalAddress:<PersonalAddress user={user}/>,
+    OfficeAddress: <OfficeAddress user={user}/>,
+    Rcslider: <Rcslider user={user}/>
+  }
+
 
   console.log('Choose widgets for', user)
-  var widgetsForUser = []
-  widgetsForUser.push(<widgets.PersonalAddress/>)
-  widgetsForUser.push(<widgets.OfficeAddress/>)
-
-  return widgetsForUser
+  return _.values(widgets.user)
 }
+
+module.exports.getWidget = getWidget

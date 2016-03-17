@@ -7,6 +7,8 @@ import Select2 from 'react-select2-wrapper'
 import CustomUserFields from '../components/customUserFields'
 import _ from 'lodash'
 
+import WidgetRegistry from '../../../../client/lib/widgetRegistry'
+
 import {upsertUser, getUser} from '../../../modules/user/actions/index'
 import {getGroups} from '../../../modules/group/actions/index'
 import {validateEditUser} from '../../../lib/validations'
@@ -58,7 +60,9 @@ export let EditUser = React.createClass({
   },
 
   render () {
-    const { groups, editUser, fields: {name, email, password, repeat, custom}, handleSubmit } = this.props
+    const { groups, editUser, fields: {name, email, password, repeat}, handleSubmit } = this.props
+
+    var widgets = WidgetRegistry.getWidget(editUser)
 
     return (
       <div className="page container-fluid">
@@ -90,7 +94,7 @@ export let EditUser = React.createClass({
                   </div>
                 </div>
 
-                <CustomUserFields user={editUser}/>
+                {widgets}
 
                 <div className="row">
                   <div className="col-lg-2 col-md-4 col-sm-6 col-xs-12">
