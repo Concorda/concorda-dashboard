@@ -17,7 +17,7 @@ var opts = {
   chairo: {
     timeout: 2000,
     secure: true,
-    log: 'print'
+    log: {level: 'INFO'}
   }
 }
 
