@@ -62,7 +62,7 @@ export let EditUser = React.createClass({
   render () {
     const { groups, editUser, fields: {name, email, password, repeat}, handleSubmit } = this.props
 
-    var widgets = WidgetRegistry.getWidget(editUser)
+//    var widgets = WidgetRegistry.getWidget(editUser)
 
     return (
       <div className="page container-fluid">
@@ -93,8 +93,6 @@ export let EditUser = React.createClass({
                     />
                   </div>
                 </div>
-
-                {widgets}
 
                 <div className="row">
                   <div className="col-lg-2 col-md-4 col-sm-6 col-xs-12">
@@ -154,6 +152,8 @@ EditUser = reduxForm(
 export default connect((state) => {
   return {
     editUser: state.user.editUser ? state.user.editUser : null,
-    groups: state.group.list ? state.group.list : null
+    groups: state.group.list ? _.map(state.group.list, function (group) {
+      return _.assign(group, {id: group.id, text: group.name})
+    }) : null
   }
 })(EditUser)
