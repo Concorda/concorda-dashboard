@@ -35,9 +35,14 @@ export let EditUser = React.createClass({
   },
 
   componentWillReceiveProps: function (nextProps) {
-    if (nextProps.editUser && nextProps.editUser.tags) {
+    if (nextProps.editUser && nextProps.editUser.groups) {
       this.setState({
-        defaultGroups: _.map(nextProps.editUser.tags, 'id')
+        defaultGroups: _.map(nextProps.editUser.groups, 'id')
+      })
+    }
+    if (nextProps.editUser && nextProps.editUser.clients) {
+      this.setState({
+        defaultClients: _.map(nextProps.editUser.clients, 'id')
       })
     }
   },

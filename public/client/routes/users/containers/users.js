@@ -27,8 +27,12 @@ export const Users = React.createClass({
     this.props.dispatch(getUser(userId, `/user/${userId}/edit`))
   },
 
+  handleEditClient (clientId) {
+    this.props.dispatch(pushPath(`/client/${clientId}/edit`))
+  },
+
   handleEditGroup (groupId) {
-    this.props.dispatch(pushPath('/groups'))
+    this.props.dispatch(pushPath(`/group/${groupId}/edit`))
   },
 
   handleDelete (id) {
@@ -59,7 +63,7 @@ export const Users = React.createClass({
               <div key={user.id} className="user-list-row row cf">
                 <div className="col-xs-12 col-md-2">{user.name}</div>
                 <div className="col-xs-12 col-md-2">{user.email}</div>
-                <div className="col-xs-12 col-md-3">{_.map(user.clients, (client) => { return <a onClick={() => { this.handleEditGroup(client.id) }}>{client.name}</a> })}</div>
+                <div className="col-xs-12 col-md-3">{_.map(user.clients, (client) => { return <a onClick={() => { this.handleEditClient(client.id) }}>{client.name}</a> })}</div>
                 <div className="col-xs-3 col-md-3">{_.map(user.groups, (group) => { return <a onClick={() => { this.handleEditGroup(group.id) }}>{group.name}</a> })}</div>
                 <div className="col-xs-2 col-md-2">
                   <ul className="list-unstyled list-inline">
