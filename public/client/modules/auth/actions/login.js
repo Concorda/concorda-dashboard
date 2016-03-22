@@ -16,9 +16,12 @@ export default function login (data) {
   return (dispatch) => {
     dispatch({type: authActions.LOGIN_REQUEST})
 
+    // @hack for now
+    data.appkey = 'concorda'
+
     Request
       .post('/auth/login')
-      .type('form')
+      .type('json')
       .send(data)
       .end((err, resp) => {
         if (err || resp.unauthorized) {
