@@ -74,7 +74,7 @@ export let Client = React.createClass({
   },
 
   render () {
-    const { fields: {name, url, registerType, authType, registerWidgets, appkey}, handleSubmit } = this.props
+    const { fields: {name, protocol, host, port, registerType, authType, registerWidgets, appkey}, handleSubmit } = this.props
     const {client, edit} = this.props
     const {handleEditClient} = this
 
@@ -91,22 +91,36 @@ export let Client = React.createClass({
                     onSubmit={handleSubmit(this.handleSubmit)}>
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
+                    <label>Name</label>
                     <input {...name} placeholder="Name" className="input-large"/>
                     {name.error && name.touched && <div className="form-err">{name.error}</div>}
                   </div>
 
-                  <div className="col-xs-12 col-sm-6">
-                    <input {...url} placeholder="Url" className="input-large"/>
-                    {url.error && url.touched && <div className="form-err">{url.error}</div>}
+                  <div className="col-xs-4 col-sm-2">
+                    <label>Protocol</label>
+                    <input type="text" {...protocol} placeholder="Protocol" className="input-large"/>
+                    {protocol.error && protocol.touched && <div className="form-err">{protocol.error}</div>}
+                  </div>
+                  <div className="col-xs-4 col-sm-2">
+                    <label>Host</label>
+                    <input type="text" {...host} placeholder="Host" className="input-large"/>
+                    {host.error && host.touched && <div className="form-err">{host.error}</div>}
+                  </div>
+                  <div className="col-xs-4 col-sm-2">
+                    <label>Port</label>
+                    <input type="text" {...port} placeholder="Port" className="input-large"/>
+                    {port.error && port.touched && <div className="form-err">{port.error}</div>}
                   </div>
                 </div>
 
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
+                    <label>Application key</label>
                     <input {...appkey} placeholder="Application key" className="input-large"/>
                   </div>
 
                   <div className="col-xs-12 col-sm-6">
+                    <label>Widgets for user</label>
                     <input {...registerWidgets} placeholder="user widgets (comma separated)" className="input-large"/>
                     {registerWidgets.error && registerWidgets.touched && <div className="form-err">{registerWidgets.error}</div>}
                   </div>
@@ -195,7 +209,7 @@ export let Client = React.createClass({
 Client = reduxForm(
   {
     form: 'editClient',
-    fields: ['name', 'url', 'registerType', 'authType', 'appkey', 'registerWidgets'],
+    fields: ['name', 'protocol', 'host', 'port', 'registerType', 'authType', 'appkey', 'registerWidgets'],
     validate: validateEditClient
   },
   state => ({
