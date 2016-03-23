@@ -17,7 +17,9 @@ export let AddClient = React.createClass({
   getInitialState () {
     return {
       registerType: 'closed',
-      authType: []
+      authType: [],
+      appkey: null,
+      registerWidgets: ""
     }
   },
   createClient (data) {
@@ -37,7 +39,8 @@ export let AddClient = React.createClass({
   },
 
   render () {
-    const { fields: {name, url, registerType, authType}, handleSubmit } = this.props
+    const { fields: {name, url, registerType, authType, appkey, registerWidgets}, handleSubmit } = this.props
+
     return (
       <div className="page container-fluid">
         <div className="row middle-xs page-heading">
@@ -51,46 +54,67 @@ export let AddClient = React.createClass({
               <input type="text" {...name} placeholder="Name" className="input-large"/>
               {name.error && name.touched && <div className="form-err">{name.error}</div>}
             </div>
-            </div>
-          <div className="row">
+
             <div className="col-xs-12 col-sm-6">
               <input type="text" {...url} placeholder="Url" className="input-large"/>
               {url.error && url.touched && <div className="form-err">{url.error}</div>}
             </div>
           </div>
+
           <div className="row">
             <div className="col-xs-12 col-sm-6">
+              <input {...appkey} placeholder="Application key" className="input-large"/>
+            </div>
+
+            <div className="col-xs-12 col-sm-6">
+              <input {...registerWidgets} placeholder="user widgets (comma separated)" className="input-large"/>
+              {registerWidgets.error && registerWidgets.touched && <div className="form-err">{registerWidgets.error}</div>}
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-xs-12 col-sm-8">
               <div className="row">
-                Register Type
-                <RadioGroup name="registerType" selectedValue={this.state.registerType} onChange={this.handleRegisterTypeChange}>
-                  {Radio => (
-                    <div className="row generic-inputs-list">
-                      <Radio value="public"/>Public
-                      <Radio value="closed"/>Closed
-                    </div>
-                  )}
-                </RadioGroup>
+                <div className="col-xs-2 col-sm-2">
+                  Register Type:
+                </div>
+                <div className="col-xs-10 col-sm-6">
+                  <RadioGroup name="registerType" selectedValue={this.state.registerType}
+                              onChange={this.handleRegisterTypeChange}>
+                    {Radio => (
+                      <div className="row generic-inputs-list">
+                        <Radio value="public"/>Public
+                        <Radio value="closed"/>Closed
+                      </div>
+                    )}
+                  </RadioGroup>
+                </div>
               </div>
               {registerType.error && registerType.touched && <div className="form-err">{registerType.error}</div>}
             </div>
           </div>
           <div className="row">
-            <div className="col-xs-12 col-sm-6">
+            <div className="col-xs-12 col-sm-8">
               <div className="row">
-                Authentication Type
-                <CheckboxGroup name="authType" value={this.state.authType} ref="authType" onChange={this.handleAuthTypeChange}>
-                  <div className="row generic-inputs-list">
-                    <label>
-                      <input type="checkbox" value="github"/>GitHub
-                    </label>
-                    <label>
-                      <input type="checkbox" value="twitter"/>Twitter
-                    </label>
-                    <label>
-                      <input type="checkbox" value="google"/>Google
-                    </label>
-                  </div>
-                </CheckboxGroup>
+                <div className="col-xs-2 col-sm-2">
+                  Authentication Type:
+                </div>
+                <div className="col-xs-10 col-sm-6">
+                  <CheckboxGroup name="authType" value={this.state.authType} ref="authType"
+                                 onChange={this.handleAuthTypeChange}>
+                    <div className="row generic-inputs-list">
+                      <label>
+                        <input type="checkbox" value="github"/>GitHub
+                      </label>
+                      <label>
+                        <input type="checkbox" value="twitter"/>Twitter
+                      </label>
+                      <label>
+                        <input type="checkbox" value="google"/>Google
+                      </label>
+                    </div>
+                  </CheckboxGroup>
+                </div>
                 {authType.error && authType.touched && <div className="form-err">{authType.error}</div>}
               </div>
             </div>
@@ -108,7 +132,7 @@ export let AddClient = React.createClass({
 
 AddClient = reduxForm({
   form: 'addClient',
-  fields: ['name', 'url', 'registerType', 'authType'],
+  fields: ['name', 'url', 'registerType', 'authType', 'appkey', 'registerWidgets'],
   validate: validateAddClient
 })(AddClient)
 

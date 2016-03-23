@@ -40,7 +40,7 @@ export let Client = React.createClass({
         registerType: nextProps.client.registerType,
         authType: nextProps.client.authType,
         appkey: nextProps.client.appkey,
-        registerWidgets: nextProps.client.registerWidgets,
+        registerWidgets: nextProps.client.registerWidgets
       })
     }
   },
@@ -54,7 +54,7 @@ export let Client = React.createClass({
     data.authType = this.state.authType
     data.appkey = this.state.appkey
     data.registerWidgets = this.state.registerWidgets
-console.log('#####################', data, this.state)
+
     dispatch(upsertClient(this.props.params.id, data))
   },
 

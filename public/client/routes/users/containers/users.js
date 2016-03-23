@@ -63,8 +63,8 @@ export const Users = React.createClass({
               <div key={user.id} className="user-list-row row cf">
                 <div className="col-xs-12 col-md-2">{user.name}</div>
                 <div className="col-xs-12 col-md-2">{user.email}</div>
-                <div className="col-xs-12 col-md-3">{_.map(user.clients, (client) => { return <a onClick={() => { this.handleEditClient(client.id) }}>{client.name}</a> })}</div>
-                <div className="col-xs-3 col-md-3">{_.map(user.groups, (group) => { return <a onClick={() => { this.handleEditGroup(group.id) }}>{group.name}</a> })}</div>
+                <div className="col-xs-12 col-md-3">{_.map(user.clients, (client) => { return <a onClick={() => { this.handleEditClient(client.id) }}>{client.name}, </a> })}</div>
+                <div className="col-xs-3 col-md-3">{_.map(user.groups, (group) => { return <a onClick={() => { this.handleEditGroup(group.id) }}>{group.name}, </a> })}</div>
                 <div className="col-xs-2 col-md-2">
                   <ul className="list-unstyled list-inline">
                     <li><a onClick={() => { this.handleEdit(user.id) }}>Edit</a></li>
