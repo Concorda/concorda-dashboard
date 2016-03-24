@@ -44,7 +44,7 @@ export let AddClient = React.createClass({
     return (
       <div className="page container-fluid">
         <div className="row middle-xs page-heading">
-          <h2 className="col-xs-12 col-sm-6">Add Client</h2>
+          <h2 className="col-xs-12 col-sm-6">Add Application</h2>
         </div>
 
         <form className="login-form col-xs-12 txt-left form-full-width form-panel"

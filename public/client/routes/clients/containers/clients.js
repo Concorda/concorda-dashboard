@@ -69,13 +69,13 @@ export const Clients = React.createClass({
     return (
       <div className="page page-clients container-fluid">
         <div className="row middle-xs page-heading">
-          <h2 className="col-xs-6 col-sm-6">Clients</h2>
+          <h2 className="col-xs-6 col-sm-6">Applications</h2>
           <div className="col-xs-6 col-sm-6 txt-right">
-            <button onClick={() => { this.handleAdd() }} className="btn btn-primary">Add Client</button>
+            <button onClick={() => { this.handleAdd() }} className="btn btn-primary">Add Application</button>
           </div>
         </div>
 
-        <Panel title={'Client List'}>
+        <Panel title={'Application List'}>
           {body}
         </Panel>
 

@@ -21,8 +21,7 @@ export let Client = React.createClass({
   getInitialState () {
     return {
       registerType: null,
-      authType: [],
-      registerWidgets: ""
+      authType: []
     }
   },
 
@@ -39,8 +38,7 @@ export let Client = React.createClass({
       this.setState({
         registerType: nextProps.client.registerType,
         authType: nextProps.client.authType,
-        appkey: nextProps.client.appkey,
-        registerWidgets: nextProps.client.registerWidgets
+        appkey: nextProps.client.appkey
       })
     }
   },
@@ -53,7 +51,6 @@ export let Client = React.createClass({
     data.registerType = this.state.registerType
     data.authType = this.state.authType
     data.appkey = this.state.appkey
-    data.registerWidgets = this.state.registerWidgets
 
     dispatch(upsertClient(this.props.params.id, data))
   },
@@ -74,14 +71,14 @@ export let Client = React.createClass({
   },
 
   render () {
-    const { fields: {name, protocol, host, port, registerType, authType, registerWidgets, appkey}, handleSubmit } = this.props
+    const { fields: {name, protocol, host, port, registerType, authType, registerWidgets, appkey, emailTemplateFolder}, handleSubmit } = this.props
     const {client, edit} = this.props
     const {handleEditClient} = this
 
     return (
       <div className="page page-client container-fluid">
-        <div className="row middle-xs page-heading center-xs">
-          <h2 className="col-xs-12 col-sm-6">Client Settings</h2>
+        <div className="row middle-xs page-heading">
+          <h2 className="col-xs-12 col-sm-6">Application Settings</h2>
         </div>
 
         {(() => {
@@ -124,6 +121,14 @@ export let Client = React.createClass({
                     <input {...registerWidgets} placeholder="user widgets (comma separated)" className="input-large"/>
                     {registerWidgets.error && registerWidgets.touched && <div className="form-err">{registerWidgets.error}</div>}
                   </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-xs-12 col-sm-6">
+                    <label>Email templates folder (if other than default)</label>
+                    <input {...emailTemplateFolder} placeholder="Email template folder" className="input-large"/>
+                  </div>
+
                 </div>
 
 
@@ -209,7 +214,7 @@ export let Client = React.createClass({
 Client = reduxForm(
   {
     form: 'editClient',
-    fields: ['name', 'protocol', 'host', 'port', 'registerType', 'authType', 'appkey', 'registerWidgets'],
+    fields: ['name', 'protocol', 'host', 'port', 'registerType', 'authType', 'appkey', 'registerWidgets', 'emailTemplateFolder'],
     validate: validateEditClient
   },
   state => ({

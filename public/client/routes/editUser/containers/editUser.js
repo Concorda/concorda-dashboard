@@ -80,9 +80,7 @@ export let EditUser = React.createClass({
   },
 
   render () {
-    const { clients, groups, editUser, fields: {name, email, password, repeat}, handleSubmit } = this.props
-
-    var widgets = WidgetRegistry.getWidget(editUser)
+    const { fullClients, clients, groups, editUser, fields: {name, email, password, repeat}, handleSubmit } = this.props
 
     return (
       <div className="page container-fluid">
@@ -92,6 +90,8 @@ export let EditUser = React.createClass({
 
         {(() => {
           if (editUser && groups && clients) {
+            var widgets = WidgetRegistry.getWidget(editUser, fullClients)
+
             return (
               <form className="login-form col-xs-12 txt-left form-full-width form-panel"
                     onSubmit={handleSubmit(this.updateUser)}>
@@ -185,6 +185,7 @@ export default connect((state) => {
     }) : null,
     clients: state.client.list ? _.map(state.client.list, function (client) {
       return _.assign({}, {id: client.id, text: client.name})
-    }) : null
+    }) : null,
+    fullClients: state.client.list ? state.client.list : null
   }
 })(EditUser)
