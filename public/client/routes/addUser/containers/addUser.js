@@ -7,7 +7,8 @@ import Select2 from 'react-select2-wrapper'
 import _ from 'lodash'
 
 import {upsertUser} from '../../../modules/user/actions/index'
-import {getTags} from '../../../modules/group/actions/index'
+import {getClients} from '../../../modules/client/actions/index'
+import {getGroups} from '../../../modules/group/actions/index'
 
 import {validateAddUser} from '../../../lib/validations'
 
@@ -18,37 +19,46 @@ export let AddUser = React.createClass({
 
   getInitialState () {
     return {
-      tagsChanged: false
+      groupsChanged: false
     }
   },
 
   componentDidMount () {
-    this.props.dispatch(getTags())
+    this.props.dispatch(getClients())
+    this.props.dispatch(getGroups())
   },
 
   createUser (data) {
+    const selectedGroups = this.refs.groups.el.val()
+    const selectedClients = this.refs.clients.el.val()
+
     const dispatch = this.props.dispatch
-    const selectedTags = this.refs.tags.el.val()
+    const userId = this.props.params.id || null
+
     data = _(data).omit(_.isUndefined).omit(_.isNull).value()
-    data.tags = selectedTags
-    data.tagsChanged = this.state.tagsChanged
+    data.groups = selectedGroups
+    data.clients = selectedClients
+
+    data.changed = {}
+    data.changed.groups = this.state.groupsChanged
+    data.changed.clients = this.state.clientsChanged
 
     dispatch(upsertUser(null, data))
   },
 
-  tagsOnChange () {
-    this.setState({tagsChanged: true})
+  groupsOnChange () {
+    this.setState({groupsChanged: true})
   },
 
   render () {
-    const { tags, fields: {name, email, password, repeat}, handleSubmit } = this.props
+    const { groups, clients, fields: {name, email, password, repeat}, handleSubmit } = this.props
     return (
       <div className="page container-fluid">
         <div className="row middle-xs page-heading">
           <h2 className="col-xs-12 col-sm-6">Add User</h2>
         </div>
         {(() => {
-          if (tags) {
+          if (groups && clients) {
             return (
               <form className="login-form col-xs-12 txt-left form-full-width form-panel"
                     onSubmit={handleSubmit(this.createUser)}>
@@ -64,11 +74,19 @@ export let AddUser = React.createClass({
                 </div>
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
-                    <Select2 multiple className="input-large select2-custom" ref="tags"
-                             data={tags} defaultValue={this.state.defaultTags} onChange={this.tagsOnChange}
-                             options={{placeholder: 'Search tags', tags: true, theme: 'classic'}}
+                    <Select2 multiple className="input-large select2-custom" ref="groups"
+                             data={groups} defaultValue={this.state.defaultGroups} onChange={this.groupsOnChange}
+                             options={{placeholder: 'Search groups', groups: true, theme: 'classic'}}
                     />
                   </div>
+
+                  <div className="col-xs-12 col-sm-6">
+                    <Select2 multiple className="input-large select2-custom" ref="clients"
+                             data={clients} defaultValue={this.state.defaultClients} onChange={this.clientsOnChange}
+                             options={{placeholder: 'Search Clients', groups: true, theme: 'classic'}}
+                    />
+                  </div>
+
                 </div>
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
@@ -102,6 +120,13 @@ AddUser = reduxForm({
 
 export default connect((state) => {
   return {
-    tags: state.tag.list ? state.tag.list : null
+    editUser: state.user.editUser ? state.user.editUser : null,
+    groups: state.group.list ? _.map(state.group.list, function (group) {
+      return _.assign(group, {id: group.id, text: group.name})
+    }) : null,
+    clients: state.client.list ? _.map(state.client.list, function (client) {
+      return _.assign({}, {id: client.id, text: client.name})
+    }) : null,
+    fullClients: state.client.list ? state.client.list : null
   }
 })(AddUser)

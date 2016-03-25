@@ -22,10 +22,10 @@ export default function getUser (userId, redirectTo) {
           })
         }
         else {
-          let userDetails = resp.body.data
+          let userDetails = resp.body.data || {goups: []}
 
           userDetails.groups = _.map(userDetails.groups, function (group) {
-            return _.assign(_.omit(group, ['id', 'userId', 'tagId', 'tagName']), {id: group.id, text: group.name})
+            return _.assign(_.omit(group, ['id', 'userId']), {id: group.id, text: group.name})
           })
 
           dispatch({
