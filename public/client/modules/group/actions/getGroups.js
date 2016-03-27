@@ -10,7 +10,7 @@ export default function getGroups () {
     dispatch({type: groupsActions.GET_GROUPS_REQUEST})
 
     Request
-      .get('/api/tag')
+      .get('/api/group')
       .end((err, resp) => {
         if (err || !resp.body) {
           return dispatch({

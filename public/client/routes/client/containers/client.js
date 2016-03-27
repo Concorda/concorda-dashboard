@@ -37,7 +37,8 @@ export let Client = React.createClass({
     if (nextProps.client) {
       this.setState({
         registerType: nextProps.client.registerType,
-        authType: nextProps.client.authType
+        authType: nextProps.client.authType,
+        appkey: nextProps.client.appkey
       })
     }
   },
@@ -49,6 +50,8 @@ export let Client = React.createClass({
     const {dispatch} = this.props
     data.registerType = this.state.registerType
     data.authType = this.state.authType
+    data.appkey = this.state.appkey
+
     dispatch(upsertClient(this.props.params.id, data))
   },
 
@@ -68,14 +71,14 @@ export let Client = React.createClass({
   },
 
   render () {
-    const { fields: {name, url, registerType, authType}, handleSubmit } = this.props
+    const { fields: {name, protocol, host, port, registerType, authType, registerWidgets, appkey, emailTemplateFolder}, handleSubmit } = this.props
     const {client, edit} = this.props
     const {handleEditClient} = this
 
     return (
       <div className="page page-client container-fluid">
-        <div className="row middle-xs page-heading center-xs">
-          <h2 className="col-xs-12 col-sm-6">Client</h2>
+        <div className="row middle-xs page-heading">
+          <h2 className="col-xs-12 col-sm-6">Application Settings</h2>
         </div>
 
         {(() => {
@@ -85,51 +88,93 @@ export let Client = React.createClass({
                     onSubmit={handleSubmit(this.handleSubmit)}>
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
+                    <label>Name</label>
                     <input {...name} placeholder="Name" className="input-large"/>
                     {name.error && name.touched && <div className="form-err">{name.error}</div>}
                   </div>
-                </div>
-                <div className="row">
-                  <div className="col-xs-12 col-sm-6">
-                    <input {...url} placeholder="Url" className="input-large"/>
-                    {url.error && url.touched && <div className="form-err">{url.error}</div>}
+
+                  <div className="col-xs-4 col-sm-2">
+                    <label>Protocol</label>
+                    <input type="text" {...protocol} placeholder="Protocol" className="input-large"/>
+                    {protocol.error && protocol.touched && <div className="form-err">{protocol.error}</div>}
+                  </div>
+                  <div className="col-xs-4 col-sm-2">
+                    <label>Host</label>
+                    <input type="text" {...host} placeholder="Host" className="input-large"/>
+                    {host.error && host.touched && <div className="form-err">{host.error}</div>}
+                  </div>
+                  <div className="col-xs-4 col-sm-2">
+                    <label>Port</label>
+                    <input type="text" {...port} placeholder="Port" className="input-large"/>
+                    {port.error && port.touched && <div className="form-err">{port.error}</div>}
                   </div>
                 </div>
+
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
+                    <label>Application key</label>
+                    <input {...appkey} placeholder="Application key" className="input-large"/>
+                  </div>
+
+                  <div className="col-xs-12 col-sm-6">
+                    <label>Widgets for user</label>
+                    <input {...registerWidgets} placeholder="user widgets (comma separated)" className="input-large"/>
+                    {registerWidgets.error && registerWidgets.touched && <div className="form-err">{registerWidgets.error}</div>}
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-xs-12 col-sm-6">
+                    <label>Email templates folder (if other than default)</label>
+                    <input {...emailTemplateFolder} placeholder="Email template folder" className="input-large"/>
+                  </div>
+
+                </div>
+
+
+                <div className="row">
+                  <div className="col-xs-12 col-sm-8">
                     <div className="row">
-                      Register Type
-                      <RadioGroup name="registerType" selectedValue={this.state.registerType}
-                                  onChange={this.handleRegisterTypeChange}>
-                        {Radio => (
-                          <div className="row generic-inputs-list">
-                            <Radio value="public"/>Public
-                            <Radio value="closed"/>Closed
-                          </div>
-                        )}
-                      </RadioGroup>
+                      <div className="col-xs-2 col-sm-2">
+                        Register Type:
+                      </div>
+                      <div className="col-xs-10 col-sm-6">
+                        <RadioGroup name="registerType" selectedValue={this.state.registerType}
+                                    onChange={this.handleRegisterTypeChange}>
+                          {Radio => (
+                            <div className="row generic-inputs-list">
+                              <Radio value="public"/>Public
+                              <Radio value="closed"/>Closed
+                            </div>
+                          )}
+                        </RadioGroup>
+                      </div>
                     </div>
                     {registerType.error && registerType.touched && <div className="form-err">{registerType.error}</div>}
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-xs-12 col-sm-6">
+                  <div className="col-xs-12 col-sm-8">
                     <div className="row">
-                      Authentication Type
-                      <CheckboxGroup name="authType" value={this.state.authType} ref="authType"
-                                     onChange={this.handleAuthTypeChange}>
-                        <div className="row generic-inputs-list">
-                          <label>
-                            <input type="checkbox" value="github"/>GitHub
-                          </label>
-                          <label>
-                            <input type="checkbox" value="twitter"/>Twitter
-                          </label>
-                          <label>
-                            <input type="checkbox" value="google"/>Google
-                          </label>
-                        </div>
-                      </CheckboxGroup>
+                      <div className="col-xs-2 col-sm-2">
+                        Authentication Type:
+                      </div>
+                      <div className="col-xs-10 col-sm-6">
+                        <CheckboxGroup name="authType" value={this.state.authType} ref="authType"
+                                       onChange={this.handleAuthTypeChange}>
+                          <div className="row generic-inputs-list">
+                            <label>
+                              <input type="checkbox" value="github"/>GitHub
+                            </label>
+                            <label>
+                              <input type="checkbox" value="twitter"/>Twitter
+                            </label>
+                            <label>
+                              <input type="checkbox" value="google"/>Google
+                            </label>
+                          </div>
+                        </CheckboxGroup>
+                      </div>
                       {authType.error && authType.touched && <div className="form-err">{authType.error}</div>}
                     </div>
                   </div>
@@ -169,7 +214,7 @@ export let Client = React.createClass({
 Client = reduxForm(
   {
     form: 'editClient',
-    fields: ['name', 'url', 'registerType', 'authType'],
+    fields: ['name', 'protocol', 'host', 'port', 'registerType', 'authType', 'appkey', 'registerWidgets', 'emailTemplateFolder'],
     validate: validateEditClient
   },
   state => ({

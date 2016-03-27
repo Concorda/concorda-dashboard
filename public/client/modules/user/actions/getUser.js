@@ -22,10 +22,12 @@ export default function getUser (userId, redirectTo) {
           })
         }
         else {
-          let userDetails = resp.body.data
-          userDetails.tags = _.map(userDetails.tags, function (tag) {
-            return _.assign(_.omit(tag, ['id', 'userId', 'tagId', 'tagName']), {id: tag.tagId, text: tag.tagName})
+          let userDetails = resp.body.data || {goups: []}
+
+          userDetails.groups = _.map(userDetails.groups, function (group) {
+            return _.assign(_.omit(group, ['id', 'userId']), {id: group.id, text: group.name})
           })
+
           dispatch({
             type: userActions.LOAD_USER_RESPONSE,
             niceError: null,

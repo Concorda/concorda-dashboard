@@ -5,18 +5,22 @@ import { pushPath } from 'redux-simple-router'
 import _ from 'lodash'
 
 import * as userActions from '../constants'
-import {setTags} from '../../group/actions/index'
+import {setGroups} from '../../group/actions/index'
+import {setClients} from '../../client/actions/index'
 
 export default function upsertUser (userId, data) {
   return (dispatch, getState) => {
     let state = getState()
     dispatch({type: userActions.UPSERT_USER_REQUEST})
 
-    const TAGS_CHANGED = data.tagsChanged || false
-    const IS_REGISTER = data.register || false
-    const TAGS = data.tags
+    const GROUP_CHANGED = data.changed.groups || false
+    const CLIENT_CHANGED = data.changed.clients || false
 
-    data = _.omit(data, ['tagsChanged', 'register', 'tags'])
+    const IS_REGISTER = data.register || false
+    const GROUPS = data.groups
+    const CLIENTS = data.clients
+
+    data = _.omit(data, ['tagsChanged', 'register', 'groups', 'clients', 'changed'])
 
     if (userId) {
       data.orig_email = state.user.editUser.email
@@ -41,9 +45,13 @@ export default function upsertUser (userId, data) {
               result: resp.body.data
             })
 
-            if (TAGS_CHANGED) {
+            if (GROUP_CHANGED) {
               // set user Tags
-              dispatch(setTags(TAGS, userId))
+              dispatch(setGroups(GROUPS, userId))
+            }
+            if (CLIENT_CHANGED) {
+              // set user Tags
+              dispatch(setClients(CLIENTS, userId))
             }
             IS_REGISTER ? dispatch(pushPath('/')) : dispatch(pushPath('/users'))
           }
@@ -51,9 +59,13 @@ export default function upsertUser (userId, data) {
     }
     else {
       doRegister({data: data, dispatch: dispatch}, function (user) {
-        if (TAGS_CHANGED) {
+        if (GROUP_CHANGED) {
           // set user Tags
-          dispatch(setTags(TAGS, user.id))
+          dispatch(setGroups(GROUPS, userId))
+        }
+        if (CLIENT_CHANGED) {
+          // set user Tags
+          dispatch(setClients(CLIENTS, userId))
         }
         IS_REGISTER ? dispatch(pushPath('/')) : dispatch(pushPath('/users'))
       })

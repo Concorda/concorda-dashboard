@@ -18,6 +18,7 @@ export default function login (data) {
 
     // @hack for now
     data.appkey = 'concorda'
+
     Request
       .post('/auth/login')
       .type('json')
