@@ -1,6 +1,6 @@
 {
   "name": "concorda-dashboard",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A user management system written in node",
   "author": "Dean McDonnell (http://mcdonnelldean.me/)",
   "contributors": [
