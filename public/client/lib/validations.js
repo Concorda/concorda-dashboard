@@ -17,7 +17,7 @@ export function validateAddUser (data) {
     return errors
   }
   if (data.password !== data.repeat) {
-    errors.repeat = 'Confirm Password must match Password' + data.password + ':' + data.repeat
+    errors.repeat = 'Confirm Password must match Password'
     return errors
   }
   if (data.password === data.email) {

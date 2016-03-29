@@ -77,6 +77,7 @@ export let Client = React.createClass({
 
     return (
       <div className="page page-client container-fluid">
+
         <div className="row middle-xs page-heading">
           <h2 className="col-xs-12 col-sm-6">Application Settings</h2>
         </div>
