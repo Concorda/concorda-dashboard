@@ -8,6 +8,25 @@ export function validateAddUser (data) {
     errors.email = 'Required'
     return errors
   }
+
+  return validateSetNewPassword(data)
+}
+
+export function validateEditUser (data) {
+  const errors = {}
+  return errors
+}
+
+export function validateGetPassReset (data) {
+  const errors = {}
+  if (!data.email) {
+    errors.email = 'Required'
+  }
+  return errors
+}
+
+export function validateSetNewPassword (data) {
+  const errors = {}
   if (!data.password) {
     errors.password = 'Required'
     return errors
@@ -45,33 +64,6 @@ export function validateAddUser (data) {
   if(!re.test(data.password)) {
     errors.password = "Error: password must contain at least one uppercase letter (A-Z)!";
     return errors
-  }
-  return errors
-}
-
-export function validateEditUser (data) {
-  const errors = {}
-  return errors
-}
-
-export function validateGetPassReset (data) {
-  const errors = {}
-  if (!data.email) {
-    errors.email = 'Required'
-  }
-  return errors
-}
-
-export function validateSetNewPassword (data) {
-  const errors = {}
-  if (!data.password) {
-    errors.password = 'Required'
-  }
-  if (!data.repeat) {
-    errors.repeat = 'Required'
-  }
-  if (data.password !== data.repeat) {
-    errors.repeat = 'Confirm Password must match Password'
   }
   return errors
 }

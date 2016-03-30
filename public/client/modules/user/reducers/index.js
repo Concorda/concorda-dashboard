@@ -109,6 +109,18 @@ export default function user (state = usersState, action) {
         hasError: action.hasError
       })
 
+    case userActions.FORCE_SET_NEW_PASSWORD_REQUEST:
+      return Object.assign({}, state, {
+        niceError: null,
+        hasError: false
+      })
+
+    case userActions.FORCE_SET_NEW_PASSWORD_RESPONSE:
+      return Object.assign({}, state, {
+        niceError: action.niceError,
+        hasError: action.hasError
+      })
+
     case userActions.SEND_INVITE_USER_REQUEST:
       return Object.assign({}, state, {
         niceError: null,

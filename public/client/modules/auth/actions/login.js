@@ -36,6 +36,11 @@ export default function login (data) {
           if (resp.body.why){
             niceError = resp.body.why
           }
+
+          if (resp.body.code === 2){
+            dispatch(pushPath('/changePassword'))
+            return
+          }
         }
 
         if (unauthorized){

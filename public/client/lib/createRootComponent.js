@@ -24,6 +24,7 @@ import InviteUser from '../routes/inviteUser'
 import PasswordReset from '../routes/passReset'
 import Register from '../routes/register'
 import SetPassword from '../routes/setPassword'
+import ChangePassword from '../routes/changePassword'
 import Users from '../routes/users'
 
 import Groups from '../routes/groups'
@@ -78,6 +79,7 @@ export default function createRootComponent (store) {
       {path: 'client/add/new', getComponents: AddClient, onEnter: requireAuth},
       {path: 'client/:id/edit', getComponents: Client, onEnter: requireAuth},
       {path: 'client/:id/view', getComponents: Client, onEnter: requireAuth},
+      {path: 'changePassword', getComponents: ChangePassword, onEnter: requireAuth},
       {path: 'public_client_conf', getComponents: PublicClientConf}
     ]
   }
