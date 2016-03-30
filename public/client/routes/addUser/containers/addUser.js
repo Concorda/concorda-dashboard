@@ -50,6 +50,10 @@ export let AddUser = React.createClass({
     this.setState({groupsChanged: true})
   },
 
+  clientsOnChange () {
+    this.setState({clientsChanged: true})
+  },
+
   render () {
     const { groups, clients, fields: {name, email, password, repeat}, handleSubmit } = this.props
     return (

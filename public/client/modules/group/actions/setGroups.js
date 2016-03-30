@@ -11,7 +11,7 @@ export default function setTags (groups, userId) {
     Request
       .post('/api/user/' + userId + '/groups')
       .type('json')
-      .send({ tag: groups })
+      .send({ groups: groups })
       .end((err, resp) => {
         if (err || !resp.body) {
           return dispatch({

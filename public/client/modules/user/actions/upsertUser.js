@@ -26,7 +26,7 @@ export default function upsertUser (userId, data) {
       data.orig_email = state.user.editUser.email
       Request
         .put('/api/user')
-        .type('form')
+        .type('json')
         .send(data)
         .end((err, resp) => {
           if (err || !resp.body) {
@@ -47,11 +47,11 @@ export default function upsertUser (userId, data) {
 
             if (GROUP_CHANGED) {
               // set user Tags
-              dispatch(setGroups(GROUPS, userId))
+              dispatch(setGroups(GROUPS, userId || result.id))
             }
             if (CLIENT_CHANGED) {
               // set user Tags
-              dispatch(setClients(CLIENTS, userId))
+              dispatch(setClients(CLIENTS, userId || result.id))
             }
             IS_REGISTER ? dispatch(pushPath('/')) : dispatch(pushPath('/users'))
           }
@@ -61,11 +61,11 @@ export default function upsertUser (userId, data) {
       doRegister({data: data, dispatch: dispatch}, function (user) {
         if (GROUP_CHANGED) {
           // set user Tags
-          dispatch(setGroups(GROUPS, userId))
+          dispatch(setGroups(GROUPS, user.id))
         }
         if (CLIENT_CHANGED) {
           // set user Tags
-          dispatch(setClients(CLIENTS, userId))
+          dispatch(setClients(CLIENTS, user.id))
         }
         IS_REGISTER ? dispatch(pushPath('/')) : dispatch(pushPath('/users'))
       })
@@ -76,7 +76,7 @@ export default function upsertUser (userId, data) {
 function doRegister (options, done) {
   Request
     .post('/api/user')
-    .type('form')
+    .type('json')
     .send(options.data)
     .end((err, resp) => {
       if (err || !resp.body) {
