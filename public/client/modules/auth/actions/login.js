@@ -24,10 +24,29 @@ export default function login (data) {
       .type('json')
       .send(data)
       .end((err, resp) => {
+
+        var unauthorized = false
+        var niceError = 'Wrong username or password'
         if (err || resp.unauthorized) {
+          unauthorized = true
+        }
+
+        if (resp.body && resp.body.ok === false){
+          unauthorized = true
+          if (resp.body.why){
+            niceError = resp.body.why
+          }
+
+          if (resp.body.code === 2){
+            dispatch(pushPath('/changePassword'))
+            return
+          }
+        }
+
+        if (unauthorized){
           return dispatch({
             type: authActions.LOGIN_RESPONSE,
-            niceError: 'Wrong username or password',
+            niceError: niceError,
             hasError: true,
             isLoggedIn: false
           })
