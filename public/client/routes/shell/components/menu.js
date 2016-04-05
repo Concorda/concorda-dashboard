@@ -15,7 +15,7 @@ export default React.createClass({
 
           <ul className="list-unstyled list-inline">
             <li className="nav-item"><Link to={'/'}>Overview</Link></li>
-            <li className="nav-item"><Link to={'/settings'}>Settings</Link></li>
+            <li className="nav-item"><Link to={'/settings/edit'}>Settings</Link></li>
             <li className="nav-item"><Link to={'/clients'}>Applications</Link></li>
             <li className="nav-item"><Link to={'/users'}>Users</Link></li>
             <li className="nav-item"><Link to={'/groups'}>Groups</Link></li>

@@ -27,10 +27,10 @@ export let Settings = React.createClass({
   },
 
   componentWillReceiveProps: function (nextProps) {
-    if (nextProps.client) {
+    if (nextProps.settings) {
       this.setState({
-        registerType: nextProps.client.registerType,
-        authType: nextProps.client.authType
+        registerType: nextProps.settings.registerType,
+        authType: nextProps.settings.authType
       })
     }
   },
@@ -41,7 +41,7 @@ export let Settings = React.createClass({
     data.authType = this.state.authType
     data.appkey = this.state.appkey
 
-    dispatch(upsertSettings(this.props.params.id, data))
+    dispatch(upsertSettings(data))
   },
 
   handleRegisterTypeChange (value) {
@@ -54,7 +54,7 @@ export let Settings = React.createClass({
   },
 
   render () {
-    const { settings, fields: {registerType, authType, registerWidgets, emailTemplateFolder}, handleSubmit } = this.props
+    const { settings, fields: {registerType, authType, emailTemplateFolder}, handleSubmit } = this.props
 
     return (
       <div className="page page-client container-fluid">
@@ -70,7 +70,7 @@ export let Settings = React.createClass({
                     onSubmit={handleSubmit(this.handleSubmit)}>
                 <div className="row">
                   <div className="col-xs-12 col-sm-6">
-                    <label>Email templates folder (if other than default)</label>
+                    <label>Email templates folder</label>
                     <input {...emailTemplateFolder} placeholder="Email template folder" className="input-large"/>
                   </div>
                 </div>
@@ -139,14 +139,13 @@ export let Settings = React.createClass({
 Settings = reduxForm(
   {
     form: 'settings',
-    fields: ['registerType', 'authType', 'registerWidgets', 'emailTemplateFolder']
+    fields: ['registerType', 'authType', 'emailTemplateFolder']
   },
   state => ({
     settings: state.settings.data ? state.settings.data : null
   }))(Settings)
 
 export default connect((state) => {
-  console.log('@@@@@@@@@@@@@@@@@@@@@', state)
   return {
     settings: state.settings.data ? state.settings.data : null
   }

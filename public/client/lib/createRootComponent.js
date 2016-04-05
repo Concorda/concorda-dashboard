@@ -9,7 +9,7 @@ import {Router, Route, IndexRoute} from 'react-router'
 
 import {logout, validateCookie} from '../modules/auth/actions/index'
 
-import {validateInitConfig} from '../modules/client/actions/index'
+import {validateInitConfig} from '../modules/settings/actions/index'
 
 import Settings from '../routes/settings'
 
@@ -65,7 +65,7 @@ export default function createRootComponent (store) {
       {path: 'login(/:callback_url)', getComponents: Login, onEnter: requireConf},
       {path: 'logout(/:callback_url)', onEnter: handleLogout},
 
-      {path: 'settings', getComponents: Settings, onEnter: requireAuth},
+      {path: 'settings/edit', getComponents: Settings, onEnter: requireAuth},
 
       {path: 'users', getComponents: Users, onEnter: requireAuth},
       {path: 'user/add', getComponents: AddUser, onEnter: requireAuth},
@@ -84,7 +84,7 @@ export default function createRootComponent (store) {
       {path: 'client/:id/edit', getComponents: Client, onEnter: requireAuth},
       {path: 'client/:id/view', getComponents: Client, onEnter: requireAuth},
       {path: 'changePassword', getComponents: ChangePassword, onEnter: requireAuth},
-      {path: 'public_client_conf', getComponents: PublicClientConf}
+      {path: 'public_init_configuration', getComponents: PublicClientConf}
     ]
   }
 
