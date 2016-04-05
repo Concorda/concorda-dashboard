@@ -11,6 +11,8 @@ import {logout, validateCookie} from '../modules/auth/actions/index'
 
 import {validateInitConfig} from '../modules/client/actions/index'
 
+import Settings from '../routes/settings'
+
 import Shell from '../routes/shell'
 import Overview from '../routes/overview'
 import Login from '../routes/login'
@@ -62,6 +64,8 @@ export default function createRootComponent (store) {
     childRoutes: [
       {path: 'login(/:callback_url)', getComponents: Login, onEnter: requireConf},
       {path: 'logout(/:callback_url)', onEnter: handleLogout},
+
+      {path: 'settings', getComponents: Settings, onEnter: requireAuth},
 
       {path: 'users', getComponents: Users, onEnter: requireAuth},
       {path: 'user/add', getComponents: AddUser, onEnter: requireAuth},
