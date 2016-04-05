@@ -109,6 +109,6 @@ export default connect((state) => {
   return {
     hasError: hasError,
     niceError: niceError,
-    configuration: state.client.configuration
+    configuration: state.settings.data
   }
 })(Login)

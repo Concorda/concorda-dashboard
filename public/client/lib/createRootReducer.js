@@ -12,6 +12,7 @@ export default function createRootReducer () {
     group: reducers.groupReducer,
     user: reducers.userReducer,
     profile: reducers.profileReducer,
-    client: reducers.clientReducer
+    client: reducers.clientReducer,
+    settings: reducers.settingsReducer
   })
 }

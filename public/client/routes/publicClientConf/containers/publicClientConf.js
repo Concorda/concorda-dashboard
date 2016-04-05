@@ -40,9 +40,8 @@ export let PublicClientConf = React.createClass({
     data.authType = this.state.authType
     data.configured = true
 
-    const clientId = this.props.configuration.id
     const redirectTo = '/login'
-    dispatch(saveInitConfig(clientId, data, redirectTo))
+    dispatch(saveInitConfig(data, redirectTo))
   },
 
   handleRegisterTypeChange (value) {
@@ -55,7 +54,7 @@ export let PublicClientConf = React.createClass({
   },
 
   render () {
-    const { fields: {name, url, registerType, authType}, handleSubmit } = this.props
+    const { fields: {emailTemplateFolder, registerType, authType}, handleSubmit } = this.props
 
     return (
       <div className="page container-fluid">
@@ -65,18 +64,14 @@ export let PublicClientConf = React.createClass({
 
         <form className="login-form col-xs-12 txt-left form-full-width form-panel"
               onSubmit={handleSubmit(this.updateClient)}>
+
           <div className="row">
             <div className="col-xs-12 col-sm-6">
-              <input type="text" {...name} placeholder="Name" className="input-large"/>
-              {name.error && name.touched && <div className="form-err">{name.error}</div>}
+              <label>Email templates folder</label>
+              <input {...emailTemplateFolder} placeholder="Email template folder" className="input-large"/>
             </div>
           </div>
-          <div className="row">
-            <div className="col-xs-12 col-sm-6">
-              <input type="text" {...url} placeholder="Url" className="input-large"/>
-              {url.error && url.touched && <div className="form-err">{url.error}</div>}
-            </div>
-          </div>
+
           <div className="row">
             <div className="col-xs-12 col-sm-8">
               <div className="row">
@@ -138,7 +133,7 @@ export let PublicClientConf = React.createClass({
 PublicClientConf = reduxForm(
   {
     form: 'initClientConf',
-    fields: ['name', 'url', 'registerType', 'authType'],
+    fields: ['emailTemplateFolder', 'registerType', 'authType'],
     validate: validateEditClient
   },
   state => ({
