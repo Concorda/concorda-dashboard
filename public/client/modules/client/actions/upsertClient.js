@@ -39,7 +39,7 @@ export default function upsertClient (clientId, data) {
     else {
       Request
         .post('/api/client')
-        .type('form')
+        .type('json')
         .send(data)
         .end((err, resp) => {
           if (err || !resp.body) {
