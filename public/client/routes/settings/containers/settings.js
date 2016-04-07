@@ -10,6 +10,8 @@ import CheckboxGroup from 'react-checkbox-group'
 
 import {getSettings, upsertSettings} from '../../../modules/settings/actions/index'
 
+const fields = ['minLength', 'requireNumeric', 'requireLowercase', 'requireUppercase', 'google', 'twitter', 'github', 'publicRegister', 'emailTemplateFolder', 'passwordPolicy']
+
 export let Settings = React.createClass({
   propTypes: {
     fields: React.PropTypes.object.isRequired,
@@ -26,7 +28,6 @@ export let Settings = React.createClass({
     }
   },
 
-
   componentWillReceiveProps: function (nextProps) {
     if (nextProps.settings) {
       this.setState({
@@ -35,6 +36,8 @@ export let Settings = React.createClass({
         twitter: this.state.twitter || nextProps.settings.authType ? nextProps.settings.authType.twitter : "0",
 
         publicRegister: this.state.publicRegister || nextProps.settings.publicRegister || "0",
+
+        emailTemplateFolder: this.state.emailTemplateFolder || nextProps.settings.emailTemplateFolder,
 
         requireLowercase: this.state.requireLowerCase || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.requireLowercase : "0",
         requireUppercase: this.state.requireUpperCase || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.requireUppercase : "0",
@@ -47,21 +50,23 @@ export let Settings = React.createClass({
   handleSubmit (data) {
     const {dispatch} = this.props
 
-    dispatch(upsertSettings({
+    let settings = {
       authType: {
         google: this.state.google || "0",
         github: this.state.github || "0",
         twitter: this.state.twitter || "0"
       },
       publicRegister: this.state.publicRegister || "0",
-      emailTemplateFolder: this.state.emailTemplateFolder,
+      emailTemplateFolder: data.emailTemplateFolder,
       passwordPolicy: {
         requireLowercase: this.state.requireLowercase || "0",
         requireNumeric: this.state.requireNumeric || "0",
         requireUppercase: this.state.requireUppercase || "0",
-        minLength: this.state.minLength || 6
+        minLength: data.minLength || 6
       }
-    }))
+    }
+
+    dispatch(upsertSettings(settings))
   },
 
   handleRequireLowercaseChange (value) {
@@ -70,10 +75,6 @@ export let Settings = React.createClass({
 
   handleRequireUppercaseChange (value) {
     this.setState({requireUppercase: value})
-  },
-
-  handleMinLengthChange (value) {
-    this.setState({minLength: value})
   },
 
   handleRequireNumericChange (value) {
@@ -97,7 +98,10 @@ export let Settings = React.createClass({
   },
 
   render () {
-    const { settings, fields: {requireNumeric, requireLowercase, requireUppercase, minLength, google, github, twitter, publicRegister, emailTemplateFolder, passwordPolicy}, handleSubmit } = this.props
+    const {
+      fields: {minLength, emailTemplateFolder},
+      settings,
+      handleSubmit } = this.props
 
     return (
       <div className="page page-client container-fluid">
@@ -281,7 +285,7 @@ export let Settings = React.createClass({
                         <label>Email templates folder</label>
                       </div>
                       <div className="col-xs-8 col-sm-8">
-                        <input {...emailTemplateFolder} placeholder="Email template folder" className="input-large"/>
+                        <input placeholder="Email template folder" className="input-large" {...emailTemplateFolder}/>
                       </div>
                     </div>
                   </div>
@@ -309,10 +313,10 @@ export let Settings = React.createClass({
 Settings = reduxForm(
   {
     form: 'settings',
-    fields: ['minLength', 'requireNumeric', 'requireLowercase', 'requireUppercase', 'google', 'twitter', 'github', 'publicRegister', 'emailTemplateFolder', 'passwordPolicy']
+    fields: fields
   },
   state => ({
-    settings: state.settings.data ? state.settings.data : null
+    initialValues: state.settings.data ? state.settings.data : null
   }))(Settings)
 
 export default connect((state) => {
