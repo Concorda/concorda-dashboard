@@ -2,13 +2,14 @@
 
 const ConcordaRest = require('concorda-rest')
 const ConcordaProxy = require('./proxy.js')
-const Config = require('../config/config.js')()
+const LoadConfig = require('../config/config.js')
 
 module.exports = function (server, options, next) {
   server.dependency('chairo')
 
+  const Config = LoadConfig()
   // Set up our seneca plugins
-  var seneca = server.seneca
+  const seneca = server.seneca
 
   seneca.log.info('Using configuration', JSON.stringify(Config))
 

@@ -8,6 +8,10 @@ var Inert = require('inert')
 var Nes = require('nes')
 var Frontend = require('./frontend')
 var Backend = require('./backend')
+var DotEnv = require('dotenv')
+
+// load env config file
+DotEnv.config({path: './config/production.env'})
 
 // Options for our hapi plugins.
 var opts = {

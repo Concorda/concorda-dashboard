@@ -22,9 +22,7 @@
     "build": "npm run copy & webpack --progress --colors",
     "watch": "webpack -w",
     "prepublish": "npm run build",
-    "start": "node ./server/start.js",
-    "start:production": "./start.sh ./config/production.env ./server/start.js",
-    "start:dev": "./start.sh ./config/development.env ./server/start.js"
+    "start": "node ./server/start.js"
   },
   "dependencies": {
     "async": "1.5.x",
@@ -34,6 +32,7 @@
     "concorda-rest": "0.0.x",
     "css-loader": "0.23.x",
     "d3": "3.x.x",
+    "dotenv": "^2.0.0",
     "eraro": "^0.4.1",
     "file-loader": "0.8.x",
     "h2o2": "^5.1.0",
