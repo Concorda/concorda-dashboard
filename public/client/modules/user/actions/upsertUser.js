@@ -13,6 +13,7 @@ export default function upsertUser (userId, data) {
     let state = getState()
     dispatch({type: userActions.UPSERT_USER_REQUEST})
 
+    data.changed = data.changed || {}
     const GROUP_CHANGED = data.changed.groups || false
     const CLIENT_CHANGED = data.changed.clients || false
 
