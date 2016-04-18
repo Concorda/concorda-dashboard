@@ -39,6 +39,10 @@ export let Settings = React.createClass({
 
         emailTemplateFolder: this.state.emailTemplateFolder || nextProps.settings.emailTemplateFolder,
 
+        //user policy
+        activateAccount: this.state.activateAccount || nextProps.settings.userPolicy ? nextProps.settings.userPolicy.activateAccount : "0",
+        forceChangePassword: this.state.forceChangePassword || nextProps.settings.userPolicy ? nextProps.settings.userPolicy.forceChangePassword : "0",
+        //password policy
         requireLowercase: this.state.requireLowerCase || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.requireLowercase : "0",
         requireUppercase: this.state.requireUpperCase || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.requireUppercase : "0",
         requireNumeric: this.requireNumeric || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.requireNumeric : "0",
@@ -63,6 +67,10 @@ export let Settings = React.createClass({
         requireNumeric: this.state.requireNumeric || "0",
         requireUppercase: this.state.requireUppercase || "0",
         minLength: data.minLength || 6
+      },
+      userPolicy: {
+        activateAccount: this.state.activateAccount || "0",
+        forceChangePassword: this.state.forceChangePassword || "0"
       }
     }
 
@@ -91,6 +99,14 @@ export let Settings = React.createClass({
 
   handleTwitterChange (value) {
     this.setState({twitter: value})
+  },
+
+  handleActivateAccount (value) {
+    this.setState({activateAccount: value})
+  },
+
+  handleForceChangePassword (value) {
+    this.setState({forceChangePassword: value})
   },
 
   handleGithubChange (value) {
@@ -267,6 +283,56 @@ export let Settings = React.createClass({
                         </RadioGroup>
                       </div>
                     </div>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <br/>
+                </div>
+
+                <div className="form-panel col-xs-12 col-sm-12">
+                  <div className="col-xs-12 col-sm-12 panel-heading">
+                    User Policy
+                  </div>
+
+                  <div className="col-xs-12 col-sm-8 panel-body">
+
+                    <div className="row">
+                      <div className="col-xs-6 col-sm-6">
+                        User should activate account by email:
+                      </div>
+                      <div className="col-xs-6 col-sm-6">
+                        <RadioGroup name="activateAccount"
+                                    selectedValue={this.state.activateAccount || "0"}
+                                    onChange={this.handleActivateAccount}>
+                          {Radio => (
+                            <div className="row generic-inputs-list">
+                              <Radio value="1"/>Yes
+                              <Radio value="0"/>No
+                            </div>
+                          )}
+                        </RadioGroup>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-xs-6 col-sm-6">
+                        Force user to change password on first login:
+                      </div>
+                      <div className="col-xs-6 col-sm-6">
+                        <RadioGroup name="forceChangePassword"
+                                    selectedValue={this.state.forceChangePassword || "0"}
+                                    onChange={this.handleForceChangePassword}>
+                          {Radio => (
+                            <div className="row generic-inputs-list">
+                              <Radio value="1"/>Yes
+                              <Radio value="0"/>No
+                            </div>
+                          )}
+                        </RadioGroup>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
 
