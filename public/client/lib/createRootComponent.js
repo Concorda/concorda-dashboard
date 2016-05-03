@@ -74,7 +74,7 @@ export default function createRootComponent (store) {
 
       {path: 'groups', getComponents: Groups, onEnter: requireAuth},
 
-      {path: 'register(/:callback_url)', getComponents: Register},
+      {path: 'register(/:token)', getComponents: Register},
       {path: 'password_reset', getComponents: PasswordReset},
       {path: 'password_reset/:token', getComponents: SetPassword},
       {path: 'invite_user', getComponents: InviteUser, onEnter: requireAuth},

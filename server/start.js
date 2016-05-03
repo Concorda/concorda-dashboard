@@ -19,7 +19,7 @@ var opts = {
     port: process.env.PORT || 3050
   },
   chairo: {
-    timeout: 2000,
+    timeout: 4000,
     secure: true,
     log: 'print'
   }

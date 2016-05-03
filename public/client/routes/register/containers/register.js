@@ -17,10 +17,12 @@ export let Register = React.createClass({
 
     data.register = true
 
-    if (params && params.callback_url) {
-      data.callback_url = params.callback_url
+    if (params && params.token) {
+      data.token = params.token
     }
 
+    // hack for now
+    data.appkey = 'concorda'
     dispatch(upsertUser(null, data))
   },
 
