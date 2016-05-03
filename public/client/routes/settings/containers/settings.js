@@ -10,7 +10,7 @@ import CheckboxGroup from 'react-checkbox-group'
 
 import {getSettings, upsertSettings} from '../../../modules/settings/actions/index'
 
-const fields = ['minLength', 'requireNumeric', 'requireLowercase', 'requireUppercase', 'google', 'twitter', 'github', 'publicRegister', 'emailTemplateFolder', 'passwordPolicy']
+const fields = ['minLength', 'requireNumeric', 'requireLowercase', 'requireUppercase', 'google', 'twitter', 'github', 'publicRegister', 'concordaPublicRegister', 'emailTemplateFolder', 'passwordPolicy']
 
 export let Settings = React.createClass({
   propTypes: {
@@ -36,6 +36,7 @@ export let Settings = React.createClass({
         twitter: this.state.twitter || nextProps.settings.authType ? nextProps.settings.authType.twitter : "0",
 
         publicRegister: this.state.publicRegister || nextProps.settings.publicRegister || "0",
+        concordaPublicRegister: this.state.concordaPublicRegister || nextProps.settings.concordaPublicRegister || "0",
 
         emailTemplateFolder: this.state.emailTemplateFolder || nextProps.settings.emailTemplateFolder,
 
@@ -60,6 +61,7 @@ export let Settings = React.createClass({
         github: this.state.github || "0",
         twitter: this.state.twitter || "0"
       },
+      concordaPublicRegister: this.state.concordaPublicRegister || "0",
       publicRegister: this.state.publicRegister || "0",
       emailTemplateFolder: data.emailTemplateFolder,
       passwordPolicy: {
@@ -91,6 +93,10 @@ export let Settings = React.createClass({
 
   handleRegisterTypeChange (value) {
     this.setState({publicRegister: value})
+  },
+
+  handleConcordaRegisterTypeChange (value) {
+    this.setState({concordaPublicRegister: value})
   },
 
   handleGoogleChange (value) {
@@ -138,6 +144,24 @@ export let Settings = React.createClass({
                   </div>
 
                   <div className="col-xs-12 col-sm-8 panel-body">
+
+                    <div className="row">
+                      <div className="col-xs-6 col-sm-6">
+                        Concorda public user registration:
+                      </div>
+                      <div className="col-xs-6 col-sm-6">
+                        <RadioGroup name="concordaPublicRegister" selectedValue={this.state.concordaPublicRegister}
+                                    onChange={this.handleConcordaRegisterTypeChange}>
+                          {Radio => (
+                            <div className="row generic-inputs-list">
+                              <Radio value="1"/>Yes
+                              <Radio value="0"/>No
+                            </div>
+                          )}
+                        </RadioGroup>
+                      </div>
+                    </div>
+
                     <div className="row">
                       <div className="col-xs-6 col-sm-6">
                         Public user registration:

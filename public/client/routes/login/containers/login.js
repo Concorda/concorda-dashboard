@@ -38,13 +38,24 @@ export const Login = React.createClass({
     }
 
     let register = null
+    let textMessage = null
     let configurableBody = null
     let githubStrategy = null
     let twitterStrategy = null
     let googleStrategy = null
 
     if (configuration) {
-      if (configuration.publicRegister === "1") {
+
+      // disable external auth strategies for now
+      // this is a hack until proper user rights will be fully implemented
+      // because we do not have user rights the external auth is disabled to control the users with Concorda access
+      configuration.authType = {
+        github: "0",
+        twitter: "0",
+        google: "0"
+      }
+
+      if (configuration.concordaPublicRegister === "1") {
         register = (<a className="btn btn-secondary" href="/register">Sign in</a>)
       }
 
@@ -64,11 +75,14 @@ export const Login = React.createClass({
           className="icon icon-google"> </span> Google</a>)
       }
 
+      if (githubStrategy || twitterStrategy || googleStrategy) {
+        textMessage = (<span><br /><br /> <p>Or log in using one of the following services:</p></span>)
+      }
+
       configurableBody = (
         <div className="panel-footer">
           {register}
-          <br /><br />
-          <p>Or log in using one of the following services:</p>
+          {textMessage}
           {githubStrategy}
           {twitterStrategy}
           {googleStrategy}
