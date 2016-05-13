@@ -13,7 +13,7 @@ export default function forceChangePassword (data) {
   return (dispatch) => {
     dispatch({type: userActions.FORCE_SET_NEW_PASSWORD_REQUEST})
     Request
-      .post('/auth/change_password')
+      .post('/auth/v1/change_password')
       .type('json')
       .send({
         password: data.password,

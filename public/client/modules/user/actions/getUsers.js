@@ -11,7 +11,7 @@ export default function getUsers () {
     dispatch({type: userActions.GET_USERS_REQUEST})
 
     Request
-      .get('/api/user')
+      .get('/api/v1/user')
       .end((err, resp) => {
         if (resp.unauthorized) {
           return dispatch(logout())
