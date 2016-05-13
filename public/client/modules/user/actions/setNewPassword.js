@@ -14,7 +14,7 @@ export default function setNewPassword (data, token) {
   return (dispatch) => {
     dispatch({type: userActions.SET_NEW_PASSWORD_REQUEST})
     Request
-      .post('/auth/execute_reset')
+      .post('/api/v1/auth/execute_reset')
       .type('form')
       .send({
         token: token,

@@ -12,7 +12,7 @@ export default function loadPasswordResetUser (token) {
   return (dispatch) => {
     dispatch({type: userActions.LOAD_PASSWORD_RESET_REQUEST})
     Request
-      .post('/auth/load_reset')
+      .post('/api/v1/auth/load_reset')
       .type('form')
       .send({token: token})
       .end((err, resp) => {

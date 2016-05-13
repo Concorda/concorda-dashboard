@@ -9,7 +9,7 @@ export default function deleteClient (clientId) {
   return (dispatch) => {
     dispatch({type: clientActions.DELETE_CLIENT_REQUEST})
     Request
-      .delete('/api/v1/client/' + clientId)
+      .delete('/api/v1/admin/client/' + clientId)
       .end((err, resp) => {
         if (err || !resp.body) {
           return dispatch({

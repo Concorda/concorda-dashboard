@@ -9,7 +9,7 @@ export default function upsertSettings (data) {
   return (dispatch) => {
     dispatch({type: settingsActions.UPSERT_SETTINGS_REQUEST})
     Request
-      .put('/api/v1/settings')
+      .put('/api/v1/admin/settings')
       .type('json')
       .send(data)
       .end((err, resp) => {

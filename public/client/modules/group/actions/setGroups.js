@@ -9,7 +9,7 @@ export default function setTags (groups, userId) {
     dispatch({type: groupsActions.SET_GROUPS_REQUEST})
 
     Request
-      .post('/api/v1/user/' + userId + '/groups')
+      .post('/api/v1/admin/user/' + userId + '/groups')
       .type('json')
       .send({ groups: groups })
       .end((err, resp) => {

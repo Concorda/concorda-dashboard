@@ -26,7 +26,7 @@ export default function upsertUser (userId, data) {
     if (userId) {
       data.orig_email = state.user.editUser.email
       Request
-        .put('/api/v1/user')
+        .put('/api/v1/admin/user')
         .type('json')
         .send(data)
         .end((err, resp) => {
@@ -76,7 +76,7 @@ export default function upsertUser (userId, data) {
 
 function doRegister (options, done) {
   Request
-    .post('/api/v1/user')
+    .post('/api/v1/admin/user')
     .type('json')
     .send(options.data)
     .end((err, resp) => {

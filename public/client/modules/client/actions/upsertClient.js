@@ -12,7 +12,7 @@ export default function upsertClient (clientId, data) {
     if (clientId) {
       data.id = clientId
       Request
-        .put('/api/v1/client')
+        .put('/api/v1/admin/client')
         .type('json')
         .send(data)
         .end((err, resp) => {
@@ -38,7 +38,7 @@ export default function upsertClient (clientId, data) {
     }
     else {
       Request
-        .post('/api/v1/client')
+        .post('/api/v1/admin/client')
         .type('json')
         .send(data)
         .end((err, resp) => {

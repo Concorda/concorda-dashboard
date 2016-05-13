@@ -13,7 +13,7 @@ export default function sendInviteUser (data) {
   return (dispatch) => {
     dispatch({type: userActions.SEND_INVITE_USER_REQUEST})
     Request
-      .post('/api/v1/invite/user')
+      .post('/api/v1/admin/invite/user')
       .type('form')
       .send({
         email: data.email,

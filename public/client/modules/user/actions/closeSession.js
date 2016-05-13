@@ -10,7 +10,7 @@ export default function closeSession (userId) {
     dispatch({type: userActions.CLOSE_SESSION_REQUEST})
 
     Request
-      .post('/api/v1/user/' + userId + '/session/close')
+      .post('/api/v1/admin/user/' + userId + '/session/close')
       .end((err, resp) => {
         if (resp.unauthorized) {
           return dispatch(logout())

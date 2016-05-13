@@ -11,7 +11,7 @@ export default function deleteUser (userId) {
     dispatch({type: userActions.DELETE_USER_REQUEST})
 
     Request
-      .delete('/api/v1/user/' + userId)
+      .delete('/api/v1/admin/user/' + userId)
       .end((err, resp) => {
         if (resp.unauthorized) {
           return dispatch(logout())

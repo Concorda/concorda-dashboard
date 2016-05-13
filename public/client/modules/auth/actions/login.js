@@ -20,7 +20,7 @@ export default function login (data) {
     data.appkey = 'concorda'
 
     Request
-      .post('/auth/login')
+      .post('/api/v1/auth/login')
       .type('json')
       .send(data)
       .end((err, resp) => {

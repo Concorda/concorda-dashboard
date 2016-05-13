@@ -11,7 +11,7 @@ export default function getUser (userId, redirectTo) {
     dispatch({type: userActions.LOAD_USER_REQUEST})
 
     Request
-      .get('/api/v1/user/' + userId)
+      .get('/api/v1/admin/user/' + userId)
       .end((err, resp) => {
         if (err || !resp.body) {
           dispatch({

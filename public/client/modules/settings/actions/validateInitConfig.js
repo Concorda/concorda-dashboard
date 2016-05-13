@@ -9,7 +9,7 @@ export default function validateInitConfig () {
   return (dispatch) => {
     dispatch({type: settingsActions.GET_INIT_CONF_REQUEST})
     Request
-      .get('/settings')
+      .get('/api/v1/settings')
       .end((err, resp) => {
         if (err || !resp.body) {
           dispatch({

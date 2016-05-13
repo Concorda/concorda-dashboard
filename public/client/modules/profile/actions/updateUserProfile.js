@@ -12,7 +12,7 @@ export default function updateUserProfile (data) {
 
     data.orig_nick = state.profile.data.email
     Request
-      .post('/auth/update_user')
+      .post('/api/v1/auth/update_user')
       .type('form')
       .send(data)
       .end((err, resp) => {

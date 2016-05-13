@@ -9,7 +9,7 @@ export default function setClients (clients, userId) {
     dispatch({type: clientsActions.SET_GROUPS_REQUEST})
 
     Request
-      .post('/api/v1/user/' + userId + '/clients')
+      .post('/api/v1/admin/user/' + userId + '/clients')
       .type('json')
       .send({ clients: clients })
       .end((err, resp) => {

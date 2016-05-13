@@ -8,7 +8,7 @@ export default function getClients () {
   return (dispatch) => {
     dispatch({type: clientActions.GET_CLIENTS_REQUEST})
     Request
-      .get('/api/v1/client')
+      .get('/api/v1/admin/client')
       .end((err, resp) => {
         if (err || !resp.body) {
           return dispatch({
