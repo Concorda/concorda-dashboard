@@ -29,7 +29,7 @@
     "bell": "6.1.0",
     "boom": "3.x.x",
     "chairo": "2.1.x",
-    "concorda-rest": "0.0.x",
+    "concorda-rest": "0.1.x",
     "css-loader": "0.23.x",
     "d3": "3.x.x",
     "dotenv": "^2.0.0",
