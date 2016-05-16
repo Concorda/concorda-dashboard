@@ -12,7 +12,7 @@ export default function getPasswordReset (data) {
   return (dispatch) => {
     dispatch({type: userActions.PASS_RESET_REQUEST})
     Request
-      .post('/auth/create_reset')
+      .post('/api/v1/auth/create_reset')
       .type('json')
       .send({email: data.email, appkey: 'concorda'})// @hack - appkey is set hardcoded here
       .end((err, resp) => {

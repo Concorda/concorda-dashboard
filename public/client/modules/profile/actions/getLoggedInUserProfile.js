@@ -11,7 +11,7 @@ export default function getLoggedInUserProfile () {
     dispatch({type: profileActions.GET_PROFILE_REQUEST})
 
     Request
-      .get('/auth/user')
+      .get('/api/v1/auth/user')
       .end((err, resp) => {
         if (err || !resp.body.ok) {
           if (err && err.status === 401) {

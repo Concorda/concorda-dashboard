@@ -9,7 +9,7 @@ export default function validateCookie (redirectUrl) {
     dispatch({type: authActions.CHECK_COOKIE_REQUEST})
 
     Request
-      .get('/auth/user')
+      .get('/api/v1/auth/user')
       .end((err, resp) => {
         if (err && err.status === 401 || !resp.body || resp.body.statusCode === 401) {
           dispatch({

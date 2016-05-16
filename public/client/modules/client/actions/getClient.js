@@ -9,7 +9,7 @@ export default function getClient (clientId, redirectTo) {
   return (dispatch) => {
     dispatch({type: clientActions.GET_CLIENT_REQUEST})
     Request
-      .get('/api/client/' + clientId)
+      .get('/api/v1/admin/client/' + clientId)
       .end((err, resp) => {
         if (err || !resp.body) {
           dispatch({

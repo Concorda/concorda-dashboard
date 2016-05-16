@@ -15,7 +15,7 @@ export default function logout (data) {
     dispatch({type: authActions.LOGOUT_REQUEST})
 
     Request
-      .post('/auth/logout')
+      .post('/api/v1/auth/logout')
       .type('form')
       .send(data)
       .end(() => {

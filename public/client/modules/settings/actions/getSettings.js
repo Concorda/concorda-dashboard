@@ -9,7 +9,7 @@ export default function getSettings () {
   return (dispatch) => {
     dispatch({type: settingsActions.GET_SETTINGS_REQUEST})
     Request
-      .get('/api/settings')
+      .get('/api/v1/admin/settings')
       .end((err, resp) => {
 
         if (err || !resp.body) {
