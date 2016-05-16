@@ -4,7 +4,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {reduxForm} from 'redux-form'
 
-import {upsertUser} from '../../../modules/user/actions/index'
+import {registerUser} from '../../../modules/user/actions/index'
 
 import {validateAddUser} from '../../../lib/validations'
 
@@ -23,7 +23,7 @@ export let Register = React.createClass({
 
     // hack for now
     data.appkey = 'concorda'
-    dispatch(upsertUser(null, data))
+    dispatch(registerUser(null, data))
   },
 
   render () {
