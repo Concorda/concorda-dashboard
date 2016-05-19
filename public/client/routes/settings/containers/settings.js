@@ -10,7 +10,11 @@ import CheckboxGroup from 'react-checkbox-group'
 
 import {getSettings, upsertSettings} from '../../../modules/settings/actions/index'
 
-const fields = ['minLength', 'requireNumeric', 'requireLowercase', 'requireUppercase', 'google', 'twitter', 'github', 'publicRegister', 'concordaPublicRegister', 'emailTemplateFolder', 'passwordPolicy']
+const fields = [
+  'forceResetPasswordAfterFailedCount', 'minLength', 'requireNumeric', 'requireLowercase',
+  'requireUppercase', 'google', 'twitter', 'github', 'publicRegister', 'concordaPublicRegister',
+  'emailTemplateFolder', 'passwordPolicy'
+]
 
 export let Settings = React.createClass({
   propTypes: {
@@ -47,7 +51,9 @@ export let Settings = React.createClass({
         requireLowercase: this.state.requireLowerCase || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.requireLowercase : "0",
         requireUppercase: this.state.requireUpperCase || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.requireUppercase : "0",
         requireNumeric: this.requireNumeric || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.requireNumeric : "0",
-        minLength: this.state.minLength || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.minLength : 6
+        minLength: this.state.minLength || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.minLength : 6,
+
+        forceResetPasswordAfterFailedCount: this.state.forceResetPasswordAfterFailedCount || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.forceResetPasswordAfterFailedCount : "0"
       })
     }
   },
@@ -68,7 +74,8 @@ export let Settings = React.createClass({
         requireLowercase: this.state.requireLowercase || "0",
         requireNumeric: this.state.requireNumeric || "0",
         requireUppercase: this.state.requireUppercase || "0",
-        minLength: data.minLength || 6
+        forceResetPasswordAfterFailedCount: this.state.forceResetPasswordAfterFailedCount || "0",
+        minLength: this.state.minLength || 6
       },
       userPolicy: {
         activateAccount: this.state.activateAccount || "0",
@@ -121,7 +128,7 @@ export let Settings = React.createClass({
 
   render () {
     const {
-      fields: {minLength, emailTemplateFolder},
+      fields: {minLength, emailTemplateFolder, forceResetPasswordAfterFailedCount},
       settings,
       handleSubmit } = this.props
 
@@ -307,6 +314,20 @@ export let Settings = React.createClass({
                         </RadioGroup>
                       </div>
                     </div>
+
+                    <div className="row">
+                      <div className="col-xs-6 col-sm-6">
+                        <label>Force password reset after</label>
+                      </div>
+                      <div className="col-xs-2 col-sm-2">
+                        <input {...forceResetPasswordAfterFailedCount} placeholder="# failures" className="input-large"/>
+                      </div>
+                      <div className="col-xs-4 col-sm-4">
+                        <label>failed logins (0 to disable)</label>
+                      </div>
+                    </div>
+
+
                   </div>
                 </div>
 
