@@ -30,7 +30,6 @@ export default function login (data) {
         if (err || resp.unauthorized) {
           unauthorized = true
         }
-
         if (resp.body && resp.body.ok === false){
           unauthorized = true
           if (resp.body.why){
@@ -38,7 +37,7 @@ export default function login (data) {
           }
 
           if (resp.body.code === 2){
-            dispatch(pushPath('/changePassword'))
+            dispatch(pushPath('/password_reset/' + (resp.body.token || 'none')))
             return
           }
         }
