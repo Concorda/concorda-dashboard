@@ -11,9 +11,9 @@ import CheckboxGroup from 'react-checkbox-group'
 import {getSettings, upsertSettings} from '../../../modules/settings/actions/index'
 
 const fields = [
-  'forceResetPasswordAfterFailedCount', 'minLength', 'requireNumeric', 'requireLowercase',
-  'requireUppercase', 'google', 'twitter', 'github', 'publicRegister', 'concordaPublicRegister',
-  'emailTemplateFolder', 'passwordPolicy'
+  'requireNumeric', 'requireLowercase', 'requireUppercase',
+  'google', 'twitter', 'github', 'publicRegister', 'concordaPublicRegister',
+  'emailTemplateFolder'
 ]
 
 export let Settings = React.createClass({
@@ -53,7 +53,8 @@ export let Settings = React.createClass({
         requireNumeric: this.requireNumeric || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.requireNumeric : "0",
         minLength: this.state.minLength || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.minLength : 6,
 
-        forceResetPasswordAfterFailedCount: this.state.forceResetPasswordAfterFailedCount || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.forceResetPasswordAfterFailedCount : "0"
+        forceResetPasswordAfterFailedCount: this.state.forceResetPasswordAfterFailedCount || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.forceResetPasswordAfterFailedCount : "0",
+        forceChangePasswordAfterInterval: this.state.forceChangePasswordAfterInterval || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.forceChangePasswordAfterInterval : "0"
       })
     }
   },
@@ -75,6 +76,7 @@ export let Settings = React.createClass({
         requireNumeric: this.state.requireNumeric || "0",
         requireUppercase: this.state.requireUppercase || "0",
         forceResetPasswordAfterFailedCount: this.state.forceResetPasswordAfterFailedCount || "0",
+        forceChangePasswordAfterInterval: this.state.forceChangePasswordAfterInterval || "0",
         minLength: this.state.minLength || 6
       },
       userPolicy: {
@@ -126,9 +128,21 @@ export let Settings = React.createClass({
     this.setState({github: value})
   },
 
+  updateMinLength (event) {
+    this.setState({ minLength: event.target.value })
+  },
+
+  updateForceResetPasswordAfterFailedCount (event) {
+    this.setState({ forceResetPasswordAfterFailedCount: event.target.value })
+  },
+
+  updateForceChangePasswordAfterInterval (event) {
+    this.setState({ forceChangePasswordAfterInterval: event.target.value })
+  },
+
   render () {
     const {
-      fields: {minLength, emailTemplateFolder, forceResetPasswordAfterFailedCount},
+      fields: {emailTemplateFolder},
       settings,
       handleSubmit } = this.props
 
@@ -141,6 +155,7 @@ export let Settings = React.createClass({
 
         {(() => {
           if (settings) {
+
             return (
               <form className="login-form col-xs-8 txt-left form-full-width form-panel"
                     onSubmit={handleSubmit(this.handleSubmit)}>
@@ -150,7 +165,7 @@ export let Settings = React.createClass({
                     Authentication
                   </div>
 
-                  <div className="col-xs-12 col-sm-8 panel-body">
+                  <div className="col-xs-12 col-sm-12 panel-body">
 
                     <div className="row">
                       <div className="col-xs-6 col-sm-6">
@@ -245,25 +260,16 @@ export let Settings = React.createClass({
                   <br/>
                 </div>
 
-                <div className="form-panel col-xs-12 col-sm-12">
+                <div className="form-panel col-xs-10 col-sm-12">
                   <div className="col-xs-12 col-sm-12 panel-heading">
                     Password Policy
                   </div>
 
-                  <div className="col-xs-12 col-sm-8 panel-body">
+                  <div className="col-xs-12 col-sm-12 panel-body">
 
                     <div className="row">
                       <div className="col-xs-6 col-sm-6">
-                        <label>Minimum length</label>
-                      </div>
-                      <div className="col-xs-6 col-sm-6">
-                        <input {...minLength} placeholder="Password minimum length" className="input-large"/>
-                      </div>
-                    </div>
-
-                    <div className="row">
-                      <div className="col-xs-6 col-sm-6">
-                        Require lowercase character:
+                        Password require lowercase character:
                       </div>
                       <div className="col-xs-6 col-sm-6">
                         <RadioGroup name="requireLowercase"
@@ -281,7 +287,7 @@ export let Settings = React.createClass({
 
                     <div className="row">
                       <div className="col-xs-6 col-sm-6">
-                        Require uppercase character:
+                        Password require uppercase character:
                       </div>
                       <div className="col-xs-6 col-sm-6">
                         <RadioGroup name="requireUppercase"
@@ -299,7 +305,7 @@ export let Settings = React.createClass({
 
                     <div className="row">
                       <div className="col-xs-6 col-sm-6">
-                        Require numeric:
+                        Password require numeric:
                       </div>
                       <div className="col-xs-6 col-sm-6">
                         <RadioGroup name="requireNumeric"
@@ -317,13 +323,37 @@ export let Settings = React.createClass({
 
                     <div className="row">
                       <div className="col-xs-6 col-sm-6">
+                        <label>Password minimum length:</label>
+                      </div>
+                      <div className="col-xs-2 col-sm-2">
+                        <input defaultValue={this.state.minLength} placeholder="Password minimum length" onChange={this.updateMinLength} className="input-large"/>
+                      </div>
+                      <div className="col-xs-4 col-sm-4">
+                        <label>characters</label>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-xs-6 col-sm-6">
                         <label>Force password reset after</label>
                       </div>
                       <div className="col-xs-2 col-sm-2">
-                        <input {...forceResetPasswordAfterFailedCount} placeholder="# failures" className="input-large"/>
+                        <input defaultValue={this.state.forceResetPasswordAfterFailedCount} placeholder="# failures" onChange={this.updateForceResetPasswordAfterFailedCount} className="input-large"/>
                       </div>
                       <div className="col-xs-4 col-sm-4">
                         <label>failed logins (0 to disable)</label>
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-xs-6 col-sm-6">
+                        <label>Force password reset after</label>
+                      </div>
+                      <div className="col-xs-2 col-sm-2">
+                        <input defaultValue={this.state.forceChangePasswordAfterInterval} placeholder="# days" onChange={this.updateForceChangePasswordAfterInterval} className="input-large"/>
+                      </div>
+                      <div className="col-xs-4 col-sm-4">
+                        <label>number of days (0 to disable)</label>
                       </div>
                     </div>
 
@@ -340,7 +370,7 @@ export let Settings = React.createClass({
                     User Policy
                   </div>
 
-                  <div className="col-xs-12 col-sm-8 panel-body">
+                  <div className="col-xs-12 col-sm-12 panel-body">
 
                     <div className="row">
                       <div className="col-xs-6 col-sm-6">
@@ -393,7 +423,7 @@ export let Settings = React.createClass({
                   <div className="col-xs-12 col-sm-12 panel-body">
                     <div className="row">
                       <div className="col-xs-4 col-sm-4">
-                        <label>Email templates folder</label>
+                        <label>Email templates folder:</label>
                       </div>
                       <div className="col-xs-8 col-sm-8">
                         <input placeholder="Email template folder" className="input-large" {...emailTemplateFolder}/>
