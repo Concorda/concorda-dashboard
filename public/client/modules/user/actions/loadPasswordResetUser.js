@@ -19,7 +19,7 @@ export default function loadPasswordResetUser (token) {
         if (err || !resp.body || !resp.body.ok) {
           dispatch({
             type: userActions.LOAD_PASSWORD_RESET_RESPONSE,
-            niceError: 'Can\'t load reset password informations for this token',
+            niceError: 'Can\'t load reset password information for this token',
             hasError: true,
             resetUser: null
           })
@@ -29,7 +29,7 @@ export default function loadPasswordResetUser (token) {
             type: userActions.LOAD_PASSWORD_RESET_RESPONSE,
             niceError: null,
             hasError: false,
-            resetUser: resp.body
+            resetUser: resp.body.user
           })
         }
       })
