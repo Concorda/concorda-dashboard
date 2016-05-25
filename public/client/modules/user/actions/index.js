@@ -1,3 +1,5 @@
+export {default as disableUser} from './disableUser'
+export {default as enableUser} from './enableUser'
 export {default as closeSession} from './closeSession'
 export {default as getUsers} from './getUsers'
 export {default as deleteUser} from './deleteUser'
