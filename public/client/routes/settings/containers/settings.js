@@ -47,6 +47,7 @@ export let Settings = React.createClass({
         //user policy
         activateAccount: this.state.activateAccount || nextProps.settings.userPolicy ? nextProps.settings.userPolicy.activateAccount : "0",
         forceChangePassword: this.state.forceChangePassword || nextProps.settings.userPolicy ? nextProps.settings.userPolicy.forceChangePassword : "0",
+        maximumSessionNumber: this.state.maximumSessionNumber || nextProps.settings.userPolicy ? nextProps.settings.userPolicy.maximumSessionNumber : "0",
         //password policy
         requireLowercase: this.state.requireLowerCase || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.requireLowercase : "0",
         requireUppercase: this.state.requireUpperCase || nextProps.settings.passwordPolicy ? nextProps.settings.passwordPolicy.requireUppercase : "0",
@@ -81,7 +82,8 @@ export let Settings = React.createClass({
       },
       userPolicy: {
         activateAccount: this.state.activateAccount || "0",
-        forceChangePassword: this.state.forceChangePassword || "0"
+        forceChangePassword: this.state.forceChangePassword || "0",
+        maximumSessionNumber: this.state.maximumSessionNumber || "0"
       }
     }
 
@@ -136,7 +138,11 @@ export let Settings = React.createClass({
     this.setState({ forceResetPasswordAfterFailedCount: event.target.value })
   },
 
-  updateForceChangePasswordAfterInterval (event) {
+  updateMaximumSessionNumber (event) {
+    this.setState({ maximumSessionNumber: event.target.value })
+  },
+
+updateForceChangePasswordAfterInterval (event) {
     this.setState({ forceChangePasswordAfterInterval: event.target.value })
   },
 
@@ -371,6 +377,18 @@ export let Settings = React.createClass({
                   </div>
 
                   <div className="col-xs-12 col-sm-12 panel-body">
+
+                    <div className="row">
+                      <div className="col-xs-6 col-sm-6">
+                        <label>Maximum allowed active user sessions</label>
+                      </div>
+                      <div className="col-xs-2 col-sm-2">
+                        <input defaultValue={this.state.maximumSessionNumber} placeholder="# active sessions" onChange={this.updateMaximumSessionNumber} className="input-large"/>
+                      </div>
+                      <div className="col-xs-4 col-sm-4">
+                        <label>(0 for unlimited)</label>
+                      </div>
+                    </div>
 
                     <div className="row">
                       <div className="col-xs-6 col-sm-6">
