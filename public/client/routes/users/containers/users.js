@@ -6,7 +6,7 @@ import { pushPath } from 'redux-simple-router'
 import _ from 'lodash'
 
 // actions
-import {getUsers, deleteUser, getUser, closeSession} from '../../../modules/user/actions/index'
+import {getUsers, deleteUser, getUser, closeSession, disableUser, enableUser} from '../../../modules/user/actions/index'
 
 import Panel from '../../components/panel'
 
@@ -39,6 +39,14 @@ export const Users = React.createClass({
     this.props.dispatch(deleteUser(id))
   },
 
+  handleDisable (id) {
+    this.props.dispatch(disableUser(id))
+  },
+
+  handleEnable (id) {
+    this.props.dispatch(enableUser(id))
+  },
+
   handleCloseSession (id) {
     this.props.dispatch(closeSession(id))
   },
@@ -53,9 +61,9 @@ export const Users = React.createClass({
           <div className="user-list-heading cf row">
             <div className="col-xs-12 col-md-2"><h4 className="m0">Name</h4></div>
             <div className="col-xs-12 col-md-2"><h4 className="m0">Email</h4></div>
-            <div className="col-xs-12 col-md-3"><h4 className="m0">Clients</h4></div>
-            <div className="col-xs-3 col-md-3"><h4 className="m0">Groups</h4></div>
-            <div className="col-xs-2 col-md-2"><h4 className="m0">Actions</h4></div>
+            <div className="col-xs-2 col-md-2"><h4 className="m0">Clients</h4></div>
+            <div className="col-xs-2 col-md-2"><h4 className="m0">Groups</h4></div>
+            <div className="col-xs-4 col-md-4"><h4 className="m0">Actions</h4></div>
           </div>
 
           {users.map((user) => {
@@ -63,11 +71,19 @@ export const Users = React.createClass({
               <div key={user.id} className="user-list-row row cf">
                 <div className="col-xs-12 col-md-2">{user.name}</div>
                 <div className="col-xs-12 col-md-2">{user.email}</div>
-                <div className="col-xs-12 col-md-3">{_.map(user.clients, (client) => { return <a onClick={() => { this.handleEditClient(client.id) }}>{client.name}, </a> })}</div>
-                <div className="col-xs-3 col-md-3">{_.map(user.groups, (group) => { return <a onClick={() => { this.handleEditGroup(group.id) }}>{group.name}, </a> })}</div>
-                <div className="col-xs-2 col-md-2">
+                <div className="col-xs-2 col-md-2">{_.map(user.clients, (client) => { return <a onClick={() => { this.handleEditClient(client.id) }}>{client.name}, </a> })}</div>
+                <div className="col-xs-2 col-md-2">{_.map(user.groups, (group) => { return <a onClick={() => { this.handleEditGroup(group.id) }}>{group.name}, </a> })}</div>
+                <div className="col-xs-4 col-md-4">
                   <ul className="list-unstyled list-inline">
                     <li><a onClick={() => { this.handleEdit(user.id) }}>Edit</a></li>
+            {(() => {
+              if (user.active) {
+                return <li><a onClick={() => { this.handleDisable(user.id) }}>Disable</a></li>
+              }
+              else {
+                return <li><a onClick={() => { this.handleEnable(user.id) }}>Enable</a></li>
+              }
+            })()}
                     <li><a onClick={() => { this.handleDelete(user.id) }}>Delete</a></li>
                     <li><a onClick={() => { this.handleCloseSession(user.id) }}>Close Session</a></li>
                   </ul>
