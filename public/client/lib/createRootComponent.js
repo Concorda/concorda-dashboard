@@ -28,6 +28,7 @@ import Register from '../routes/register'
 import SetPassword from '../routes/setPassword'
 import ChangePassword from '../routes/changePassword'
 import Users from '../routes/users'
+import Logs from '../routes/logs'
 
 import Groups from '../routes/groups'
 
@@ -66,6 +67,8 @@ export default function createRootComponent (store) {
       {path: 'logout(/:callback_url)', onEnter: handleLogout},
 
       {path: 'settings/edit', getComponents: Settings, onEnter: requireAuth},
+
+      {path: 'logs', getComponents: Logs, onEnter: requireAuth},
 
       {path: 'users', getComponents: Users, onEnter: requireAuth},
       {path: 'user/add', getComponents: AddUser, onEnter: requireAuth},
