@@ -28,7 +28,7 @@
     "async": "1.5.x",
     "bell": "6.1.0",
     "boom": "3.x.x",
-    "chairo": "2.1.x",
+    "chairo": "2.2.x",
     "concorda-server": "concorda/concorda-server",
     "css-loader": "0.23.x",
     "d3": "3.x.x",
