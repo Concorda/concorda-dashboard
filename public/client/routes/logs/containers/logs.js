@@ -51,32 +51,9 @@ export const Logs = React.createClass({
           <h2 className="col-xs-6 col-sm-6">Action Logs</h2>
         </div>
 
-        <div className="row middle-xs search-wrapper">
-          <div className="col-xs-12 col-sm-8 col-md-8 search-input-wrapper">
-            <ul className="list-unstyled search-dropdown-active">
-              <li><a href="">Item one</a></li>
-              <li><a href="">Item two</a></li>
-              <li><a href="">Item three</a></li>
-            </ul>
-          </div>
-          <div className="col-xs-12 col-sm-4 col-md-4 txt-left">
-            <button className="btn btn-large btn-search">Search</button>
-          </div>
-        </div>
-
         <Panel title={'Log List'}>
           {body}
         </Panel>
-
-        <nav role="navigation" className="txt-center">
-          <ul className="list-unstyled list-inline pagination">
-            <li><a href="">Prev</a></li>
-            <li><a href="">1</a></li>
-            <li><a href="" className="page-current">2</a></li>
-            <li><a href="">3</a></li>
-            <li><a href="" className="page-unavailable">Next</a></li>
-          </ul>
-        </nav>
 
       </div>
     )
