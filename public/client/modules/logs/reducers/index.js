@@ -6,7 +6,7 @@ const logsState = {
   isGettingLogs: false
 }
 
-export default function user (state = logsState, action) {
+export default function log (state = logsState, action) {
   switch (action.type) {
     case logsActions.GET_LOGS_REQUEST:
       return Object.assign({}, state, {

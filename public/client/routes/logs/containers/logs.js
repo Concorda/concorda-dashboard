@@ -26,16 +26,18 @@ export const Logs = React.createClass({
             <div className="col-xs-12 col-md-2"><h4 className="m0">Action</h4></div>
             <div className="col-xs-12 col-md-2"><h4 className="m0">Date</h4></div>
             <div className="col-xs-2 col-md-2"><h4 className="m0">Status</h4></div>
-            <div className="col-xs-2 col-md-2"><h4 className="m0">Author</h4></div>
+            <div className="col-xs-2 col-md-4"><h4 className="m0">Author</h4></div>
+            <div className="col-xs-2 col-md-2"><h4 className="m0">Remote IP address</h4></div>
           </div>
 
           {logs.map((log) => {
             return (
               <div key={log.id} className="user-list-row row cf">
-                <div className="col-xs-12 col-md-2">{log.action_type}</div>
-                <div className="col-xs-12 col-md-2">{log.date}</div>
+                <div className="col-xs-12 col-md-2">{log.actionType}</div>
+                <div className="col-xs-12 col-md-2">{log.actionDate}</div>
                 <div className="col-xs-12 col-md-2">{log.status}</div>
-                <div className="col-xs-12 col-md-2">{log.user ? log.user.name : 'N/A'}</div>
+                <div className="col-xs-12 col-md-4">{log.userData ? log.userData.name : 'N/A'}</div>
+                <div className="col-xs-12 col-md-2">{log.remoteAddress}</div>
               </div>
             )
           })}
@@ -46,18 +48,11 @@ export const Logs = React.createClass({
     return (
       <div className="page page-users container-fluid">
         <div className="row middle-xs page-heading">
-          <h2 className="col-xs-6 col-sm-6">Users</h2>
-          <div className="col-xs-6 col-sm-6 txt-right">
-            <button onClick={() => { this.handleAdd() }} className="btn btn-primary">Add User</button>
-            <button onClick={() => { this.handleInviteUser() }} className="btn btn-primary btn-send-invite">Invite
-              User
-            </button>
-          </div>
+          <h2 className="col-xs-6 col-sm-6">Action Logs</h2>
         </div>
 
         <div className="row middle-xs search-wrapper">
           <div className="col-xs-12 col-sm-8 col-md-8 search-input-wrapper">
-            <input type="search" className="input-large" placeholder="Find a log"/>
             <ul className="list-unstyled search-dropdown-active">
               <li><a href="">Item one</a></li>
               <li><a href="">Item two</a></li>
@@ -89,7 +84,8 @@ export const Logs = React.createClass({
 })
 
 export default connect((state) => {
+  console.log('>>>>>>>>>>>>', state)
   return {
-    logs: state.logs.result
+    logs:  state.logs ? state.logs.result : null
   }
 })(Logs)
