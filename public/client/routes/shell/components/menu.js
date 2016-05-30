@@ -19,6 +19,7 @@ export default React.createClass({
             <li className="nav-item"><Link to={'/clients'}>Applications</Link></li>
             <li className="nav-item"><Link to={'/users'}>Users</Link></li>
             <li className="nav-item"><Link to={'/groups'}>Groups</Link></li>
+            <li className="nav-item"><Link to={'/logs'}>Action logs</Link></li>
             <li className="nav-item">
               <a onClick={() => { handleEditUserProfile() }} className="has-icon has-icon-profile">
                 <span className="icon icon-profile"></span>
