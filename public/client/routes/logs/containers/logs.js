@@ -26,8 +26,9 @@ export const Logs = React.createClass({
             <div className="col-xs-12 col-md-2"><h4 className="m0">Action</h4></div>
             <div className="col-xs-12 col-md-2"><h4 className="m0">Date</h4></div>
             <div className="col-xs-2 col-md-2"><h4 className="m0">Status</h4></div>
-            <div className="col-xs-2 col-md-4"><h4 className="m0">Author</h4></div>
+            <div className="col-xs-2 col-md-2"><h4 className="m0">Author</h4></div>
             <div className="col-xs-2 col-md-2"><h4 className="m0">Remote IP address</h4></div>
+            <div className="col-xs-2 col-md-2"><h4 className="m0">Entity Name</h4></div>
           </div>
 
           {logs.map((log) => {
@@ -36,8 +37,9 @@ export const Logs = React.createClass({
                 <div className="col-xs-12 col-md-2">{log.actionType}</div>
                 <div className="col-xs-12 col-md-2">{log.actionDate}</div>
                 <div className="col-xs-12 col-md-2">{log.status}</div>
-                <div className="col-xs-12 col-md-4">{log.userData ? log.userData.name : 'N/A'}</div>
+                <div className="col-xs-12 col-md-2">{log.userData ? log.userData.name : 'N/A'}</div>
                 <div className="col-xs-12 col-md-2">{log.remoteAddress}</div>
+                <div className="col-xs-12 col-md-2">{log.entity ? log.entity.name : 'N/A'}</div>
               </div>
             )
           })}
