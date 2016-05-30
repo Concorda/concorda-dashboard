@@ -61,7 +61,6 @@ export const Logs = React.createClass({
 })
 
 export default connect((state) => {
-  console.log('>>>>>>>>>>>>', state)
   return {
     logs:  state.logs ? state.logs.result : null
   }
