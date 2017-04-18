@@ -7,7 +7,8 @@
     "Mihai Dima",
     "Mircea Alexandru (http://alexandrumircea.ro/)",
     "Cristian Kiss",
-    "Karolina Szczur (http://thefox.is)"
+    "Karolina Szczur (http://thefox.is)",
+    "Girish Lakshmanan"
   ],
   "main": "./server/start.js",
   "license": "MIT",
